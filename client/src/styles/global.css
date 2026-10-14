@@ -74,6 +74,12 @@ table {
     display: none !important;
   }
 
+  /* Exported reports include every tab. */
+  [role='tabpanel'][hidden] {
+    display: block !important;
+    margin-top: var(--space-6);
+  }
+
   body {
     background: var(--color-surface-container-lowest);
   }

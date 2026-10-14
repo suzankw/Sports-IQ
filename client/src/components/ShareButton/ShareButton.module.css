@@ -1,0 +1,14 @@
+.wrap {
+  position: relative;
+  display: inline-flex;
+}
+
+.status {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: var(--space-1);
+  font: var(--type-body-sm);
+  color: var(--color-positive);
+  white-space: nowrap;
+}

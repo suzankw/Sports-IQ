@@ -10,7 +10,10 @@ import { Season } from '../src/models/Season.js';
 import { Sport } from '../src/models/Sport.js';
 import { Team } from '../src/models/Team.js';
 import { TeamSeason } from '../src/models/TeamSeason.js';
+import { Match } from '../src/models/Match.js';
 import { User } from '../src/models/User.js';
+import { generateResult } from '../scripts/seed-data/matchDetails.js';
+import { createRandom } from '../scripts/seed-data/random.js';
 import { football } from '../scripts/seed-data/sports.js';
 
 export const api = request(buildApp());
@@ -75,3 +78,21 @@ export async function expectPermissions(world, expected, send, setup = async () 
 }
 
 export const id = (doc) => String(doc._id);
+
+/** A fixture for the coach's own team; with `score` it's a completed result built like the seed's. */
+export async function createMatch(w, { score, published = true, teamSeason = w.ownTeam, ...fields } = {}) {
+  const result = score ? { status: 'completed', score, ...generateResult(createRandom(7), football, teamSeason.members, score) } : {};
+  return Match.create({
+    teamSeason: teamSeason._id,
+    sport: w.sport._id,
+    season: w.season._id,
+    competition: w.league._id,
+    opponent: w.peponi._id,
+    homeAway: 'home',
+    kickoffAt: new Date('2026-10-10T12:00:00Z'),
+    venue: 'Turi Main Pitch',
+    ...result,
+    publishedAt: score && published ? new Date('2026-10-10T16:00:00Z') : null,
+    ...fields,
+  });
+}

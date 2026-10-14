@@ -1,0 +1,20 @@
+.quote {
+  margin: var(--space-7) 0 0;
+  padding: var(--space-2) 0 var(--space-2) var(--space-5);
+  border-left: var(--border-accent) solid var(--color-excellence-gold);
+  max-width: 48rem;
+}
+
+.text {
+  margin: 0;
+  font: var(--type-motto-italic);
+  color: var(--color-primary-container);
+}
+
+.by {
+  margin-top: var(--space-3);
+  font: var(--type-label-caps);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-on-surface-variant);
+}

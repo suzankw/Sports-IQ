@@ -263,7 +263,7 @@ Every response has an `X-Request-Id` header.
 |---|---|---|---|---|
 | `GET /matches` | **Schedule page** (list; live banner `status=live&pageSize=1`), D2 Home, D13 | P (`mine` needs S) | `sport`, `team`, `season`, `teamSeason`, `competition`, `status`, `view`, `month`, `published`, `mine`, sort, page → 200 `[MatchSummary]` | 400 `team` without `sport` |
 | `POST /matches` | D13 | C, A | `{ teamSeason, competition, round?, opponent, homeAway, kickoffAt, venue? }` → 201 `Match` | 400 competition of another sport, opponent is Turi |
-| `GET /matches/{id}` | **Match page** (3 tabs), D14 load | P | — → 200 `Match` (result fields omitted for drafts the caller can't see) | — |
+| `GET /matches/{id}` | **Match page** (3 tabs), D14 load | P | — → 200 `Match` incl. the team-season's depth chart (result fields omitted for drafts the caller can't see) | — |
 | `PATCH /matches/{id}` | D13 | C, A | `{ version, …fixture fields }` → 200 `Match` | 403 moving to a team that isn't yours; 409 stale |
 | `DELETE /matches/{id}` | D13 | C, A | → 204 | — |
 | `PUT /matches/{id}/result` | **D14 Match result entry** | C, A | `MatchResultInput` → 200 `Match` | 400 player not in squad, wrong starters for the formation, unknown or event-sourced stat key, publish checks fail; 409 stale |
@@ -315,6 +315,8 @@ The 200 response is the full `Match`, the same shape as `GET /matches/{id}`. Goa
   "turi": { "id": "…d420", "name": "St. Andrew's Turi", "shortName": "St. Andrew's Turi", "crestUrl": "/uploads/seed/turi-crest.png" },
   "opponent": { "id": "…d421", "name": "Peponi School", "shortName": "Peponi", "crestUrl": null },
   "staff": [ { "user": { "id": "…d4a2", "name": "John Smith", "title": "Mr.", "photoUrl": null }, "role": "head" } ],
+  "captain": null,
+  "depthChart": [],
   "periodScores": [],
   "events": [ { "type": "goal", "side": "turi", "minute": 14, "ownGoal": false, "playerName": null, "playerOff": null,
     "player": { "id": "…d460", "firstName": "Otieno", "lastName": "Kariuki", "shortName": "O. Kariuki", "photoUrl": null },
@@ -401,6 +403,7 @@ Any signed-in user with `mustChangePassword: true` gets **403 `PASSWORD_CHANGE_R
 | Change | Why |
 |---|---|
 | **`PATCH /auth/me`** added (alongside the `POST /auth/password` already agreed in Phase 1) | D17 My account: staff edit their own name, title and photo without needing admin rights on `/users` |
+| `Match` includes the team-season's **`captain`** and **`depthChart`** (changed in Phase 4) | The Lineups tab shows them ("(C)", Q12) and the match page stays one call |
 | `GET /auth/me` returns **`{ "data": null }`** for anonymous visitors instead of 401 (changed in Phase 4) | Browsers log every 401 as a console error, and the definition of done requires a clean console on public pages |
 | Contract is **OpenAPI 3.1** (Phase 1 didn't say which) | 3.0 can't express "this reference or null", which almost every response needs. The validator supports 3.1 |
 | Sports are addressed by **slug** in paths | Public page URLs carry the slug; no extra lookup needed |

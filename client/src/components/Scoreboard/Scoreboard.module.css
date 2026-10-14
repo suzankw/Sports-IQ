@@ -1,0 +1,122 @@
+.card {
+  margin-bottom: var(--space-6);
+  border: var(--border);
+  border-top: var(--border-accent) solid var(--color-excellence-gold);
+  border-radius: var(--radius);
+  background: var(--color-surface-container-lowest);
+  box-shadow: var(--shadow-sm);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: var(--space-5);
+  align-items: start;
+  padding: var(--space-6) var(--space-5);
+}
+
+.side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  text-align: center;
+}
+
+.team {
+  font: var(--type-title);
+  color: var(--color-primary-container);
+}
+
+.scorerRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 0 var(--space-5) var(--space-5);
+  padding-top: var(--space-4);
+  border-top: var(--border);
+}
+
+.scorers {
+  margin: 0;
+  padding: 0 var(--space-4);
+  list-style: none;
+  font: var(--type-body-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.scorers:first-child {
+  border-right: var(--border);
+  text-align: end;
+}
+
+.centre {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding-top: var(--space-4);
+}
+
+.status,
+.live {
+  font: var(--type-label-caps);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-on-surface-variant);
+}
+
+.live {
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  background: var(--color-turi-red);
+  color: var(--color-on-secondary);
+}
+
+.score {
+  display: flex;
+  gap: var(--space-3);
+  font: var(--type-display-lg);
+  color: var(--color-primary-container);
+}
+
+.dash {
+  color: var(--color-outline-variant);
+}
+
+.versus {
+  font: var(--type-headline-lg);
+  color: var(--color-outline);
+}
+
+.when {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font: var(--type-body-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.footer {
+  padding: 0 var(--space-5) var(--space-5);
+}
+
+@media (max-width: 767px) {
+  .grid {
+    gap: var(--space-2);
+    padding: var(--space-5) var(--space-3);
+  }
+
+  .team {
+    font: var(--type-body-sm);
+    font-weight: var(--weight-semibold);
+  }
+
+  .score {
+    font: var(--type-headline-lg);
+  }
+
+  .when {
+    flex-direction: column;
+    text-align: center;
+  }
+}

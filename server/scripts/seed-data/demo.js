@@ -72,9 +72,12 @@ async function createCoaches() {
   return Object.fromEntries(COACHES.map((c, i) => [c.key, users[i]]));
 }
 
-function newPlayer(rand, gender) {
+/** Surnames are unique within a squad so lineups (which show surnames) stay unambiguous. */
+function newPlayer(rand, gender, usedSurnames) {
   const sex = gender === 'boys' ? 'male' : gender === 'girls' ? 'female' : rand.pick(['male', 'female']);
-  return { firstName: rand.pick(FIRST_NAMES[sex]), lastName: rand.pick(LAST_NAMES), gender: sex };
+  const lastName = rand.pick(LAST_NAMES.filter((name) => !usedSurnames.has(name)));
+  usedSurnames.add(lastName);
+  return { firstName: rand.pick(FIRST_NAMES[sex]), lastName, gender: sex };
 }
 
 /** About 70% of last season's squad returns (same number and position); new players fill the gaps. */
@@ -82,7 +85,8 @@ async function buildSquad(rand, def, sport, previous) {
   const open = POSITION_PLANS[sport.slug].slice(0, def.size);
   const returning = previous ? rand.shuffle(previous).slice(0, Math.round(def.size * 0.7)) : [];
   for (const member of returning) open.splice(open.indexOf(member.position), 1);
-  const created = await Player.insertMany(open.map(() => newPlayer(rand, def.gender)));
+  const usedSurnames = new Set(await Player.find({ _id: { $in: returning.map((m) => m.player) } }).distinct('lastName'));
+  const created = await Player.insertMany(open.map(() => newPlayer(rand, def.gender, usedSurnames)));
   const taken = new Set(returning.map((m) => m.number));
   const nextNumber = () => {
     let n = 1;

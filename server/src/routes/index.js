@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import * as auth from '../controllers/auth.js';
 import { crudController } from '../controllers/crud.js';
+import * as matches from '../controllers/matches.js';
 import * as sports from '../controllers/sports.js';
 import { schoolService } from '../services/schools.js';
 import { seasonService } from '../services/seasons.js';
@@ -23,3 +24,5 @@ apiRouter.patch('/sports/:sport', sports.update);
 
 mountCrud(apiRouter, '/seasons', crudController(seasonService));
 mountCrud(apiRouter, '/schools', crudController(schoolService));
+
+apiRouter.get('/matches/:id', matches.get);

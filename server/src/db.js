@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import { config } from './config.js';
+import './models/index.js';
 
 // Operator injection is blocked earlier: the OpenAPI validator types every query and body field.
 mongoose.set('strictQuery', true);

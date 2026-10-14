@@ -54,9 +54,10 @@ export function Tabs({ items, value, onChange, label, variant = 'bar' }) {
   );
 }
 
-export function TabPanel({ id, className, children }) {
+/** Inactive panels stay in the page (hidden) so printing exports every tab. */
+export function TabPanel({ id, hidden, className, children }) {
   return (
-    <div role="tabpanel" id={panelId(id)} aria-labelledby={tabId(id)} className={className}>
+    <div role="tabpanel" id={panelId(id)} aria-labelledby={tabId(id)} hidden={hidden} className={className}>
       {children}
     </div>
   );

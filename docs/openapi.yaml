@@ -2495,7 +2495,7 @@ components:
       type: object
       additionalProperties: false
       description: Result fields (from `periodScores` down to `galleryUrls`) are left out for public callers while the result is a draft.
-      required: [id, sport, season, teamSeason, team, competition, round, turi, opponent, homeAway, kickoffAt, venue, status, score, published, publishedAt, staff, version, updatedAt, updatedBy]
+      required: [id, sport, season, teamSeason, team, competition, round, turi, opponent, homeAway, kickoffAt, venue, status, score, published, publishedAt, staff, captain, depthChart, version, updatedAt, updatedBy]
       properties:
         id: { $ref: '#/components/schemas/ObjectId' }
         sport: { $ref: '#/components/schemas/MatchSport' }
@@ -2514,6 +2514,19 @@ components:
         published: { type: boolean }
         publishedAt: { type: [string, 'null'], format: date-time }
         staff: { type: array, items: { $ref: '#/components/schemas/StaffMember' } }
+        captain:
+          anyOf: [{ $ref: '#/components/schemas/PlayerRef' }, { type: 'null' }]
+          description: The team-season's captain, marked (C) in the lineup
+        depthChart:
+          type: array
+          description: The team-season's depth chart (basketball, netball), shown on the Lineups tab
+          items:
+            type: object
+            additionalProperties: false
+            required: [position, players]
+            properties:
+              position: { type: string }
+              players: { type: array, items: { $ref: '#/components/schemas/PlayerRef' } }
         periodScores: { type: array, items: { $ref: '#/components/schemas/Score' } }
         events: { type: array, items: { $ref: '#/components/schemas/MatchEvent' } }
         formation: { type: [string, 'null'] }

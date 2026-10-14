@@ -51,6 +51,10 @@
   /* Not in DESIGN.md: the mockups' green for positive goal difference and upward trends. */
   --color-positive: #2e7d32;
   --color-negative: var(--color-error);
+  /* Lineup surfaces (not in DESIGN.md): the mockups' green pitch; courts use Turi navy. */
+  --color-pitch: #2f7d34;
+  --color-court: var(--color-primary-container);
+  --color-field-line: rgb(255 255 255 / 0.7);
 
   /* Focus ring: navy on light surfaces; dark containers override with gold. */
   --focus-ring: var(--color-on-primary-fixed-variant);

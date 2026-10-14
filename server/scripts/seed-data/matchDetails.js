@@ -64,7 +64,7 @@ function football(rand, sport, squad, score) {
       position: pos,
       stats: {
         minutes: to - from,
-        shots: onTarget + rand.int(0, pos === 'FW' ? 3 : 1),
+        shots: pos === 'GK' ? 0 : onTarget + rand.int(0, pos === 'FW' ? 3 : 1),
         shotsOnTarget: onTarget,
         tackles: pos === 'DF' ? rand.int(2, 7) : rand.int(0, 3),
         clearances: pos === 'DF' ? rand.int(2, 9) : rand.int(0, 1),
@@ -153,10 +153,11 @@ function netball(rand, sport, squad, score) {
 
 const GENERATORS = { football, basketball, netball };
 
-/** Top performers: best total of each player's position headline stats (goals and points count double). */
+/** Top performers: best weighted total of each player's headline stats — scoring counts most, then assists. */
 function topPerformers(sport, playerStats) {
   const headline = Object.fromEntries(sport.positions.map((p) => [p.key, p.headlineStats]));
-  const rating = (row) => headline[row.position].reduce((total, key) => total + (row.stats[key] ?? 0) * (key === sport.scoringStat ? 2 : 1), 0);
+  const weight = (key) => (key === sport.scoringStat ? 5 : key === 'assists' ? 3 : 1);
+  const rating = (row) => headline[row.position].reduce((total, key) => total + (row.stats[key] ?? 0) * weight(key), 0);
   return [...playerStats].sort((a, b) => rating(b) - rating(a)).slice(0, 3).map((row) => row.player);
 }
 

@@ -12,10 +12,12 @@ import { fixtureTitle, kickoffText, scorerLines, sidesOf, STATUS_LABELS } from '
 import { LineupsTab } from './LineupsTab.jsx';
 import { MatchNotice } from './MatchNotice.jsx';
 import { MatchStatsTab } from './MatchStatsTab.jsx';
+import { PlayerStatsTab } from './PlayerStatsTab.jsx';
 
 const TABS = [
   { id: 'lineups', label: 'Lineups' },
   { id: 'stats', label: 'Stats' },
+  { id: 'players', label: 'Player Stats' },
 ];
 
 function MatchView({ match, tab, onTab }) {
@@ -57,6 +59,9 @@ function MatchView({ match, tab, onTab }) {
           </TabPanel>
           <TabPanel id="stats" hidden={tab !== 'stats'}>
             <MatchStatsTab match={match} />
+          </TabPanel>
+          <TabPanel id="players" hidden={tab !== 'players'}>
+            <PlayerStatsTab match={match} />
           </TabPanel>
           {match.report && <Quote text={match.report.text} attribution={match.report.attribution} />}
         </>

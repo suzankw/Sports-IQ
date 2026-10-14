@@ -1,0 +1,51 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.label {
+  font: var(--type-label-caps);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-on-surface-variant);
+}
+
+.control {
+  position: relative;
+}
+
+.input {
+  width: 100%;
+  min-height: var(--size-touch);
+  padding: var(--space-2) var(--space-4);
+  border: var(--border);
+  border-radius: var(--radius);
+  background: var(--color-surface-container-low);
+}
+
+.input:focus {
+  border-color: var(--color-on-primary-fixed-variant);
+  background: var(--color-surface-container-lowest);
+}
+
+.input[aria-invalid='true'] {
+  border-color: var(--color-error);
+}
+
+.withIcon {
+  padding-left: var(--space-7);
+}
+
+.icon {
+  position: absolute;
+  top: 50%;
+  left: var(--space-3);
+  transform: translateY(-50%);
+  color: var(--color-on-surface-variant);
+}
+
+.error {
+  font: var(--type-body-sm);
+  color: var(--color-error);
+}

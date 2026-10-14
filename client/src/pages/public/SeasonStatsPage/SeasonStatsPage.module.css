@@ -1,0 +1,73 @@
+.tabBar {
+  margin-bottom: var(--space-6);
+}
+
+.tab {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: var(--gutter);
+}
+
+.legend {
+  display: flex;
+  gap: var(--space-4);
+  font: var(--type-body-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.statKey::before,
+.gdKey::before {
+  content: '';
+  display: inline-block;
+  width: 0.625rem;
+  height: 0.625rem;
+  margin-right: var(--space-2);
+  border-radius: var(--radius-full);
+}
+
+.statKey::before {
+  background: var(--color-on-primary-fixed-variant);
+}
+
+.gdKey::before {
+  background: var(--color-excellence-gold);
+}
+
+.sectionTitle {
+  font: var(--type-headline-md);
+}
+
+.boards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: var(--gutter);
+}
+
+.tables {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  gap: var(--gutter);
+}
+
+.record {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-weight: var(--weight-semibold);
+}
+
+.recordIcon {
+  color: var(--color-excellence-gold);
+}
+
+.empty {
+  padding: var(--space-6);
+  color: var(--color-on-surface-variant);
+  text-align: center;
+}

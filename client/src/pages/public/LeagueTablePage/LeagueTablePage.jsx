@@ -2,12 +2,13 @@ import { useParams } from 'react-router';
 import { Card } from '../../../components/Card/Card.jsx';
 import { PageHeader } from '../../../components/PageHeader/PageHeader.jsx';
 import { QueryState } from '../../../components/QueryState/QueryState.jsx';
-import { scoreUnit, StandingsTable } from '../../../components/StandingsTable/StandingsTable.jsx';
+import { StandingsTable } from '../../../components/StandingsTable/StandingsTable.jsx';
 import { TabPanel } from '../../../components/Tabs/Tabs.jsx';
 import { TeamSeasonFilters } from '../../../components/TeamSeasonFilters/TeamSeasonFilters.jsx';
 import { useSport } from '../../../hooks/sports.js';
 import { useStandings } from '../../../hooks/standings.js';
 import { useTeamSelection } from '../../../hooks/teamSeasons.js';
+import { scoreUnit } from '../../../lib/scoring.js';
 import styles from './LeagueTablePage.module.css';
 
 export function LeagueTablePage() {
@@ -16,7 +17,7 @@ export function LeagueTablePage() {
   const selection = useTeamSelection(slug);
   const league = selection.selected?.leagueCompetition;
   const standings = useStandings(league?.id, selection.season?.slug);
-  const unit = sport.data ? scoreUnit(sport.data) : scoreUnit({});
+  const unit = scoreUnit(sport.data);
   const title = selection.selected ? `${selection.selected.team.name} ${sport.data?.name ?? ''}` : 'League Table';
 
   return (

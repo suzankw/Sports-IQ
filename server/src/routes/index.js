@@ -32,5 +32,6 @@ apiRouter.get('/matches/:id', matches.get);
 
 apiRouter.get('/team-seasons', teamSeasons.list);
 apiRouter.get('/team-seasons/:id', teamSeasons.get);
+apiRouter.get('/team-seasons/:id/stats', teamSeasons.stats);
 
 apiRouter.get('/competitions/:id/standings', competitions.standings);

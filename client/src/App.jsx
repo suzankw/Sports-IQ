@@ -9,6 +9,7 @@ import { MatchPage } from './pages/public/MatchPage/MatchPage.jsx';
 import { OverviewPage } from './pages/public/OverviewPage/OverviewPage.jsx';
 import { RosterPage } from './pages/public/RosterPage/RosterPage.jsx';
 import { SchedulePage } from './pages/public/SchedulePage/SchedulePage.jsx';
+import { SeasonStatsPage } from './pages/public/SeasonStatsPage/SeasonStatsPage.jsx';
 
 // Route map: docs/01-architecture.md §5.1–5.2.
 const router = createBrowserRouter([
@@ -24,6 +25,7 @@ const router = createBrowserRouter([
           { path: 'schedule', element: <SchedulePage /> },
           { path: 'schedule/:matchId', element: <MatchPage /> },
           { path: 'players', element: <RosterPage /> },
+          { path: 'stats', element: <SeasonStatsPage /> },
           { path: 'league-table', element: <LeagueTablePage /> },
         ],
       },

@@ -1,0 +1,16 @@
+.chart {
+  height: 18rem;
+  padding: var(--space-4) var(--space-3) var(--space-2) 0;
+}
+
+.chart :global(.recharts-cartesian-axis-tick-value) {
+  font: var(--type-body-sm);
+  fill: var(--color-on-surface-variant);
+}
+
+/* Recharts styles its tooltip inline, so the border needs !important to use our token. */
+.chart :global(.recharts-default-tooltip) {
+  border: var(--border) !important;
+  border-radius: var(--radius);
+  font: var(--type-body-sm);
+}

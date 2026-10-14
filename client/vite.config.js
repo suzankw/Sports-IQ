@@ -26,6 +26,8 @@ const injectFonts = {
 
 export default defineConfig({
   plugins: [react(), injectFonts],
+  // Recharts is only imported lazily; pre-bundle it so the dev server doesn't re-optimise mid-session.
+  optimizeDeps: { include: ['recharts'] },
   server: {
     port: 5173,
     proxy: { '/api': api, '/uploads': api },

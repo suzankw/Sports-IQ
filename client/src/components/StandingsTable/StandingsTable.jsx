@@ -4,9 +4,6 @@ import { FormPill } from '../Badge/Badge.jsx';
 import { DataTable } from '../DataTable/DataTable.jsx';
 import styles from './StandingsTable.module.css';
 
-/** "For/against" are goals in football and netball, points in basketball. */
-export const scoreUnit = (sport) => (sport.scoringStat === 'points' ? { for: 'PF', against: 'PA', word: 'Points' } : { for: 'GF', against: 'GA', word: 'Goals' });
-
 const signed = (n) => (n > 0 ? `+${n}` : String(n));
 
 /** League table rows; `compact` (overview widget) shows position, school and points only. */

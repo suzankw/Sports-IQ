@@ -7,3 +7,10 @@ export const useMatch = (id) =>
     queryFn: async () => (await api.get(`/matches/${id}`)).data,
     enabled: Boolean(id),
   });
+
+export const useMatches = (params, { enabled = true } = {}) =>
+  useQuery({
+    queryKey: ['matches', params],
+    queryFn: async () => (await api.get('/matches', params)).data,
+    enabled,
+  });

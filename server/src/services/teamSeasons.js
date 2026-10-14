@@ -37,7 +37,7 @@ export const toTeamSeasonSummary = (ts) => ({ ...refsOf(ts), memberCount: ts.mem
 /** Team tabs and pickers, in team order. `mine` limits to the caller's assignments. */
 export async function listTeamSeasons(actor, query) {
   const { sport, season, team } = await resolvePageFilters(query);
-  const where = { season: season._id };
+  const where = { season: season?._id ?? null };
   if (sport) where.sport = sport._id;
   if (team) where.team = team._id;
   if (String(query.mine) === 'true') where._id = { $in: [...actor.teamSeasonIds].map((id) => new Types.ObjectId(id)) };

@@ -26,6 +26,7 @@ apiRouter.patch('/sports/:sport', sports.update);
 mountCrud(apiRouter, '/seasons', crudController(seasonService));
 mountCrud(apiRouter, '/schools', crudController(schoolService));
 
+apiRouter.get('/matches', matches.list);
 apiRouter.get('/matches/:id', matches.get);
 
 apiRouter.get('/team-seasons', teamSeasons.list);

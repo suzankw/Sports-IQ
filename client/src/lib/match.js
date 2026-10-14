@@ -3,9 +3,9 @@ import { formatDate, formatTime } from './dates.js';
 
 export const STATUS_LABELS = { upcoming: 'Upcoming', live: 'Live', completed: 'Full time' };
 
-/** The home side is always shown on the left. */
-export function sidesOf(match) {
-  const turi = { key: 'turi', name: match.turi.name, crestUrl: match.turi.crestUrl, label: match.homeAway === 'home' ? 'Home' : 'Away' };
+/** The home side is always shown on the left. List rows don't carry Turi, so callers pass the home school. */
+export function sidesOf(match, school = match.turi) {
+  const turi = { key: 'turi', name: school?.name ?? "St. Andrew's Turi", crestUrl: school?.crestUrl ?? null, label: match.homeAway === 'home' ? 'Home' : 'Away' };
   const opponent = { key: 'opponent', name: match.opponent.name, crestUrl: match.opponent.crestUrl, label: match.homeAway === 'home' ? 'Away' : 'Home' };
   return match.homeAway === 'home' ? [turi, opponent] : [opponent, turi];
 }

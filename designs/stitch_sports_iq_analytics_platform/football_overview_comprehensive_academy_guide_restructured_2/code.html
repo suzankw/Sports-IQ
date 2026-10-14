@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+
+<html lang="en" style="width: 1280px; height: 4609px; overflow: hidden; position: relative;"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Football Overview - Sports IQ</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "grit-mud": "#4E4239",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed-variant": "#6c391d",
+                        "inverse-surface": "#2f3033",
+                        "inverse-primary": "#aec7f6",
+                        "surface-tint": "#465f88",
+                        "background": "#faf9fd",
+                        "excellence-gold": "#C5A059",
+                        "outline-variant": "#c4c6cf",
+                        "primary-fixed": "#d6e3ff",
+                        "primary-fixed-dim": "#aec7f6",
+                        "on-tertiary-fixed": "#341100",
+                        "secondary-fixed-dim": "#ffb3b5",
+                        "secondary": "#af2b3e",
+                        "surface-variant": "#e3e2e6",
+                        "on-primary-fixed-variant": "#2d476f",
+                        "tertiary-fixed-dim": "#ffb691",
+                        "on-secondary-container": "#680018",
+                        "on-primary": "#ffffff",
+                        "surface": "#faf9fd",
+                        "tertiary": "#180500",
+                        "on-primary-container": "#708ab5",
+                        "inverse-on-surface": "#f1f0f4",
+                        "on-secondary-fixed-variant": "#8e0f28",
+                        "secondary-fixed": "#ffdada",
+                        "on-secondary-fixed": "#40000b",
+                        "outline": "#74777f",
+                        "turi-red": "#800020",
+                        "on-error-container": "#93000a",
+                        "surface-bright": "#faf9fd",
+                        "on-surface-variant": "#44474e",
+                        "surface-container-low": "#f4f3f7",
+                        "on-tertiary": "#ffffff",
+                        "on-surface": "#1a1b1e",
+                        "turi-navy": "#002147",
+                        "error-container": "#ffdad6",
+                        "primary-container": "#002147",
+                        "primary": "#000a1e",
+                        "tertiary-container": "#3d1500",
+                        "surface-container-high": "#e9e7eb",
+                        "surface-dim": "#dad9dd",
+                        "on-secondary": "#ffffff",
+                        "on-background": "#1a1b1e",
+                        "heritage-cream": "#F9F8F6",
+                        "surface-container": "#efedf1",
+                        "on-error": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#b97958",
+                        "surface-container-highest": "#e3e2e6",
+                        "tertiary-fixed": "#ffdbcb",
+                        "on-primary-fixed": "#001b3d",
+                        "secondary-container": "#fd6673"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "nav-width": "256px",
+                        "margin-mobile": "16px",
+                        "gutter": "24px",
+                        "margin-desktop": "64px",
+                        "section-gap": "80px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Montserrat"],
+                        "display-lg": ["\"Source Serif 4\""],
+                        "body-md": ["Montserrat"],
+                        "display-lg-mobile": ["\"Source Serif 4\""],
+                        "headline-md": ["\"Source Serif 4\""],
+                        "label-caps": ["Montserrat"],
+                        "motto-italic": ["\"Source Serif 4\""],
+                        "headline-lg": ["\"Source Serif 4\""]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg-mobile": ["36px", { "lineHeight": "44px", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "700" }],
+                        "motto-italic": ["20px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body-md text-on-surface antialiased selection:bg-excellence-gold/30 selection:text-turi-navy">
+<!-- Top Navigation (Mobile) -->
+<nav class="hidden md:flex fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-margin-desktop h-16 bg-turi-navy border-b border-white/10">
+<div class="flex items-center gap-4">
+<span class="font-headline-lg text-headline-lg text-white">Sports IQ</span>
+</div>
+<div class="flex items-center gap-6 font-label-caps text-label-caps text-white/70">
+<a class="text-excellence-gold font-bold hover:text-white transition-colors duration-200" href="{{DATA:SCREEN:SCREEN_136}}">Overview</a>
+<a class="hover:text-excellence-gold transition-colors duration-200" href="{{DATA:SCREEN:SCREEN_161}}">Schedule</a>
+<a class="hover:text-excellence-gold transition-colors duration-200" href="{{DATA:SCREEN:SCREEN_33}}">Players</a>
+<a class="hover:text-excellence-gold transition-colors duration-200" href="{{DATA:SCREEN:SCREEN_22}}">Statistics</a>
+<a class="hover:text-excellence-gold transition-colors duration-200" href="{{DATA:SCREEN:SCREEN_30}}">League Table</a>
+<a class="hover:text-excellence-gold transition-colors duration-200" href="#">Hall of Fame</a>
+</div>
+<div>
+<button class="bg-excellence-gold text-turi-navy font-label-caps text-label-caps px-4 py-2 rounded scale-95 active:opacity-80 transition-all uppercase hover:bg-white">Live Scores</button>
+</div>
+</nav>
+<!-- Side Navigation (Desktop) -->
+<aside class="hidden md:flex fixed left-0 top-0 bottom-0 flex-col pt-16 bg-turi-navy border-r border-outline-variant z-40 w-16 transition-all duration-300"><button class="absolute -right-4 top-20 bg-excellence-gold text-turi-navy rounded-full p-1 shadow-md z-50 flex items-center justify-center transition-transform duration-300 rotate-180" data-stitch-orig-opacity="0" id="sidebar-toggle" onclick="document.querySelector('aside').classList.toggle('w-nav-width'); document.querySelector('aside').classList.toggle('w-16'); document.querySelector('main').classList.toggle('md:ml-nav-width'); document.querySelector('main').classList.toggle('md:ml-16'); document.querySelector('footer').classList.toggle('md:ml-nav-width'); document.querySelector('footer').classList.toggle('md:ml-16'); this.classList.toggle('rotate-180'); document.querySelectorAll('.nav-label').forEach(el =&gt; el.classList.toggle('hidden')); document.querySelector('.sidebar-header').classList.toggle('hidden');"><span class="material-symbols-outlined">chevron_left</span></button>
+<div class="px-6 py-8 flex flex-col items-center border-b border-white/10 mb-6 sidebar-header hidden">
+<img alt="School Crest" class="w-16 h-auto mb-4 object-contain filter drop-shadow-md" src="https://lh3.googleusercontent.com/aida/AEtjO1WNWe_pHcANJSms1V4Vq0ZpSs_u3X0F2wdRB1VXVOxg9w1k9zPN_AwvdiJ1pgSwXbhOm8H1RSgcs9tKXlHhLQeoXdLcV5lFD6Qg-mSr5NVFlqrxXww3ptM_mWXg7LalJ0tToPDqkiOfhqPBkNIQU53WqY_PaaHM_clejrT3kN6wyV_PVyT8x03m4T_Gb0TASbyUMESR69y0SBTWscjuUfjMifdFBY68Zvq5CT5HDZR8qB8WPhEMgHczgQ"/>
+<h1 class="font-headline-md text-headline-md text-on-primary">Sports IQ</h1>
+<p class="font-label-caps text-label-caps text-excellence-gold mt-1 uppercase tracking-wider">Elite Performance</p>
+</div>
+<nav class="flex-1 flex flex-col gap-2 w-full font-label-caps text-label-caps">
+<a class="border-l-4 border-excellence-gold bg-primary-fixed-dim/10 text-excellence-gold font-bold px-4 py-3 flex items-center gap-3 translate-x-1 transition-transform" href="{{DATA:SCREEN:SCREEN_136}}"><span class="material-symbols-outlined" style='font-variation-settings: "FILL" 1;'>dashboard</span><span class="nav-label hidden">Overview</span></a>
+<a class="text-on-primary/70 px-4 py-3 hover:text-on-primary hover:bg-primary-fixed-dim/5 hover:text-excellence-gold transition-all flex items-center gap-3" href="{{DATA:SCREEN:SCREEN_161}}"><span class="material-symbols-outlined">calendar_month</span><span class="nav-label hidden">Schedule</span></a>
+<a class="text-on-primary/70 px-4 py-3 hover:text-on-primary hover:bg-primary-fixed-dim/5 hover:text-excellence-gold transition-all flex items-center gap-3" href="{{DATA:SCREEN:SCREEN_33}}"><span class="material-symbols-outlined">groups</span><span class="nav-label hidden">Players</span></a>
+<a class="text-on-primary/70 px-4 py-3 hover:text-on-primary hover:bg-primary-fixed-dim/5 hover:text-excellence-gold transition-all flex items-center gap-3" href="{{DATA:SCREEN:SCREEN_22}}"><span class="material-symbols-outlined">analytics</span><span class="nav-label hidden">Statistics</span></a>
+<a class="text-on-primary/70 px-4 py-3 hover:text-on-primary hover:bg-primary-fixed-dim/5 hover:text-excellence-gold transition-all flex items-center gap-3" href="{{DATA:SCREEN:SCREEN_30}}"><span class="material-symbols-outlined">format_list_numbered</span><span class="nav-label hidden">League Table</span></a>
+<a class="text-on-primary/70 px-4 py-3 hover:text-on-primary hover:bg-primary-fixed-dim/5 hover:text-excellence-gold transition-all flex items-center gap-3" href="#"><span class="material-symbols-outlined">workspace_premium</span><span class="nav-label hidden">Hall of Fame</span></a>
+</nav>
+<div class="p-4 border-t border-white/10 flex flex-col gap-2">
+<a class="w-full bg-excellence-gold text-turi-navy font-label-caps text-label-caps py-3 rounded-DEFAULT uppercase tracking-wider hover:bg-white transition-colors duration-300 flex items-center justify-center" href="{{DATA:SCREEN:SCREEN_136}}" title="Football"><span class="material-symbols-outlined">sports_soccer</span><span class="nav-label hidden ml-2">Football</span></a>
+<a class="w-full text-on-primary/70 hover:bg-white/10 hover:text-white font-label-caps text-label-caps py-3 rounded-DEFAULT uppercase tracking-wider transition-colors duration-300 flex items-center justify-center" href="{{DATA:SCREEN:SCREEN_140}}" title="Basketball"><span class="material-symbols-outlined">sports_basketball</span><span class="nav-label hidden ml-2">Basketball</span></a>
+<a class="w-full text-on-primary/70 hover:bg-white/10 hover:text-white font-label-caps text-label-caps py-3 rounded-DEFAULT uppercase tracking-wider transition-colors duration-300 flex items-center justify-center" href="{{DATA:SCREEN:SCREEN_6}}" title="Netball"><span class="material-symbols-outlined">sports_volleyball</span><span class="nav-label hidden ml-2">Netball</span></a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="md:mt-16 min-h-screen md:ml-16 transition-all duration-300">
+<!-- Hero Section -->
+<section class="relative w-full h-[60vh] min-h-[500px] flex items-end">
+<div class="absolute inset-0 z-0">
+<img alt="High altitude basketball training at St Andrew's Turi" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1XFSbFFs29o4H41V7ac-_NJBlJPnwwqZtKJS5Wakr5IUzbaS34T7iA1kCpxhML2h0gqCan0Byqw7DNcjWnUJsbIejjUgMQ7rFjhVcluQfICaiXYKiugRJw7uXr8xIsA7XiIa00nD8mBHmpSfrKh9Ecf16AJzZSGh4VqLrH33AsyQtGLNdC84ZXpVjdVmYXQdNlTN9KwESg4-fqmnsxBh54pvLsMTnQ_R7LoLAlDLAlIghRAtuY-9Sy3Zg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-turi-navy via-turi-navy/50 to-transparent"></div>
+</div>
+<div class="relative z-10 p-margin-mobile md:px-margin-desktop md:py-16 w-full max-w-7xl mx-auto">
+<div class="border-l-4 border-excellence-gold pl-6 mb-6">
+<h2 class="font-label-caps text-label-caps text-excellence-gold uppercase tracking-widest mb-2">High Altitude Advantage</h2>
+<h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-primary mb-4">Football IQ</h1>
+<p class="font-body-lg text-body-lg text-on-primary/90 max-w-2xl">
+                        At 8,200ft above sea level, our training grounds provide a unique physiological advantage. The high-altitude environment at Turi naturally builds superior cardiovascular endurance and explosive agility, essential traits for elite court performance.
+                    </p>
+</div>
+</div>
+</section>
+<div class="p-margin-mobile md:px-margin-desktop py-section-gap max-w-[1280px] mx-auto">
+<!-- History & Philosophy Bento -->
+<section class="mb-section-gap">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter"><div class="col-span-1 lg:col-span-8 flex flex-col mb-8">
+<h3 class="font-headline-lg text-headline-lg text-turi-navy mb-6 border-t-4 border-excellence-gold pt-4 inline-block w-fit">Global Origins &amp; History</h3>
+<div class="flex flex-col gap-8">
+<div class="rounded-DEFAULT overflow-hidden border border-outline-variant w-full">
+<img alt="A vintage, grainy, black-and-white historical photograph of one of the earliest recorded football (soccer) matches from the mid-19th century in Britain." class="w-full h-auto object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvjms4ixX54ZqS3XCssNST2UPid4VSPnDTTmSXOGPoBYlv2AXRTcYC6jR74BrHuOS8HjsjGX3rJbSsgzihvUKAEF7-Y32s0u5agsaYU-ti3M0ibhTWRkTNp5uQ9uiXjm3j0t7wBGGQxxKax-Rn1toHobQTPRXo7J7yFMYr1yN3n4K_DZcVTqzO4X7-iWXGoSCaWQEiRIwIGkbygxB7z0AHyS2OrBVlU97n1aTFGhtayWS3wwJEDGV3"/>
+</div>
+<div class="flex flex-col">
+<p class="font-body-md text-body-md text-on-surface-variant mb-8 max-w-2xl">Modern football originated in 19th-century Britain, evolving from traditional folk games into the world's most popular sport with standardized rules established in 1863.</p>
+<ul class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6"><li class="flex items-start gap-3"><span class="material-symbols-outlined text-excellence-gold">groups</span><div><strong class="block font-label-caps text-label-caps text-turi-navy uppercase">Players</strong><span class="text-body-md text-on-surface-variant">11 players per side on the pitch</span></div></li><li class="flex items-start gap-3"><span class="material-symbols-outlined text-excellence-gold">rule</span><div><strong class="block font-label-caps text-label-caps text-turi-navy uppercase">Rules</strong><span class="text-body-md text-on-surface-variant">The offside rule prevents goal-hanging, while throw-ins restart play from the touchline. Tactical fouls are used strategically to disrupt opposition momentum.</span></div></li><li class="flex items-start gap-3"><span class="material-symbols-outlined text-excellence-gold">sports_soccer</span><div><strong class="block font-label-caps text-label-caps text-turi-navy uppercase">Scoring</strong><span class="text-body-md text-on-surface-variant">Goals scored by putting the ball into the net</span></div></li><li class="flex items-start gap-3"><span class="material-symbols-outlined text-excellence-gold">directions_run</span><div class=""><strong class="block font-label-caps text-label-caps text-turi-navy uppercase">Positions</strong><span class="text-body-md text-on-surface-variant">Forwards score goals, Midfielders pass the ball, Defenders protect the goal, and the Goalkeeper catches the ball!</span></div></li><li class="flex items-start gap-3"><span class="material-symbols-outlined text-excellence-gold">timer</span><div><strong class="block font-label-caps text-label-caps text-turi-navy uppercase">Duration</strong><span class="text-body-md text-on-surface-variant">90 minutes of total playing time</span></div></li><li class="flex items-start gap-3"><span class="material-symbols-outlined text-excellence-gold">grid_view</span><div><strong class="block font-label-caps text-label-caps text-turi-navy uppercase">Structure</strong><span class="text-body-md text-on-surface-variant">Two halves of 45 minutes each</span></div></li></ul>
+</div>
+</div>
+</div><aside class="lg:col-span-4 bg-turi-navy p-6 rounded-DEFAULT border-t-4 border-excellence-gold shadow-md"><h3 class="font-headline-md text-headline-md text-white mb-6 flex items-center gap-2"><span class="material-symbols-outlined text-excellence-gold">event</span>Upcoming Matches</h3><div class="flex flex-col gap-4 mb-8"><div class="border-b border-white/10 pb-4"><div class="flex justify-between items-start mb-1"><span class="font-label-caps text-label-caps text-excellence-gold uppercase">Oct 24 • 14:30</span><span class="font-label-caps text-label-caps text-white/70 uppercase">Home</span></div><p class="font-body-md text-white font-bold">U19 Boys vs Peponi School</p></div><div class="border-b border-white/10 pb-4"><div class="flex justify-between items-start mb-1"><span class="font-label-caps text-label-caps text-excellence-gold uppercase">Oct 27 • 10:00</span><span class="font-label-caps text-label-caps text-white/70 uppercase">Away</span></div><p class="font-body-md text-white font-bold">U15 Girls vs Braeburn Garden Estate</p></div><div class="border-b border-white/10 pb-4"><div class="flex justify-between items-start mb-1"><span class="font-label-caps text-label-caps text-excellence-gold uppercase">Nov 02 • 15:00</span><span class="font-label-caps text-label-caps text-white/70 uppercase">Home</span></div><p class="font-body-md text-white font-bold">1st XI Boys vs Hillcrest International</p></div><div class="pb-2"><div class="flex justify-between items-start mb-1"><span class="font-label-caps text-label-caps text-excellence-gold uppercase">Nov 05 • 11:30</span><span class="font-label-caps text-label-caps text-white/70 uppercase">Away</span></div><p class="font-body-md text-white font-bold">U17 Boys vs Brookhouse School</p></div></div><a class="block text-center w-full bg-excellence-gold text-turi-navy font-label-caps text-label-caps py-3 rounded-DEFAULT uppercase tracking-wider hover:bg-white transition-colors duration-300" href="#">View Full Schedule</a><div class="mt-8 pt-8 border-t border-white/10">
+<h3 class="font-headline-md text-headline-md text-white mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-excellence-gold">military_tech</span>
+        Top Scorers
+    </h3>
+<div class="flex flex-col gap-4">
+<div class="border-b border-white/10 pb-4 flex justify-between items-center">
+<p class="font-body-md text-white font-bold">M. Kamau</p>
+<span class="font-label-caps text-label-caps text-excellence-gold uppercase">12 Goals</span>
+</div>
+<div class="border-b border-white/10 pb-4 flex justify-between items-center">
+<p class="font-body-md text-white font-bold">J. Smith</p>
+<span class="font-label-caps text-label-caps text-excellence-gold uppercase">9 Goals</span>
+</div>
+<div class="border-b border-white/10 pb-4 flex justify-between items-center">
+<p class="font-body-md text-white font-bold">L. Otieno</p>
+<span class="font-label-caps text-label-caps text-excellence-gold uppercase">7 Goals</span>
+</div>
+<div class="flex justify-between items-center">
+<p class="font-body-md text-white font-bold">A. Kipchoge</p>
+<span class="font-label-caps text-label-caps text-excellence-gold uppercase">5 Goals</span>
+</div>
+</div>
+<a class="block text-center w-full bg-excellence-gold text-turi-navy font-label-caps text-label-caps py-3 rounded-DEFAULT uppercase tracking-wider hover:bg-white transition-colors duration-300 mt-6" href="#">View Full List</a></div><div class="mt-8 pt-8 border-t border-white/10">
+<h3 class="font-headline-md text-headline-md text-white mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-excellence-gold">table_rows</span>
+        League Standings
+    </h3>
+<div class="flex flex-col gap-2 mb-6">
+<div class="flex justify-between items-center p-2 rounded">
+<div class="flex gap-3 items-center">
+<span class="font-label-caps text-white/70">1</span>
+<p class="font-body-md text-white">International School</p>
+</div>
+<span class="font-label-caps text-white font-bold">18 pts</span>
+</div>
+<div class="flex justify-between items-center p-2 rounded bg-excellence-gold/10 border border-excellence-gold/30">
+<div class="flex gap-3 items-center">
+<span class="font-label-caps text-excellence-gold">2</span>
+<p class="font-body-md text-white font-bold">St. Andrew's Turi</p>
+</div>
+<span class="font-label-caps text-excellence-gold font-bold">16 pts</span>
+</div>
+<div class="flex justify-between items-center p-2 rounded">
+<div class="flex gap-3 items-center">
+<span class="font-label-caps text-white/70">3</span>
+<p class="font-body-md text-white">Braeburn</p>
+</div>
+<span class="font-label-caps text-white font-bold">13 pts</span>
+</div>
+<div class="flex justify-between items-center p-2 rounded">
+<div class="flex gap-3 items-center">
+<span class="font-label-caps text-white/70">4</span>
+<p class="font-body-md text-white">Hillcrest</p>
+</div>
+<span class="font-label-caps text-white font-bold">12 pts</span>
+</div>
+</div>
+<a class="block text-center w-full bg-excellence-gold text-turi-navy font-label-caps text-label-caps py-3 rounded-DEFAULT uppercase tracking-wider hover:bg-white transition-colors duration-300" href="#">View Full Table</a>
+</div></aside>
+<div class="col-span-1 lg:col-span-12 bg-surface-container-low border border-outline-variant rounded-DEFAULT relative overflow-hidden group p-6 border-excellence-gold">
+<div class="absolute top-0 right-0 w-64 h-64 bg-excellence-gold/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl"></div>
+<h4 class="font-headline-md text-headline-md text-turi-navy mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-excellence-gold">psychology</span>
+                            The Turi Approach
+                        </h4>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
+<div>
+<h5 class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-2">Strategic Foundation</h5>
+<p class="font-body-md text-body-md text-on-surface-variant">We teach basketball as a physical chess match. Players learn to read defenses, anticipate movements, and execute set plays with clinical precision, mirroring the academic rigor of the classroom.</p>
+</div>
+<div>
+<h5 class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-2">Character Development</h5>
+<p class="font-body-md text-body-md text-on-surface-variant">The court serves as a crucible for leadership and teamwork. The high-intensity nature of the sport demands immediate communication, trust in peers, and the mental fortitude to overcome adversity.</p>
+</div>
+<div class="md:col-span-2 mt-4 pt-4 border-t border-outline-variant/30"><h5 class="font-label-caps text-label-caps text-turi-navy uppercase mb-4">Core Benefits</h5><div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"><div class="flex items-start gap-2"><span class="material-symbols-outlined text-excellence-gold text-[20px]">groups</span><p class="text-body-md text-on-surface-variant"><span class="font-bold">Teamwork:</span> Teaches patience, especially when your teammate decides to dribble past the entire opposition instead of passing.</p></div><div class="flex items-start gap-2"><span class="material-symbols-outlined text-excellence-gold text-[20px]">bolt</span><p class="text-body-md text-on-surface-variant"><span class="font-bold">Endurance:</span> Develops cardiovascular fitness through the ancient art of chasing a ball someone else kicked away.</p></div><div class="flex items-start gap-2"><span class="material-symbols-outlined text-excellence-gold text-[20px]">fitness_center</span><p class="text-body-md text-on-surface-variant"><span class="font-bold">Resilience:</span> Builds resilience, because every striker learns that the goal is somehow smaller than it looked in training.</p></div><div class="flex items-start gap-2"><span class="material-symbols-outlined text-excellence-gold text-[20px]">architecture</span><p class="text-body-md text-on-surface-variant"><span class="font-bold">Memory:</span> Improves memory, because coaches only need to explain the same formation 27 times before everyone understands it.</p></div><div class="flex items-start gap-2"><span class="material-symbols-outlined text-excellence-gold text-[20px]">campaign</span><p class="text-body-md text-on-surface-variant"><span class="font-bold">Humility:</span> Teaches humility, because even the best players occasionally miss an open goal.</p></div><div class="flex items-start gap-2"><span class="material-symbols-outlined text-excellence-gold text-[20px]">psychology</span><p class="text-body-md text-on-surface-variant"><span class="font-bold">Mental Toughness:</span> Strengthens mental toughness, because referees rarely seem to see fouls committed against your team</p></div></div></div></div>
+</div><section class="mt-section-gap">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+</section></div>
+</section>
+<!-- Learning Pathways Grid -->
+<section class="mb-section-gap">
+<div class="flex items-center justify-between mb-8">
+<h3 class="font-headline-md text-headline-md text-turi-navy border-l-4 border-excellence-gold pl-4">Training Tips</h3>
+</div>
+<div class="flex gap-gutter overflow-x-auto pb-4 scrollbar-hide"><div class="min-w-[300px] flex-shrink-0 group cursor-pointer"><div class="relative h-48 rounded-DEFAULT overflow-hidden mb-3"><img alt="Mastering the Header" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida/AEtjO1XFSbFFs29o4H41V7ac-_NJBlJPnwwqZtKJS5Wakr5IUzbaS34T7iA1kCpxhML2h0gqCan0Byqw7DNcjWnUJsbIejjUgMQ7rFjhVcluQfICaiXYKiugRJw7uXr8xIsA7XiIa00nD8mBHmpSfrKh9Ecf16AJzZSGh4VqLrH33AsyQtGLNdC84ZXpVjdVmYXQdNlTN9KwESg4-fqmnsxBh54pvLsMTnQ_R7LoLAlDLAlIghRAtuY-9Sy3Zg"/><div class="absolute inset-0 bg-turi-navy/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-white text-5xl">play_circle</span></div></div><h4 class="font-headline-md text-body-lg text-turi-navy">Mastering the Header</h4><p class="text-label-caps text-on-surface-variant uppercase">6:15 • Aerial Drills</p></div><div class="min-w-[300px] flex-shrink-0 group cursor-pointer"><div class="relative h-48 rounded-DEFAULT overflow-hidden mb-3"><img alt="Defensive Positioning" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida/AEtjO1UFrfleVjwnY41Y1MkXEDNZyxD4m5qh5oc2ltECJ3Vpz7CIJCk9qMClaOivyftQzm8Rsvmwi43-e63Vp7WMFjRX1JtMUDTL5DHbONn1Y0Q7vdS_UTloC63WW1M-1fTGdlxzYBKWwD_O7tZH6QyXnWclvv_rwnDFz3466QfFQI7P3TCBzQtSAQSGsB2x-vN9QTd-2ISljxzTnU3CY_Nq2IDhXPNA6AUgnhBGWNhXIoQRFkCdXDXqLhZuoPM"/><div class="absolute inset-0 bg-turi-navy/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-white text-5xl">play_circle</span></div></div><h4 class="font-headline-md text-body-lg text-turi-navy">Defensive Positioning</h4><p class="text-label-caps text-on-surface-variant uppercase">9:30 • Tactical Defense</p></div><div class="min-w-[300px] flex-shrink-0 group cursor-pointer"><div class="relative h-48 rounded-DEFAULT overflow-hidden mb-3"><img alt="Precision Passing" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida/AEtjO1XFSbFFs29o4H41V7ac-_NJBlJPnwwqZtKJS5Wakr5IUzbaS34T7iA1kCpxhML2h0gqCan0Byqw7DNcjWnUJsbIejjUgMQ7rFjhVcluQfICaiXYKiugRJw7uXr8xIsA7XiIa00nD8mBHmpSfrKh9Ecf16AJzZSGh4VqLrH33AsyQtGLNdC84ZXpVjdVmYXQdNlTN9KwESg4-fqmnsxBh54pvLsMTnQ_R7LoLAlDLAlIghRAtuY-9Sy3Zg"/><div class="absolute inset-0 bg-turi-navy/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-white text-5xl">play_circle</span></div></div><h4 class="font-headline-md text-body-lg text-turi-navy">Precision Passing</h4><p class="text-label-caps text-on-surface-variant uppercase">11:45 • Ball Control</p></div></div>
+</section><section class="mb-section-gap">
+<div class="flex items-center justify-between mb-8">
+<h3 class="font-headline-md text-headline-md text-turi-navy border-l-4 border-turi-navy pl-4">Learning Pathways</h3>
+<a class="font-label-caps text-label-caps text-excellence-gold flex items-center gap-1 hover:text-turi-navy transition-colors" href="#">
+                        VIEW ALL DRILLS
+                        <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter lg:grid-cols-3"><div class="bg-surface-bright border border-outline-variant rounded-DEFAULT p-6 hover:shadow-sm transition-shadow border-t-4 border-t-outline-variant"><div class="w-12 h-12 bg-surface-container rounded-full flex items-center justify-center mb-4"><span class="material-symbols-outlined text-on-surface-variant">school</span></div><h4 class="font-headline-md text-headline-md text-turi-navy mb-2">Foundations</h4><p class="font-body-md text-body-md text-on-surface-variant mb-6 h-16">Core ball control, basic passing techniques, and fundamental defensive stance.</p><a class="block text-center w-full border border-turi-navy text-turi-navy font-label-caps text-label-caps py-2 rounded hover:bg-turi-navy hover:text-white transition-colors uppercase" href="#">View Playlist</a></div><div class="bg-surface-bright border border-outline-variant rounded-DEFAULT p-6 hover:shadow-sm transition-shadow border-t-4 border-t-turi-navy"><div class="w-12 h-12 bg-turi-navy/10 rounded-full flex items-center justify-center mb-4"><span class="material-symbols-outlined text-turi-navy">trending_up</span></div><h4 class="font-headline-md text-headline-md text-turi-navy mb-2">Intermediate</h4><p class="font-body-md text-body-md text-on-surface-variant mb-6 h-16">Tactical formations, off-the-ball movement, and counter-attack strategies.</p><a class="block text-center w-full border border-turi-navy bg-turi-navy text-white font-label-caps text-label-caps py-2 rounded hover:bg-turi-navy/90 transition-colors uppercase" href="#">View Playlist</a></div><div class="bg-surface-bright border border-outline-variant rounded-DEFAULT p-6 hover:shadow-sm transition-shadow border-t-4 border-t-excellence-gold"><div class="w-12 h-12 bg-excellence-gold/10 rounded-full flex items-center justify-center mb-4"><span class="material-symbols-outlined text-excellence-gold">military_tech</span></div><h4 class="font-headline-md text-headline-md text-turi-navy mb-2">Elite Performance</h4><p class="font-body-md text-body-md text-on-surface-variant mb-6 h-16">High-intensity match analysis, set-piece mastery, and advanced biometric tracking.</p><a class="block text-center w-full border border-excellence-gold text-excellence-gold font-label-caps text-label-caps py-2 rounded hover:bg-excellence-gold hover:text-white transition-colors uppercase" href="#">View Playlist</a></div></div>
+</section><section class="mb-section-gap grid grid-cols-1 lg:grid-cols-12 gap-gutter"><div class="lg:col-span-8"><!-- This space is reserved for future content or to balance the layout --></div></section>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-8 px-margin-desktop flex flex-col md:flex-row justify-between items-center mt-section-gap bg-surface-container-lowest border-t border-outline-variant md:ml-16 transition-all duration-300">
+<div class="mb-4 md:mb-0 flex items-center gap-4">
+<span class="font-headline-md text-headline-md text-turi-navy">Sports IQ</span>
+<span class="font-body-md text-body-md text-on-surface-variant">© St Andrew's School, Turi. All Rights Reserved.</span>
+</div>
+<div class="flex gap-6 font-label-caps text-label-caps">
+<a class="text-on-surface-variant hover:text-turi-navy transition-colors uppercase" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant hover:text-turi-navy transition-colors uppercase" href="#">Terms of Service</a>
+<a class="text-on-surface-variant hover:text-turi-navy transition-colors uppercase" href="#">Contact Athletics Dept</a>
+</div>
+</footer>
+</body></html>

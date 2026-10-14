@@ -1,0 +1,559 @@
+<!DOCTYPE html><html lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>First XI Football - Roster</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed": "#ffe088",
+                        "on-error": "#ffffff",
+                        "background": "#fcf9f8",
+                        "primary-container": "#800000",
+                        "on-primary-container": "#ff8371",
+                        "tertiary": "#735c00",
+                        "crest-gold": "#D4AF37",
+                        "surface-container-highest": "#e5e2e1",
+                        "secondary-fixed": "#d8e2ff",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-container": "#4e3d00",
+                        "highland-mist": "#F4F4F4",
+                        "on-secondary-container": "#294a86",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-container": "#cba72f",
+                        "tertiary-fixed-dim": "#e9c349",
+                        "on-primary-fixed-variant": "#8f0f07",
+                        "surface-container-high": "#eae7e7",
+                        "surface-bright": "#fcf9f8",
+                        "surface-variant": "#e5e2e1",
+                        "primary": "#570000",
+                        "surface-dim": "#dcd9d9",
+                        "on-surface": "#1b1c1c",
+                        "surface-container-low": "#f6f3f2",
+                        "surface-tint": "#b22b1d",
+                        "secondary": "#3e5d9b",
+                        "on-primary": "#ffffff",
+                        "surface-container": "#f0eded",
+                        "royal-navy": "#002147",
+                        "on-error-container": "#93000a",
+                        "error-container": "#ffdad6",
+                        "on-tertiary": "#ffffff",
+                        "surface": "#fcf9f8",
+                        "inverse-primary": "#ffb4a8",
+                        "turi-maroon": "#800000",
+                        "primary-fixed-dim": "#ffb4a8",
+                        "inverse-on-surface": "#f3f0ef",
+                        "on-surface-variant": "#5a413d",
+                        "on-background": "#1b1c1c",
+                        "on-primary-fixed": "#410000",
+                        "on-secondary-fixed-variant": "#244581",
+                        "on-tertiary-fixed-variant": "#574500",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed": "#241a00",
+                        "inverse-surface": "#303030",
+                        "secondary-container": "#9dbbff",
+                        "secondary-fixed-dim": "#aec6ff",
+                        "primary-fixed": "#ffdad4",
+                        "on-secondary-fixed": "#001a42",
+                        "outline-variant": "#e2bfb9",
+                        "outline": "#8e706c",
+                        "brand-gold": "#E9C176"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem",
+                        "2xl": "1rem",
+                        "3xl": "1.5rem"
+                    },
+                    "spacing": {
+                        "margin-mobile": "20px",
+                        "gutter": "24px",
+                        "margin-desktop": "80px",
+                        "container-max": "1280px",
+                        "unit": "8px",
+                        "section": "96px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["\"Source Serif 4\""],
+                        "label-md": ["Inter"],
+                        "headline-md": ["\"Source Serif 4\""],
+                        "body-md": ["\"Source Serif 4\""],
+                        "label-sm": ["Inter"],
+                        "headline-sm": ["\"Source Serif 4\""],
+                        "display-lg": ["\"Source Serif 4\""],
+                        "display-lg-mobile": ["\"Source Serif 4\""]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-md": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "500" }],
+                        "headline-sm": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "display-lg-mobile": ["36px", { "lineHeight": "44px", "fontWeight": "700" }]
+                    },
+                    "boxShadow": {
+                        "soft": "0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01)",
+                        "hover": "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)"
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .bg-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+    </style>
+</head>
+<body class="text-black min-h-screen flex flex-col md:flex-row antialiased bg-surface">
+<!-- SideNavBar (Desktop Only) -->
+<aside class="hidden md:flex bg-royal-navy border-r border-outline-variant/10 w-64 h-screen fixed left-0 top-0 flex-col p-4 z-40 h-screen">
+<div class="mb-8 px-4 mt-4">
+<div class="h-12 flex items-center"><img alt="St. Andrew's Turi Logo" class="h-full w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WNWe_pHcANJSms1V4Vq0ZpSs_u3X0F2wdRB1VXVOxg9w1k9zPN_AwvdiJ1pgSwXbhOm8H1RSgcs9tKXlHhLQeoXdLcV5lFD6Qg-mSr5NVFlqrxXww3ptM_mWXg7LalJ0tToPDqkiOfhqPBkNIQU53WqY_PaaHM_clejrT3kN6wyV_PVyT8x03m4T_Gb0TASbyUMESR69y0SBTWscjuUfjMifdFBY68Zvq5CT5HDZR8qB8WPhEMgHczgQ"></div>
+<p class="text-label-sm font-label-sm text-brand-gold mt-1 uppercase tracking-widest">Elite Performance</p>
+</div>
+<nav class="flex-1 space-y-2">
+<!-- Active: Football -->
+<a class="flex items-center gap-3 rounded-xl px-4 py-3 hover:bg-white/5 text-white/80 hover:text-white transition-all duration-200" href="#">
+<span class="material-symbols-outlined text-white">sports_soccer</span>
+<span class="text-label-md font-label-md text-white">Football</span>
+</a>
+<a class="flex items-center gap-3 hover:bg-white/5 rounded-xl px-4 py-3 transition-all duration-200 text-white/80 hover:text-white text-white" href="#">
+<span class="material-symbols-outlined text-brand-gold">sports_basketball</span>
+<span class="text-label-md font-label-md font-bold" style="color: rgb(234, 179, 8);">Basketball</span>
+</a>
+<a class="flex items-center gap-3 hover:bg-white/5 rounded-xl px-4 py-3 transition-all duration-200 text-white/80 hover:text-white" href="#">
+<span class="material-symbols-outlined">sports_rugby</span>
+<span class="text-label-md font-label-md">Rugby</span>
+</a>
+<a class="flex items-center gap-3 hover:bg-white/5 rounded-xl px-4 py-3 transition-all duration-200 text-white/80 hover:text-white" href="#">
+<span class="material-symbols-outlined">sports_hockey</span>
+<span class="text-label-md font-label-md">Hockey</span>
+</a>
+<a class="flex items-center gap-3 hover:bg-white/5 rounded-xl px-4 py-3 transition-all duration-200 text-white/80 hover:text-white" href="#">
+<span class="material-symbols-outlined">sports_cricket</span>
+<span class="text-label-md font-label-md">Cricket</span>
+</a>
+</nav>
+<div class="mt-auto pt-6 border-t border-white/10 space-y-2">
+<a class="flex items-center gap-3 hover:bg-white/5 rounded-xl px-4 py-3 text-white/80 hover:text-white transition-all duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-label-md font-label-md">Settings</span>
+</a>
+<a class="flex items-center gap-3 hover:bg-white/5 rounded-xl px-4 py-3 text-white/80 hover:text-white transition-all duration-200" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="text-label-md font-label-md">Support</span>
+</a>
+<button class="mt-4 w-full rounded-xl py-3 text-label-md font-label-md hover:bg-white transition-colors bg-brand-gold text-royal-navy shadow-[0_0_15px_rgba(233,193,118,0.3)]">
+                Add Team
+            </button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col md:ml-64 w-full bg-pattern bg-gradient-to-br from-surface via-surface to-surface-container-low min-h-screen">
+<!-- TopNavBar -->
+<header class="bg-royal-navy border-b border-white/10 shadow-lg sticky top-0 z-30 flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop h-20 backdrop-blur-md bg-royal-navy/95">
+<div class="flex items-center gap-4">
+<h1 class="text-headline-sm font-headline-sm font-bold text-white tracking-tight flex items-center gap-2">
+<span class="material-symbols-outlined text-brand-gold text-3xl">sports_soccer</span>
+    Sports IQ
+</h1>
+</div>
+<!-- Desktop Nav -->
+<nav class="hidden md:flex gap-8 items-center h-full">
+<a class="text-white/80 h-full flex items-center hover:text-brand-gold transition-colors duration-200 px-2 border-b-2 border-transparent hover:border-brand-gold/50" href="#">
+<span class="text-label-md font-label-md font-medium">Overview</span>
+</a>
+<a class="text-white/80 h-full flex items-center hover:text-brand-gold transition-colors duration-200 px-2 border-b-2 border-transparent hover:border-brand-gold/50" href="#">
+<span class="text-label-md font-label-md font-medium">Schedule</span>
+</a>
+<!-- Active: Players -->
+<a class="text-white h-full flex items-center px-2 border-b-2 border-brand-gold" href="#">
+<span class="text-label-md font-label-md font-bold text-brand-gold">Players</span>
+</a>
+<a class="text-white/80 h-full flex items-center hover:text-brand-gold transition-colors duration-200 px-2 border-b-2 border-transparent hover:border-brand-gold/50" href="#">
+<span class="text-label-md font-label-md font-medium">Stats</span>
+</a>
+<a class="text-white/80 h-full flex items-center hover:text-brand-gold transition-colors duration-200 px-2 border-b-2 border-transparent hover:border-brand-gold/50" href="#">
+<span class="text-label-md font-label-md font-medium">Hall of Fame</span>
+</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="text-white hover:text-brand-gold hover:bg-white/10 p-2 rounded-full transition-all duration-200">
+<span class="material-symbols-outlined">search</span>
+</button>
+<button class="text-label-md font-label-md text-royal-navy px-5 py-2.5 rounded-xl font-bold hover:bg-white transition-all duration-200 bg-brand-gold shadow-md">
+                    Profile
+                </button>
+</div>
+</header>
+<!-- Page Canvas -->
+<main class="flex-1 w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-12">
+<!-- Header & Filters -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6 relative">
+
+<div class="relative z-10">
+<h2 class="text-display-lg-mobile md:text-[56px] font-display-lg text-royal-navy font-bold leading-tight mb-2 tracking-tight">Roster</h2>
+<p class="text-body-lg font-body-lg text-royal-navy/70 flex items-center gap-2">
+<span class="w-8 h-[2px] bg-brand-gold inline-block"></span>
+    First XI Football • 2026/2027 Season
+</p>
+</div>
+<div class="flex gap-2 p-1.5 bg-white rounded-xl shadow-soft border border-outline-variant/20 relative z-10">
+<button class="px-6 py-2.5 rounded-lg shadow-sm text-label-md font-label-md text-white transition-all bg-royal-navy font-bold">First XI</button>
+<button class="px-6 py-2.5 rounded-lg text-label-md font-label-md text-royal-navy/70 hover:text-royal-navy hover:bg-surface transition-all">Second XI</button>
+<button class="px-6 py-2.5 rounded-lg text-label-md font-label-md text-royal-navy/70 hover:text-royal-navy hover:bg-surface transition-all">U16</button>
+</div>
+</div>
+<!-- Athlete Spotlight (Hero) -->
+<section class="flex flex-col lg:flex-row gap-8 mb-section h-auto lg:h-[500px] items-stretch">
+<!-- Metrics Panel -->
+<div class="flex-1 flex flex-col gap-8 md:flex-row">
+<!-- Assistant Coach Card -->
+<div class="bg-royal-navy rounded-3xl p-6 flex items-center gap-4 shadow-soft hover:shadow-hover transition-all duration-300 relative overflow-hidden flex-1 group">
+<img alt="Coach Sarah Jones" class="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:scale-105 transition-transform duration-700 ease-out" src="https://lh3.googleusercontent.com/aida/AEtjO1X_mujji8DJm0f79Bijyfw2zmRPsj1DxlMoUYHapR7aGBSp7gxTmZk9sEZDgkR9ftA2OkwLBCsCzHMzUyeom4rymWY0pYKx6pvJjSdUcY27osr8LfORay6WEZhlWSUEiMkmIkOOgEnHa7CSXU7vYR0u7UhCsmiVfzb23pBunX5wLBtJFqQRsq_UXaFoF_qBuQjQ0Jepo-c5U6GQZLIFFiQsWY5iXlAhMTeRzsOcPlrMph5ob2Ot4d_EaQ">
+<div class="absolute inset-0 bg-gradient-to-t from-royal-navy via-royal-navy/40 to-transparent opacity-90"></div>
+<div class="absolute bottom-0 left-0 right-0 z-10 p-8 bg-gradient-to-t from-royal-navy to-transparent">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-brand-gold text-[18px]">sports</span>
+<div class="text-label-sm font-label-sm text-brand-gold uppercase tracking-[0.2em]">Assistant Coach</div>
+</div>
+<div class="text-headline-md font-headline-md text-white font-bold">Coach Sarah Jones</div>
+</div>
+</div>
+<!-- Head Coach Card -->
+<div class="bg-royal-navy rounded-3xl p-6 flex items-center gap-4 shadow-soft hover:shadow-hover transition-all duration-300 relative overflow-hidden flex-1 group">
+<img alt="Head Coach" class="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:scale-105 transition-transform duration-700 ease-out" src="https://lh3.googleusercontent.com/aida/AEtjO1UI_v2NCGrs7U-651kZGJn3LesgBZDySO4TbYFrBFXyRFMok3LXRB3DlZQoQ6gMXyhcQPWPmq_2gGJSUNTTT1Xgs6pIE0wg-ngKCl4m4VCEMPzsMPHZ2WPaceQsXdwpBfp4Sie94lsCJIAbIsXNMK-eoeuuhg0-tJvmPpgsZflyb4TWJ1gA5_QwzhIzLEIgw9dTsoytIQt7EetMoz3XDjbH97KYgs91EFjt0O-VzYEWAG84hoAceacfBis">
+<div class="absolute inset-0 bg-gradient-to-t from-royal-navy via-royal-navy/40 to-transparent opacity-90"></div>
+<div class="absolute -right-8 -top-8 w-32 h-32 bg-brand-gold/10 rounded-full blur-2xl"></div>
+<div class="absolute bottom-0 left-0 right-0 z-10 p-8 bg-gradient-to-t from-royal-navy to-transparent">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-brand-gold text-[18px]">strategy</span>
+<div class="text-label-sm font-label-sm text-brand-gold uppercase tracking-[0.2em]">Head Coach</div>
+</div>
+<div class="text-headline-md font-headline-md text-white font-bold">Mr. J. Smith</div>
+</div>
+</div>
+</div>
+<!-- Captain Card -->
+<div class="w-full lg:w-96 relative rounded-3xl overflow-hidden shadow-soft hover:shadow-hover transition-all duration-300 flex flex-col justify-end group border-2 border-brand-gold/20 hover:border-brand-gold/50">
+<img alt="Amina J. Okafor" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" src="https://lh3.googleusercontent.com/aida/AEtjO1XInZabG_LIxX1o1Rl-_0d_O7oerBVdG7PUKAmDVWkB-3RaHnnAXT9Km_yj6RYou74VsgaWGDNnguipq2cK7wYEIeO6DnHjB-KC345OsNstNYdEQNs-INHh1-UnNtGzEodSs6SYks1H1fH4FKApUzRL3KyaA0kWYYZ2kb6MI0ZVMcB7APUsOOLgIjf1vzbDt3VA9xYLUy-7fXql8xpSEbhIRVHSfeKVyiviI5dPWUf0bkMl23_EdWpOll4">
+<div class="absolute inset-0 bg-gradient-to-t from-royal-navy via-royal-navy/20 to-transparent opacity-90"></div>
+<div class="relative z-10 p-8 bg-gradient-to-t from-royal-navy to-transparent">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-brand-gold text-[18px]">workspace_premium</span>
+<div class="text-label-sm font-label-sm text-brand-gold uppercase tracking-[0.2em] font-bold">Team Captain</div>
+</div>
+<div class="text-[40px] leading-none font-display-lg text-white font-bold mb-2">Amina J.<br>Okafor</div>
+<div class="text-white/70 font-label-md text-sm">Forward • #10</div>
+</div>
+<div class="absolute top-6 right-6 w-12 h-12 bg-royal-navy/80 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/10 shadow-lg">
+<span class="text-brand-gold font-bold font-display-lg text-xl">10</span>
+</div>
+</div>
+</section>
+<!-- Active Roster Table -->
+<section class="mb-section">
+<div class="flex items-center justify-between mb-10 border-b border-outline-variant/20 pb-4">
+<h2 class="text-[40px] font-display-lg text-royal-navy font-bold tracking-tight">Active Roster</h2>
+<span class="text-label-md font-label-md text-royal-navy/50 bg-white px-4 py-2 rounded-full border border-outline-variant/20 shadow-sm">17 Players</span>
+</div>
+<div class="bg-white/50 backdrop-blur-xl border border-white rounded-3xl shadow-soft overflow-hidden p-8 relative">
+<div class="absolute inset-0 bg-gradient-to-br from-white/40 to-transparent pointer-events-none"></div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10"><!-- Card 1: Zahara Kamau -->
+<div class="group relative h-72 overflow-hidden rounded-2xl border border-outline-variant/20 bg-white shadow-sm transition-all duration-300 hover:shadow-hover hover:-translate-y-1">
+<img alt="Zahara Kamau" class="absolute inset-0 h-full w-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out" src="https://lh3.googleusercontent.com/aida/AEtjO1WO1gWv9ElEmXzqC3tRNiVw3tiqtjeKela3SroYSqNwZPqC_ur_2GYq_QCylyCGaoYshvfMD-3yqk5ym0Z4i_JPbLs7K9jysyfgmL-4M2jT_Tumiy_9g7xPRK5VXOURSsog6N1BHQpQAKsYqkRom0eJisQlCeG2cxLJ2Ig6g-cK-UJzdH4tgekY6d56nCCu5EAt2MqnkBy-7V--KI2xzwGCA6x3n9kd3Mw_RHOHlKeXovN_SVmonWHKzMw">
+<div class="absolute inset-0 bg-gradient-to-t from-royal-navy/90 via-royal-navy/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-300"></div>
+<div class="absolute bottom-0 left-0 right-0 p-5 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+<h3 class="text-headline-sm font-headline-sm font-bold text-white mb-1">Zahara Kamau</h3>
+<p class="text-brand-gold text-xs font-label-sm uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">Defender</p>
+</div>
+</div>
+<!-- Card 2: Sloane Mutua -->
+<div class="group relative h-72 overflow-hidden rounded-2xl border border-outline-variant/20 bg-white shadow-sm transition-all duration-300 hover:shadow-hover hover:-translate-y-1">
+<img alt="Sloane Mutua" class="absolute inset-0 h-full w-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out" src="https://lh3.googleusercontent.com/aida/AEtjO1XInZabG_LIxX1o1Rl-_0d_O7oerBVdG7PUKAmDVWkB-3RaHnnAXT9Km_yj6RYou74VsgaWGDNnguipq2cK7wYEIeO6DnHjB-KC345OsNstNYdEQNs-INHh1-UnNtGzEodSs6SYks1H1fH4FKApUzRL3KyaA0kWYYZ2kb6MI0ZVMcB7APUsOOLgIjf1vzbDt3VA9xYLUy-7fXql8xpSEbhIRVHSfeKVyiviI5dPWUf0bkMl23_EdWpOll4">
+<div class="absolute inset-0 bg-gradient-to-t from-royal-navy/90 via-royal-navy/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-300"></div>
+<div class="absolute bottom-0 left-0 right-0 p-5 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+<h3 class="text-headline-sm font-headline-sm font-bold text-white mb-1">Sloane Mutua</h3>
+<p class="text-brand-gold text-xs font-label-sm uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">Midfielder</p>
+</div>
+</div>
+<!-- Card 3: Imani Kibet -->
+<div class="group relative h-72 overflow-hidden rounded-2xl border border-outline-variant/20 bg-white shadow-sm transition-all duration-300 hover:shadow-hover hover:-translate-y-1">
+<img alt="Imani Kibet" class="absolute inset-0 h-full w-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out" src="https://lh3.googleusercontent.com/aida/AEtjO1UoXxQB867HdfplLraCa7pbIdsfGIsDI_w5Jxra8bTj4TKJODAr0W4bLm9hIsRlL7cIqy1p-ksHZv7mmCPcA4AeMLtnxqgDcY1bRkpPMCpkg7ZBnKFqdDQcRgotviJv0LoCowLqJDGnhuuqRgcNgjP3mldUPVAVrt_Oy2JN9DOBdAar2P2IxE3BTZqq-AlaCF58R2vLO68G8vM_-0Rtf1tNAu0EBdr_PF8qWjj4jietN6NEZo2zjRpiknI">
+<div class="absolute inset-0 bg-gradient-to-t from-royal-navy/90 via-royal-navy/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-300"></div>
+<div class="absolute bottom-0 left-0 right-0 p-5 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+<h3 class="text-headline-sm font-headline-sm font-bold text-white mb-1">Imani Kibet</h3>
+<p class="text-brand-gold text-xs font-label-sm uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">Forward</p>
+</div>
+</div>
+<!-- Card 4: Amina J. Okafor (Captain) -->
+<div class="group relative h-72 overflow-hidden rounded-2xl border-2 border-brand-gold bg-white shadow-sm transition-all duration-300 hover:shadow-hover hover:-translate-y-1">
+<img alt="Amina J. Okafor" class="absolute inset-0 h-full w-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out" src="https://lh3.googleusercontent.com/aida/AEtjO1XInZabG_LIxX1o1Rl-_0d_O7oerBVdG7PUKAmDVWkB-3RaHnnAXT9Km_yj6RYou74VsgaWGDNnguipq2cK7wYEIeO6DnHjB-KC345OsNstNYdEQNs-INHh1-UnNtGzEodSs6SYks1H1fH4FKApUzRL3KyaA0kWYYZ2kb6MI0ZVMcB7APUsOOLgIjf1vzbDt3VA9xYLUy-7fXql8xpSEbhIRVHSfeKVyiviI5dPWUf0bkMl23_EdWpOll4">
+<div class="absolute inset-0 bg-gradient-to-t from-royal-navy/90 via-royal-navy/20 to-transparent opacity-90"></div>
+<div class="absolute top-4 right-4 bg-brand-gold text-royal-navy px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider">C</div>
+<div class="absolute bottom-0 left-0 right-0 p-5 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+<div class="text-brand-gold text-[10px] font-label-sm uppercase tracking-widest mb-1 font-bold">Team Captain</div>
+<h3 class="text-headline-sm font-headline-sm font-bold text-white mb-1">Amina J. Okafor</h3>
+</div>
+</div>
+<!-- Card 5: Nia Mensah -->
+<div class="group relative h-72 overflow-hidden rounded-2xl border border-outline-variant/20 bg-white shadow-sm transition-all duration-300 hover:shadow-hover hover:-translate-y-1">
+<img alt="Nia Mensah" class="absolute inset-0 h-full w-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out" src="https://lh3.googleusercontent.com/aida/AEtjO1WJPYTlslq8bE-6cbbZOyFgtjVdEhLFu_LkPJb28L1nnmftx3KYrApYacAhizFLx1SXTzyqgYRD4k3UgyEasjS3iTCI9QtVtvw7C7VoXL_6TkWgqM0VVuI0P5QEJhn8myOgPweYNYH-QVcNoWD0Sr8lFjUEno4__nkT0xqf4Nx1JVysTqKHUW_rilKuEnhWta8jVRU6LhHXXXiDNhVXsyoHUlg1Gr8CdvK-eFHYAlvzt_MXSBVd4tr-veY">
+<div class="absolute inset-0 bg-gradient-to-t from-royal-navy/90 via-royal-navy/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-300"></div>
+<div class="absolute bottom-0 left-0 right-0 p-5 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+<h3 class="text-headline-sm font-headline-sm font-bold text-white mb-1">Nia Mensah</h3>
+<p class="text-brand-gold text-xs font-label-sm uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">Goalkeeper</p>
+</div>
+</div>
+<!-- Card 6: Aisha Bello -->
+<div class="group relative h-72 overflow-hidden rounded-2xl border border-outline-variant/20 bg-white shadow-sm transition-all duration-300 hover:shadow-hover hover:-translate-y-1">
+<img alt="Aisha Bello" class="absolute inset-0 h-full w-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out" src="https://lh3.googleusercontent.com/aida/AEtjO1WRLB0eVsjevMJbHK6BAXtwgpov2rmNIRSEGbCbN-coEG1L1q4VWqq2ha43lXAbZY_JXMME31bSD2IHwbLp8tIgMeXBfSnauiDkgkMrudTe48_4a2gDs779ybejJ-V28_glxD1lwg60wIZ_RHQBwM41LX3dlT_N3vcr5C-NR6ES77OGs36othUY96DgFgwtlNxmKJHs4armOW-xUhAvixpIiBjUSD3SKW25oyjjmCApki6IfpK4ioQyGA">
+<div class="absolute inset-0 bg-gradient-to-t from-royal-navy/90 via-royal-navy/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-300"></div>
+<div class="absolute bottom-0 left-0 right-0 p-5 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+<h3 class="text-headline-sm font-headline-sm font-bold text-white mb-1">Aisha Bello</h3>
+<p class="text-brand-gold text-xs font-label-sm uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">Defender</p>
+</div>
+</div>
+<!-- Card 7: Fatima Ali -->
+<div class="group relative h-72 overflow-hidden rounded-2xl border border-outline-variant/20 bg-white shadow-sm transition-all duration-300 hover:shadow-hover hover:-translate-y-1">
+<img alt="Fatima Ali" class="absolute inset-0 h-full w-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out" src="https://lh3.googleusercontent.com/aida/AEtjO1WO1gWv9ElEmXzqC3tRNiVw3tiqtjeKela3SroYSqNwZPqC_ur_2GYq_QCylyCGaoYshvfMD-3yqk5ym0Z4i_JPbLs7K9jysyfgmL-4M2jT_Tumiy_9g7xPRK5VXOURSsog6N1BHQpQAKsYqkRom0eJisQlCeG2cxLJ2Ig6g-cK-UJzdH4tgekY6d56nCCu5EAt2MqnkBy-7V--KI2xzwGCA6x3n9kd3Mw_RHOHlKeXovN_SVmonWHKzMw">
+<div class="absolute inset-0 bg-gradient-to-t from-royal-navy/90 via-royal-navy/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-300"></div>
+<div class="absolute bottom-0 left-0 right-0 p-5 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+<h3 class="text-headline-sm font-headline-sm font-bold text-white mb-1">Fatima Ali</h3>
+<p class="text-brand-gold text-xs font-label-sm uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">Midfielder</p>
+</div>
+</div>
+<!-- Card 8: Zuri Odhiambo (New Image 141) -->
+<div class="group relative h-72 overflow-hidden rounded-2xl border border-outline-variant/20 bg-white shadow-sm transition-all duration-300 hover:shadow-hover hover:-translate-y-1">
+<img alt="Zuri Odhiambo" class="absolute inset-0 h-full w-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtYkTdsqth4ciMBqsnzt4khjoOsx1mGI3vk6QyUktjMCfmwMEdFttTErdycA4OxOXfZL2v0kXDzw1uvB1rCBAKjFg3foH4lwaKNKB5NODrqq7b7t1pbHy6SOFBbLgxJRZFhwkhtdlNddlF-OuLj2M7qelTeNC3IB4TApZbTiEU09BRcYZLyb4Zsovdd7D7vRw_0eL5rLlp30-1PysuICtEuip3UUJmXvTBzOmfvEk9XwJb9qpt3_Nm">
+<div class="absolute inset-0 bg-gradient-to-t from-royal-navy/90 via-royal-navy/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-300"></div>
+<div class="absolute bottom-0 left-0 right-0 p-5 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+<h3 class="text-headline-sm font-headline-sm font-bold text-white mb-1">Zuri Odhiambo</h3>
+<p class="text-brand-gold text-xs font-label-sm uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">Forward</p>
+</div>
+</div>
+<!-- Card 9: Adara Njoroge (New Image 142) -->
+<div class="group relative h-72 overflow-hidden rounded-2xl border border-outline-variant/20 bg-white shadow-sm transition-all duration-300 hover:shadow-hover hover:-translate-y-1">
+<img alt="Adara Njoroge" class="absolute inset-0 h-full w-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzpH1H4scGBEBHcc6u75UxlzJxN94h9l9bsCWrq_xP2AP1BYoqSno6ug51ouGR9Mx6rq50QxmGPUJBEu3LutswQH6weA6B0iX6WM1xEMdHVhQTdV9r6P8QWnZCEv--zeSwQWzf7BFZsFVodpVGP7tJku6qSbg5Mf_lKpFtpx7DtCumZp5GfH_bvj8RSu5sjacjwZFGqT_RVR_O7nM6TQz7nmskmIbTDbXy906Fgj0tLoC9o1oGAFGJ">
+<div class="absolute inset-0 bg-gradient-to-t from-royal-navy/90 via-royal-navy/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-300"></div>
+<div class="absolute bottom-0 left-0 right-0 p-5 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+<h3 class="text-headline-sm font-headline-sm font-bold text-white mb-1">Adara Njoroge</h3>
+<p class="text-brand-gold text-xs font-label-sm uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">Defender</p>
+</div>
+</div>
+<!-- Card 10: Malaika Wanjala (New Image 143) -->
+<div class="group relative h-72 overflow-hidden rounded-2xl border border-outline-variant/20 bg-white shadow-sm transition-all duration-300 hover:shadow-hover hover:-translate-y-1">
+<img alt="Malaika Wanjala" class="absolute inset-0 h-full w-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-lXe2TxkBW1q5c1J1UEyp6aKItF64o-szGA6RDuQEl9jOp15P3CQedqCVFckHH5u1PEanosNovCw8gzsyhUrMdQ1lLOSD8NrBpdnjhg1BPjr0mlrqrhSdZ4S39J2HR4qWyZ2cW7X7voFxz9vM103TTynQ57LvvuXldbQF1Myh_B3ZRgvVY835sGIYZLLqPsz9wkgCec90R24vgyW8ij0fD69Qi-tyzYGIF-o1uMbdphTwSIMIxRAp">
+<div class="absolute inset-0 bg-gradient-to-t from-royal-navy/90 via-royal-navy/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-300"></div>
+<div class="absolute bottom-0 left-0 right-0 p-5 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+<h3 class="text-headline-sm font-headline-sm font-bold text-white mb-1">Malaika Wanjala</h3>
+<p class="text-brand-gold text-xs font-label-sm uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">Midfielder</p>
+</div>
+</div>
+<!-- Card 11: Amara Gicheru (New Image 144) -->
+<div class="group relative h-72 overflow-hidden rounded-2xl border border-outline-variant/20 bg-white shadow-sm transition-all duration-300 hover:shadow-hover hover:-translate-y-1">
+<img alt="Amara Gicheru" class="absolute inset-0 h-full w-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDwNNgBXpCvzcI5TkyCN6eWFlimxLxr0wP8cr10qqCCJtleKXqeI8vdtcCeBnvmF0LyGqD0kY-RG5seCq8uKpOtVHuCfuw-Xz79AqVA8vad_zwBA1iYDbnn0KaO2AiV33ebiAzQ-1Ldy5W3X72PyUPEaVT2sIjYELbRRqizapTXbJHTCRpkEah4pTqi88gts4nUUitaguLckmipnDLpPyOjHPlCpQ7-OsRaf579aZvHvhypjQ_-v5IT">
+<div class="absolute inset-0 bg-gradient-to-t from-royal-navy/90 via-royal-navy/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-300"></div>
+<div class="absolute bottom-0 left-0 right-0 p-5 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+<h3 class="text-headline-sm font-headline-sm font-bold text-white mb-1">Amara Gicheru</h3>
+<p class="text-brand-gold text-xs font-label-sm uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">Forward</p>
+</div>
+</div>
+<!-- Card 12: Keisha Otieno (New Image 145) -->
+<div class="group relative h-72 overflow-hidden rounded-2xl border border-outline-variant/20 bg-white shadow-sm transition-all duration-300 hover:shadow-hover hover:-translate-y-1">
+<img alt="Keisha Otieno" class="absolute inset-0 h-full w-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmg7XNYs2EuXAr-2bDsjKFsDj-catoVdzQC859E-3iNVqa_veYP0WhJIenTGc64xiy0N7Kr2E-2twne7a_40AEv0IdSVK4pQKxcc1L8xZ7OFNTd91RXK7w_WNeXR1MjK1bKJeu3dTYN6cO3LXNIDZmMn9vj5ocMrTD5SmygyCfNzTR7zTZpbXqkw-j-U4inAVo152sz8X_tpHg523uJRjxbzczCUYet6d6lYdGCzEDqVZE98kCUH5C">
+<div class="absolute inset-0 bg-gradient-to-t from-royal-navy/90 via-royal-navy/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-300"></div>
+<div class="absolute bottom-0 left-0 right-0 p-5 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+<h3 class="text-headline-sm font-headline-sm font-bold text-white mb-1">Keisha Otieno</h3>
+<p class="text-brand-gold text-xs font-label-sm uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">Defender</p>
+</div>
+</div>
+<!-- Card 13: Dalila Maina (New Image 146) -->
+<div class="group relative h-72 overflow-hidden rounded-2xl border border-outline-variant/20 bg-white shadow-sm transition-all duration-300 hover:shadow-hover hover:-translate-y-1">
+<img alt="Dalila Maina" class="absolute inset-0 h-full w-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVRVCUAgdtlTDnItpWSkbuu4-82XKDzMMD7-2IL3ATAuyI4umvpU6MZIrTWCrFql9oBLlNu7IHWv46HFd_F21JfY92uobHaMgV53R3zFWAjGDt6kkDUQqBPPJiuIaMIW-HhbPJGgz3e6Pvf3MYziUAOQKijAd1IRq5i_JMDFakqxW1lMnWt94pI9AI7oaVl3JMEbbNzm_rF3UefUL_v7_SbN4H1uAhdzt58PXBAD1co0b-UQwbHM2V">
+<div class="absolute inset-0 bg-gradient-to-t from-royal-navy/90 via-royal-navy/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-300"></div>
+<div class="absolute bottom-0 left-0 right-0 p-5 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+<h3 class="text-headline-sm font-headline-sm font-bold text-white mb-1">Dalila Maina</h3>
+<p class="text-brand-gold text-xs font-label-sm uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">Midfielder</p>
+</div>
+</div>
+<!-- Card 14: Jamila Kiptoo -->
+<div class="group relative h-72 overflow-hidden rounded-2xl border border-outline-variant/20 bg-white shadow-sm transition-all duration-300 hover:shadow-hover hover:-translate-y-1">
+<img alt="Jamila Kiptoo" class="absolute inset-0 h-full w-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out" src="https://lh3.googleusercontent.com/aida/AEtjO1UoXxQB867HdfplLraCa7pbIdsfGIsDI_w5Jxra8bTj4TKJODAr0W4bLm9hIsRlL7cIqy1p-ksHZv7mmCPcA4AeMLtnxqgDcY1bRkpPMCpkg7ZBnKFqdDQcRgotviJv0LoCowLqJDGnhuuqRgcNgjP3mldUPVAVrt_Oy2JN9DOBdAar2P2IxE3BTZqq-AlaCF58R2vLO68G8vM_-0Rtf1tNAu0EBdr_PF8qWjj4jietN6NEZo2zjRpiknI">
+<div class="absolute inset-0 bg-gradient-to-t from-royal-navy/90 via-royal-navy/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-300"></div>
+<div class="absolute bottom-0 left-0 right-0 p-5 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+<h3 class="text-headline-sm font-headline-sm font-bold text-white mb-1">Jamila Kiptoo</h3>
+<p class="text-brand-gold text-xs font-label-sm uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">Forward</p>
+</div>
+</div>
+<!-- Card 15: Layla Mwangi -->
+<div class="group relative h-72 overflow-hidden rounded-2xl border border-outline-variant/20 bg-white shadow-sm transition-all duration-300 hover:shadow-hover hover:-translate-y-1">
+<img alt="Layla Mwangi" class="absolute inset-0 h-full w-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out" src="https://lh3.googleusercontent.com/aida/AEtjO1WJPYTlslq8bE-6cbbZOyFgtjVdEhLFu_LkPJb28L1nnmftx3KYrApYacAhizFLx1SXTzyqgYRD4k3UgyEasjS3iTCI9QtVtvw7C7VoXL_6TkWgqM0VVuI0P5QEJhn8myOgPweYNYH-QVcNoWD0Sr8lFjUEno4__nkT0xqf4Nx1JVysTqKHUW_rilKuEnhWta8jVRU6LhHXXXiDNhVXsyoHUlg1Gr8CdvK-eFHYAlvzt_MXSBVd4tr-veY">
+<div class="absolute inset-0 bg-gradient-to-t from-royal-navy/90 via-royal-navy/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-300"></div>
+<div class="absolute bottom-0 left-0 right-0 p-5 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+<h3 class="text-headline-sm font-headline-sm font-bold text-white mb-1">Layla Mwangi</h3>
+<p class="text-brand-gold text-xs font-label-sm uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">Goalkeeper</p>
+</div>
+</div>
+<!-- Card 16: Nadira Chepngetich -->
+<div class="group relative h-72 overflow-hidden rounded-2xl border border-outline-variant/20 bg-white shadow-sm transition-all duration-300 hover:shadow-hover hover:-translate-y-1">
+<img alt="Nadira Chepngetich" class="absolute inset-0 h-full w-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out" src="https://lh3.googleusercontent.com/aida/AEtjO1WRLB0eVsjevMJbHK6BAXtwgpov2rmNIRSEGbCbN-coEG1L1q4VWqq2ha43lXAbZY_JXMME31bSD2IHwbLp8tIgMeXBfSnauiDkgkMrudTe48_4a2gDs779ybejJ-V28_glxD1lwg60wIZ_RHQBwM41LX3dlT_N3vcr5C-NR6ES77OGs36othUY96DgFgwtlNxmKJHs4armOW-xUhAvixpIiBjUSD3SKW25oyjjmCApki6IfpK4ioQyGA">
+<div class="absolute inset-0 bg-gradient-to-t from-royal-navy/90 via-royal-navy/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-300"></div>
+<div class="absolute bottom-0 left-0 right-0 p-5 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+<h3 class="text-headline-sm font-headline-sm font-bold text-white mb-1">Nadira Chepngetich</h3>
+<p class="text-brand-gold text-xs font-label-sm uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">Defender</p>
+</div>
+</div>
+<!-- Card 17: Samara Nyambura -->
+<div class="group relative h-72 overflow-hidden rounded-2xl border border-outline-variant/20 bg-white shadow-sm transition-all duration-300 hover:shadow-hover hover:-translate-y-1">
+<img alt="Samara Nyambura" class="absolute inset-0 h-full w-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out" src="https://lh3.googleusercontent.com/aida/AEtjO1WO1gWv9ElEmXzqC3tRNiVw3tiqtjeKela3SroYSqNwZPqC_ur_2GYq_QCylyCGaoYshvfMD-3yqk5ym0Z4i_JPbLs7K9jysyfgmL-4M2jT_Tumiy_9g7xPRK5VXOURSsog6N1BHQpQAKsYqkRom0eJisQlCeG2cxLJ2Ig6g-cK-UJzdH4tgekY6d56nCCu5EAt2MqnkBy-7V--KI2xzwGCA6x3n9kd3Mw_RHOHlKeXovN_SVmonWHKzMw">
+<div class="absolute inset-0 bg-gradient-to-t from-royal-navy/90 via-royal-navy/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-300"></div>
+<div class="absolute bottom-0 left-0 right-0 p-5 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+<h3 class="text-headline-sm font-headline-sm font-bold text-white mb-1">Samara Nyambura</h3>
+<p class="text-brand-gold text-xs font-label-sm uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">Midfielder</p>
+</div>
+</div></div>
+<div class="mt-12 flex justify-center relative z-10">
+<button class="bg-royal-navy text-white px-8 py-3 rounded-xl shadow-soft hover:shadow-hover transition-all duration-300 flex items-center gap-2 hover:-translate-y-0.5 group">
+<span class="text-label-md font-label-md font-bold tracking-wide">View Full Squad</span>
+<span class="material-symbols-outlined text-[20px] text-brand-gold group-hover:translate-y-0.5 transition-transform">expand_more</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Coaching Staff -->
+<section class="mb-section">
+<h2 class="text-[40px] font-display-lg text-royal-navy font-bold tracking-tight mb-10 border-b border-outline-variant/20 pb-4">Academy Player Distribution</h2>
+<div class="bg-white rounded-3xl shadow-soft border border-outline-variant/20 p-8 md:p-12 flex flex-col md:flex-row items-center justify-center gap-12">
+<!-- Pie Chart Container -->
+<div class="relative w-64 h-64 md:w-80 md:h-80 flex-shrink-0">
+<svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100"><circle class="transition-all duration-700" cx="50" cy="50" fill="transparent" r="40" stroke="#002147" stroke-dasharray="87.96 163.36" stroke-dashoffset="0" stroke-width="20"></circle><circle class="transition-all duration-700" cx="50" cy="50" fill="transparent" r="40" stroke="#EAB308" stroke-dasharray="75.40 175.92" stroke-dashoffset="-87.96" stroke-width="20"></circle><circle class="transition-all duration-700" cx="50" cy="50" fill="transparent" r="40" stroke="#31394D" stroke-dasharray="50.27 201.06" stroke-dashoffset="-163.36" stroke-width="20"></circle><circle class="transition-all duration-700" cx="50" cy="50" fill="transparent" r="40" stroke="#E9C176" stroke-dasharray="37.70 213.63" stroke-dashoffset="-213.63" stroke-width="20"></circle></svg>
+<!-- Center Hole for Donut Style -->
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="w-32 h-32 bg-white rounded-full shadow-inner flex flex-col items-center justify-center">
+<span class="text-headline-sm font-bold text-royal-navy text-center leading-tight">100%</span>
+<span class="text-label-sm text-royal-navy/50 uppercase tracking-widest">Total</span>
+</div>
+</div>
+</div>
+<!-- Legend -->
+<div class="flex flex-col gap-6 w-full md:w-auto"><div class="flex items-center gap-4 bg-royal-navy/5 border-l-4 border-royal-navy p-4 rounded-r-xl w-full"><div class="w-4 h-4 rounded-full bg-[#002147]"></div><div><p class="text-label-md font-bold text-royal-navy uppercase tracking-wide">U19 Boys</p><p class="text-body-md font-bold text-royal-navy/90">35% of Academy</p></div></div><div class="flex items-center gap-4 pl-4"><div class="w-4 h-4 rounded-full bg-[#EAB308]"></div><div><p class="text-label-md font-bold text-royal-navy uppercase tracking-wide">U15 Boys</p><p class="text-body-md text-royal-navy/70">30% of Academy</p></div></div><div class="flex items-center gap-4 pl-4"><div class="w-4 h-4 rounded-full bg-[#31394D]"></div><div><p class="text-label-md font-bold text-royal-navy uppercase tracking-wide">U19 Girls</p><p class="text-body-md text-royal-navy/70">20% of Academy</p></div></div><div class="flex items-center gap-4 pl-4"><div class="w-4 h-4 rounded-full bg-[#E9C176]"></div><div><p class="text-label-md font-bold text-royal-navy uppercase tracking-wide">U15 Girls</p><p class="text-body-md text-royal-navy/70">15% of Academy</p></div></div></div>
+</div>
+</section>
+<!-- Seasonal Roster Analytics -->
+<section class="mb-section">
+<h2 class="text-[40px] font-display-lg text-royal-navy font-bold tracking-tight mb-10 border-b border-outline-variant/20 pb-4">Seasonal Roster Analytics</h2>
+<div class="bg-white rounded-3xl shadow-soft border border-outline-variant/20 overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-royal-navy text-white text-label-sm font-label-sm uppercase tracking-widest">
+<th class="p-6 font-semibold rounded-tl-3xl">Metric</th>
+<th class="p-6 font-semibold">Current Season</th>
+<th class="p-6 font-semibold">Last Season</th>
+<th class="p-6 font-semibold rounded-tr-3xl">Percentage Change</th>
+</tr>
+</thead>
+<tbody class="text-body-md font-body-md text-royal-navy/80">
+<tr class="border-b border-outline-variant/10 hover:bg-surface transition-colors">
+<td class="p-6 font-medium text-royal-navy">Girl Players</td>
+<td class="p-6">24</td>
+<td class="p-6">20</td>
+<td class="p-6 text-[#2E7D32] font-semibold flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">trending_up</span> +20%</td>
+</tr>
+<tr class="border-b border-outline-variant/10 bg-surface/50 hover:bg-surface transition-colors">
+<td class="p-6 font-medium text-royal-navy">New Players</td>
+<td class="p-6">8</td>
+<td class="p-6">12</td>
+<td class="p-6 text-error font-semibold flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">trending_down</span> -33%</td>
+</tr>
+<tr class="hover:bg-surface transition-colors">
+<td class="p-6 font-medium text-royal-navy">Returning Players</td>
+<td class="p-6">16</td>
+<td class="p-6">8</td>
+<td class="p-6 text-[#2E7D32] font-semibold flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">trending_up</span> +100%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Season Stats Overview -->
+<section class="mb-section">
+<h2 class="text-[40px] font-display-lg text-royal-navy font-bold tracking-tight mb-10 border-b border-outline-variant/20 pb-4">Gender Distribution</h2>
+<div class="bg-white rounded-3xl shadow-soft border border-outline-variant/20 p-8 md:p-12">
+<div class="space-y-8">
+<!-- Female Players -->
+<div class="space-y-3">
+<div class="flex justify-between items-end">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-royal-navy">female</span>
+<span class="text-headline-sm font-bold text-royal-navy">Female Players</span>
+</div>
+<div class="text-right">
+<span class="text-headline-sm font-bold text-royal-navy">65%</span>
+<span class="text-label-md text-royal-navy/50 ml-2">11 Players</span>
+</div>
+</div>
+<div class="h-4 w-full bg-royal-navy/5 rounded-full overflow-hidden">
+<div class="h-full bg-royal-navy rounded-full transition-all duration-700" style="width: 65%"></div>
+</div>
+</div>
+<!-- Male Players -->
+<div class="space-y-3">
+<div class="flex justify-between items-end">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-brand-gold">male</span>
+<span class="text-headline-sm font-bold text-royal-navy">Male Players</span>
+</div>
+<div class="text-right">
+<span class="text-headline-sm font-bold text-royal-navy">35%</span>
+<span class="text-label-md text-royal-navy/50 ml-2">6 Players</span>
+</div>
+</div>
+<div class="h-4 w-full bg-royal-navy/5 rounded-full overflow-hidden">
+<div class="h-full bg-brand-gold rounded-full transition-all duration-700" style="width: 35%"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Recent Match Gallery -->
+<section class="mb-16">
+<h2 class="text-[40px] font-display-lg text-royal-navy font-bold tracking-tight mb-10 border-b border-outline-variant/20 pb-4">Recent Match Gallery</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="aspect-[4/3] rounded-3xl overflow-hidden shadow-soft relative group border border-outline-variant/10">
+<img alt="Match Action" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida/AEtjO1UFrfleVjwnY41Y1MkXEDNZyxD4m5qh5oc2ltECJ3Vpz7CIJCk9qMClaOivyftQzm8Rsvmwi43-e63Vp7WMFjRX1JtMUDTL5DHbONn1Y0Q7vdS_UTloC63WW1M-1fTGdlxzYBKWwD_O7tZH6QyXnWclvv_rwnDFz3466QfFQI7P3TCBzQtSAQSGsB2x-vN9QTd-2ISljxzTnU3CY_Nq2IDhXPNA6AUgnhBGWNhXIoQRFkCdXDXqLhZuoPM">
+<div class="absolute inset-0 bg-royal-navy/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+</div>
+<div class="aspect-[4/3] rounded-3xl overflow-hidden shadow-soft relative group border border-outline-variant/10">
+<img alt="Match Action" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida/AEtjO1WT9q45eqq-tiAjNN2ukXtyo-miYncJQOm2SEH_4D5YVZK29HFnqSFoMqcpXHFjFxoK7r8Xmr5Qd7SDyJMynR2reoLFaBgZSkJAXAU67wN3OFttY9PYf_kM8jjzOh746pLPDmKhFNWdMrQbsEnW9O1lIMYXAi6cpFC1Mu_Bc4KCb4IxMdDle03FiCypavqrxuxJsBDfxS-n_xJB67Km70-3LnvBBfRnWF9tIU1V9Ez5xOOl4DBrI_Zijg">
+<div class="absolute inset-0 bg-royal-navy/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+</div>
+<div class="aspect-[4/3] rounded-3xl overflow-hidden shadow-soft relative group border border-outline-variant/10">
+<img alt="Match Action" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida/AEtjO1Vi5mtLIQFsr6zrJ98-epb7qZgYR0Lo4jpXQa6Qm8J7JIHxs9wVe7nVqo1OOXNgdDUx2LnUzJZw0ngH65vAwpgXDmwBb6fE2hoGfRiShHl80J1aP3eHlFoyHgTO4095KkQw7wP_MT_aN_ghUzqsl6d8ds9fEnY8w8IKgdQd2Rq4Hv3rnJQ_98U3kkAVFkXpK3kTXbrVpboAtfN2xwopdOGaZvCxnvdFIVGeDQR70zJbFVzgbokNpDaw6nc">
+<div class="absolute inset-0 bg-royal-navy/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+</div>
+</div>
+</section>
+</main>
+</div>
+
+
+
+
+
+
+
+
+
+
+</body></html>

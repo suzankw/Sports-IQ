@@ -1,0 +1,439 @@
+<!DOCTYPE html><html class="light" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Match Statistics | St. Andrew's Turi Sports</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary": "#3e5d9b",
+                    "primary-fixed": "#ffdad4",
+                    "surface-bright": "#fcf9f8",
+                    "on-surface": "#1b1c1c",
+                    "surface-container": "#f0eded",
+                    "secondary-fixed-dim": "#aec6ff",
+                    "secondary-fixed": "#d8e2ff",
+                    "inverse-primary": "#ffb4a8",
+                    "surface-container-high": "#eae7e7",
+                    "on-surface-variant": "#5a413d",
+                    "tertiary-fixed": "#ffe088",
+                    "error": "#ba1a1a",
+                    "highland-mist": "#F4F4F4",
+                    "primary-container": "#800000",
+                    "tertiary-fixed-dim": "#e9c349",
+                    "inverse-on-surface": "#f3f0ef",
+                    "surface-container-highest": "#e5e2e1",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-fixed-variant": "#574500",
+                    "outline-variant": "#e2bfb9",
+                    "turi-maroon": "#800000",
+                    "royal-navy": "#335390",
+                    "surface-variant": "#e5e2e1",
+                    "on-secondary-fixed-variant": "#244581",
+                    "primary": "#570000",
+                    "surface-tint": "#b22b1d",
+                    "surface": "#fcf9f8",
+                    "on-primary-fixed": "#410000",
+                    "background": "#fcf9f8",
+                    "on-secondary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "on-error-container": "#93000a",
+                    "inverse-surface": "#303030",
+                    "primary-fixed-dim": "#ffb4a8",
+                    "on-tertiary-fixed": "#241a00",
+                    "on-primary": "#ffffff",
+                    "tertiary-container": "#cba72f",
+                    "tertiary": "#735c00",
+                    "surface-container-low": "#f6f3f2",
+                    "on-secondary-fixed": "#001a42",
+                    "surface-dim": "#dcd9d9",
+                    "on-error": "#ffffff",
+                    "secondary-container": "#9dbbff",
+                    "on-primary-fixed-variant": "#8f0f07",
+                    "on-tertiary-container": "#4e3d00",
+                    "on-primary-container": "#ff8371",
+                    "outline": "#8e706c",
+                    "on-secondary-container": "#294a86",
+                    "on-background": "#1b1c1c",
+                    "on-tertiary": "#ffffff",
+                    "crest-gold": "#E9C176",
+                    "dark-blue": "#002147"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "container-max": "1280px",
+                    "margin-mobile": "20px",
+                    "unit": "8px",
+                    "margin-desktop": "80px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "display-lg": [
+                            "\"Source Serif 4\""
+                    ],
+                    "headline-md": [
+                            "\"Source Serif 4\""
+                    ],
+                    "headline-sm": [
+                            "\"Source Serif 4\""
+                    ],
+                    "body-lg": [
+                            "\"Source Serif 4\""
+                    ],
+                    "body-md": [
+                            "\"Source Serif 4\""
+                    ],
+                    "label-md": [
+                            "Inter"
+                    ],
+                    "label-sm": [
+                            "Inter"
+                    ],
+                    "display-lg-mobile": [
+                            "\"Source Serif 4\""
+                    ]
+            },
+            "fontSize": {
+                    "display-lg": [
+                            "48px",
+                            {
+                                    "lineHeight": "56px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "headline-md": [
+                            "32px",
+                            {
+                                    "lineHeight": "40px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "headline-sm": [
+                            "24px",
+                            {
+                                    "lineHeight": "32px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "label-md": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "letterSpacing": "0.05em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "label-sm": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "letterSpacing": "0.08em",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "display-lg-mobile": [
+                            "36px",
+                            {
+                                    "lineHeight": "44px",
+                                    "fontWeight": "700"
+                            }
+                    ]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        body {
+            background-color: #FDFBF7;
+        }
+        
+        .stat-bar-turi {
+            background-color: #002147;
+            height: 100%;
+            transition: width 1s ease-in-out;
+        }
+        
+        .stat-bar-opponent {
+            background-color: #E9C176;
+            height: 100%;
+            transition: width 1s ease-in-out;
+        }
+        
+        .legacy-shadow {
+            box-shadow: 0 10px 40px -10px rgba(0, 33, 71, 0.08);
+        }
+    </style>
+</head>
+<body class="text-on-surface flex flex-col min-h-screen">
+<!-- TopNavBar -->
+<nav class="sticky top-0 w-full flex justify-between items-center px-margin-mobile md:px-margin-desktop h-20 border-b-[0.5px] border-outline-variant bg-[#002147] md:ml-64 z-40">
+<div class="flex items-center gap-4">
+<span class="font-headline-sm text-headline-sm font-bold text-white">Sports IQ</span>
+</div>
+<div class="hidden md:flex gap-6 items-center">
+<a class="font-label-md text-label-md hover:text-dark-blue transition-colors duration-200 text-white" href="#">Overview</a>
+<a class="font-label-md text-label-md hover:text-dark-blue transition-colors duration-200 text-white" href="#">Stats</a>
+<a class="font-label-md text-label-md hover:text-dark-blue transition-colors duration-200 text-white" href="#">Players</a>
+<a class="font-label-md text-label-md hover:text-dark-blue transition-colors duration-200 text-white" href="#">Stats</a>
+<a class="font-label-md text-label-md hover:text-dark-blue transition-colors duration-200 text-white" href="#">League Table</a>
+<a class="font-label-md text-label-md hover:text-dark-blue transition-colors duration-200 text-white" href="#">Hall of Fame</a>
+</div>
+<div class="flex items-center gap-4 text-white">
+<button class="hover:text-dark-blue transition-colors duration-200">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="hover:text-dark-blue transition-colors duration-200">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant bg-surface-variant ml-2 flex items-center justify-center">
+<span class="material-symbols-outlined text-sm">person</span>
+</div>
+</div>
+</nav>
+<div class="flex flex-1 w-full max-w-container-max mx-auto relative">
+<!-- SideNavBar -->
+<aside class="hidden md:flex flex-col gap-unit w-64 p-gutter fixed left-0 top-0 h-screen border-r-[0.5px] border-outline-variant z-50 bg-[#002147] h-screen">
+<div class="mb-8">
+<div class="w-48 h-48 overflow-hidden mb-4 flex items-center justify-center p-2"><img alt="Turi Crest" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WNWe_pHcANJSms1V4Vq0ZpSs_u3X0F2wdRB1VXVOxg9w1k9zPN_AwvdiJ1pgSwXbhOm8H1RSgcs9tKXlHhLQeoXdLcV5lFD6Qg-mSr5NVFlqrxXww3ptM_mWXg7LalJ0tToPDqkiOfhqPBkNIQU53WqY_PaaHM_clejrT3kN6wyV_PVyT8x03m4T_Gb0TASbyUMESR69y0SBTWscjuUfjMifdFBY68Zvq5CT5HDZR8qB8WPhEMgHczgQ"></div>
+
+
+</div>
+<nav class="flex flex-col gap-2 flex-1">
+<a class="flex items-center gap-3 px-4 py-3 font-bold rounded-xl font-label-md text-label-md duration-150 font-serif text-crest-gold" href="#"><span class="material-symbols-outlined">sports_soccer</span>Football</a>
+<a class="flex items-center gap-3 px-4 py-3 hover:bg-surface-variant rounded-xl font-label-md text-label-md transition-all duration-200 text-white font-serif" href="#">
+<span class="material-symbols-outlined">sports_basketball</span>
+                    Basketball
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 hover:bg-surface-variant rounded-xl font-label-md text-label-md transition-all duration-200 text-white font-serif" href="#">
+<span class="material-symbols-outlined">sports_rugby</span>
+                    Rugby
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 hover:bg-surface-variant rounded-xl font-label-md text-label-md transition-all duration-200 text-white font-serif" href="#">
+<span class="material-symbols-outlined">sports_hockey</span>
+                    Hockey
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 hover:bg-surface-variant rounded-xl font-label-md text-label-md transition-all duration-200 text-white font-serif" href="#">
+<span class="material-symbols-outlined">sports_cricket</span>
+                    Cricket
+                </a>
+</nav>
+<button class="w-full py-3 px-4 border rounded-lg font-label-md text-label-md hover:bg-surface-variant transition-colors mt-auto text-center text-white border-crest-gold font-serif">
+                View All Sports
+            </button>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 w-full md:ml-64 p-margin-mobile md:p-margin-desktop min-h-screen">
+<!-- Context Header -->
+<div class="mb-12">
+<p class="font-label-sm text-label-sm text-dark-blue uppercase tracking-[0.1em] mb-2 font-semibold">First XI Football</p>
+<h1 class="font-headline-md text-headline-md text-on-surface mb-4" data-stitch-orig-opacity="0">Match Statistics</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">A comprehensive breakdown of performance metrics from the recent fixture, demonstrating tactical dominance and execution on the pitch.</p>
+</div>
+<!-- Scoreboard Header -->
+<div class="p-8 mb-12 relative overflow-hidden">
+<div class="absolute top-0 left-0 w-full h-1 bg-crest-gold mb-4"></div>
+<div class="flex flex-col md:flex-row items-center justify-between gap-8 flex-wrap gap-3">
+<!-- Home Team -->
+<div class="flex flex-col items-center flex-1">
+<div class="w-24 h-24 rounded-full bg-white border border-highland-mist flex items-center justify-center p-3 mb-4 shadow-sm">
+<img alt="St. Andrew's Turi Logo" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WNWe_pHcANJSms1V4Vq0ZpSs_u3X0F2wdRB1VXVOxg9w1k9zPN_AwvdiJ1pgSwXbhOm8H1RSgcs9tKXlHhLQeoXdLcV5lFD6Qg-mSr5NVFlqrxXww3ptM_mWXg7LalJ0tToPDqkiOfhqPBkNIQU53WqY_PaaHM_clejrT3kN6wyV_PVyT8x03m4T_Gb0TASbyUMESR69y0SBTWscjuUfjMifdFBY68Zvq5CT5HDZR8qB8WPhEMgHczgQ">
+</div>
+<h2 class="font-headline-sm text-center text-dark-blue text-lg">St. Andrew's Turi</h2>
+<span class="font-label-sm text-label-sm bg-[#002147] text-white px-3 py-1 rounded-full mt-2 tracking-wider">HOME</span>
+</div>
+<!-- Score -->
+<div class="flex flex-col items-center px-8">
+<div class="font-label-md text-label-md text-on-surface-variant mb-2">FULL TIME</div>
+<div class="flex items-center gap-6 font-display-lg text-display-lg text-on-surface">
+<span class="text-dark-blue font-bold text-headline-md">3</span>
+<span class="text-outline-variant font-light text-headline-md">-</span>
+<span class="text-on-surface-variant font-bold text-headline-md">1</span>
+</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant mt-4 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">calendar_month</span>
+                            Oct 14, 2024
+                        </div>
+</div>
+<!-- Away Team -->
+<div class="flex flex-col items-center flex-1">
+<div class="w-24 h-24 rounded-full bg-surface-container border border-highland-mist flex items-center justify-center p-4 mb-4 shadow-sm relative overflow-hidden"><img src="https://lh3.googleusercontent.com/aida/AEtjO1UDRYUcdloW17p9YjOgvcR2kA3vrD1X0HVdfoJtLOdkJAjz1Y4QipQMcrOa3T3wxWaff92HP-6NmnhRdUGLaqL3lqurc0t-O3fPp6DQPHjvZS46iz67MMPHqXRf3gIfd_DRvY_4ZQSXqohDc-Lqb2wTISvq7AylW0_uDP0dxVskbAhYZaW9Q0pbsosSM1_ymmHLBNRJFDPirGCRtrsHAVV41P_Ca439x61MxGL-9PNL0iNY4u-qtmiAvRg" alt="Hillcrest International School Crest" class="w-full h-full object-contain"></div>
+<h2 class="font-headline-sm text-center text-on-surface text-lg">Hillcrest International School</h2>
+<span class="font-label-sm text-label-sm bg-[#E9C176] text-[#002147] px-3 py-1 rounded-full mt-2 font-semibold tracking-wider">AWAY</span>
+</div>
+<div class="mt-2 font-serif text-label-sm text-dark-blue w-full mb-4 text-left">M. Mensah, A. Okoro</div><div class="w-full flex justify-center mt-4 p-4 col-span-full bg-[#002147] rounded-b-xl">
+<div class="flex gap-8">
+<a class="text-white/70 font-label-md text-label-md hover:text-white transition-colors duration-200 pb-2" href="#">Lineups</a>
+<a class="font-bold font-label-md text-label-md border-b-2 border-crest-gold pb-2 text-crest-gold" href="#">Stats</a>
+<a class="text-white/70 font-label-md text-label-md hover:text-white transition-colors duration-200 pb-2" href="#">Player Stats</a>
+</div>
+</div></div>
+</div>
+<!-- Detailed Stats Section -->
+<div class="mb-8">
+<h3 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-3 mb-6 pb-4 border-b border-highland-mist">
+<span class="material-symbols-outlined text-crest-gold" style="font-variation-settings: &quot;FILL&quot; 1;">analytics</span>
+                    Match Details Summary
+                </h3>
+<div class="">
+<div class="flex justify-between items-center px-4 mb-4">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-sm bg-[#002147]"></div>
+<span class="font-label-sm text-label-sm text-dark-blue font-bold uppercase tracking-wider">Turi</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-bold uppercase tracking-wider">Opponent</span>
+<div class="w-3 h-3 rounded-sm bg-[#E9C176]"></div>
+</div>
+</div>
+<div class="flex flex-col gap-3">
+<!-- Number of Shots -->
+<div class="grid grid-cols-[1fr_auto_1fr] items-center gap-4">
+<div class="text-right font-label-md text-label-md font-bold text-dark-blue text-headline-sm">18</div>
+<div class="w-32 md:w-48 text-center flex flex-col items-center justify-center gap-1"><span class="material-symbols-outlined text-outline-variant text-2xl">sports_soccer</span><span class="font-label-md text-label-md text-on-surface-variant font-bold">Shooting percentage</span></div>
+<div class="text-left font-label-md text-label-md font-bold text-on-surface-variant text-headline-sm">7</div>
+<!-- Bar Row -->
+<div class="col-span-3 flex items-center justify-center gap-1 mt-1">
+<div class="w-1/2 bg-surface-variant rounded-l-full flex justify-end overflow-hidden h-4">
+<div class="stat-bar-turi rounded-l-full" style="width: 72%;"></div>
+</div>
+<div class="w-1/2 bg-surface-variant rounded-r-full flex justify-start overflow-hidden h-4">
+<div class="stat-bar-opponent rounded-r-full" style="width: 28%;"></div>
+</div>
+</div>
+</div>
+<hr class="border-highland-mist">
+<!-- Shots on Target -->
+<div class="grid grid-cols-[1fr_auto_1fr] items-center gap-4">
+<div class="text-right font-label-md text-label-md font-bold text-dark-blue text-headline-sm">9</div>
+<div class="w-32 md:w-48 text-center flex flex-col items-center justify-center gap-1"><span class="material-symbols-outlined text-outline-variant text-2xl">sports_soccer</span><span class="font-label-md text-label-md text-on-surface-variant font-bold">Centre Pass Coversion</span></div>
+<div class="text-left font-label-md text-label-md font-bold text-on-surface-variant text-headline-sm">2</div>
+<!-- Bar Row -->
+<div class="col-span-3 flex items-center justify-center gap-1 mt-1">
+<div class="w-1/2 bg-surface-variant rounded-l-full flex justify-end overflow-hidden h-4">
+<div class="stat-bar-turi rounded-l-full" style="width: 81%;"></div>
+</div>
+<div class="w-1/2 bg-surface-variant rounded-r-full flex justify-start overflow-hidden h-4">
+<div class="stat-bar-opponent rounded-r-full" style="width: 19%;"></div>
+</div>
+</div>
+</div>
+<hr class="border-highland-mist">
+<!-- Fouls -->
+<div class="grid grid-cols-[1fr_auto_1fr] items-center gap-4">
+<div class="text-right font-label-md text-label-md font-bold text-dark-blue text-headline-sm">11</div>
+<div class="w-32 md:w-48 text-center flex flex-col items-center justify-center gap-1"><span class="material-symbols-outlined text-outline-variant text-2xl">sports_soccer</span><span class="font-label-md text-label-md text-on-surface-variant font-bold">Rebounds</span></div>
+<div class="text-left font-label-md text-label-md font-bold text-on-surface-variant text-headline-sm">15</div>
+<!-- Bar Row -->
+<div class="col-span-3 flex items-center justify-center gap-1 mt-1">
+<div class="w-1/2 bg-surface-variant rounded-l-full flex justify-end overflow-hidden h-4">
+<div class="stat-bar-turi rounded-l-full" style="width: 42%;"></div>
+</div>
+<div class="w-1/2 bg-surface-variant rounded-r-full flex justify-start overflow-hidden h-4">
+<div class="stat-bar-opponent rounded-r-full" style="width: 58%;"></div>
+</div>
+</div>
+</div>
+<hr class="border-highland-mist">
+<!-- Yellow Cards -->
+<div class="grid grid-cols-[1fr_auto_1fr] items-center gap-4">
+<div class="text-right font-label-md text-label-md font-bold text-dark-blue text-headline-sm">1</div>
+<div class="w-32 md:w-48 text-center flex flex-col items-center justify-center gap-1"><span class="material-symbols-outlined text-outline-variant text-2xl">sports_soccer</span><span class="font-label-md text-label-md text-on-surface-variant font-bold">Turnovers Won</span></div>
+<div class="text-left font-label-md text-label-md font-bold text-on-surface-variant text-headline-sm">T3</div>
+<!-- Bar Row -->
+<div class="col-span-3 flex items-center justify-center gap-1 mt-1">
+<div class="w-1/2 bg-surface-variant rounded-l-full flex justify-end overflow-hidden h-4">
+<div class="stat-bar-turi rounded-l-full" style="width: 25%;"></div>
+</div>
+<div class="w-1/2 bg-surface-variant rounded-r-full flex justify-start overflow-hidden h-4">
+<div class="stat-bar-opponent rounded-r-full" style="width: 75%;"></div>
+</div>
+</div>
+</div>
+<hr class="border-highland-mist">
+<!-- Red Cards -->
+<div class="grid grid-cols-[1fr_auto_1fr] items-center gap-4">
+<div class="text-right font-label-md text-label-md font-bold text-dark-blue text-headline-sm">0</div>
+<div class="w-32 md:w-48 text-center flex flex-col items-center justify-center gap-1"><span class="material-symbols-outlined text-outline-variant text-2xl">sports_soccer</span><span class="font-label-md text-label-md text-on-surface-variant font-bold">Total Shots</span></div>
+<div class="text-left font-label-md text-label-md font-bold text-on-surface-variant text-headline-sm">1</div>
+<!-- Bar Row -->
+<div class="col-span-3 flex items-center justify-center gap-1 mt-1">
+<div class="w-1/2 bg-surface-variant rounded-l-full flex justify-end overflow-hidden h-4">
+<div class="stat-bar-turi rounded-l-full" style="width: 0%;"></div>
+</div>
+<div class="w-1/2 bg-surface-variant rounded-r-full flex justify-start overflow-hidden h-4">
+<div class="stat-bar-opponent rounded-r-full" style="width: 100%;"></div>
+</div>
+</div>
+</div>
+<hr class="border-highland-mist"><div class="grid grid-cols-[1fr_auto_1fr] items-center gap-4"><div class="text-right font-label-md text-label-md font-bold text-dark-blue text-headline-sm">2</div><div class="w-32 md:w-48 text-center flex flex-col items-center justify-center gap-1"><span class="material-symbols-outlined text-outline-variant text-2xl">sports_soccer</span><span class="font-label-md text-label-md text-on-surface-variant font-bold">Contact Penalties</span></div><div class="text-left font-label-md text-label-md font-bold text-on-surface-variant text-headline-sm">4</div><div class="col-span-3 flex items-center justify-center gap-1 mt-1"><div class="w-1/2 bg-surface-variant rounded-l-full flex justify-end overflow-hidden h-4"><div class="stat-bar-turi rounded-l-full" style="width: 33%;"></div></div><div class="w-1/2 bg-surface-variant rounded-r-full flex justify-start overflow-hidden h-4"><div class="stat-bar-opponent rounded-r-full" style="width: 67%;"></div></div></div></div><hr class="border-highland-mist"><div class="grid grid-cols-[1fr_auto_1fr] items-center gap-4"><div class="text-right font-label-md text-label-md font-bold text-dark-blue text-headline-sm">6</div><div class="w-32 md:w-48 text-center flex flex-col items-center justify-center gap-1"><span class="material-symbols-outlined text-outline-variant text-2xl">sports_soccer</span><span class="font-label-md text-label-md text-on-surface-variant font-bold">Obstruction Penalties</span></div><div class="text-left font-label-md text-label-md font-bold text-on-surface-variant text-headline-sm">4</div><div class="col-span-3 flex items-center justify-center gap-1 mt-1"><div class="w-1/2 bg-surface-variant rounded-l-full flex justify-end overflow-hidden h-4"><div class="stat-bar-turi rounded-l-full" style="width: 60%;"></div></div><div class="w-1/2 bg-surface-variant rounded-r-full flex justify-start overflow-hidden h-4"><div class="stat-bar-opponent rounded-r-full" style="width: 40%;"></div></div></div></div><hr class="border-highland-mist"><div class="grid grid-cols-[1fr_auto_1fr] items-center gap-4"><div class="text-right font-label-md text-label-md font-bold text-dark-blue text-headline-sm">1</div><div class="w-32 md:w-48 text-center flex flex-col items-center justify-center gap-1"><span class="material-symbols-outlined text-outline-variant text-2xl">sports_soccer</span><span class="font-label-md text-label-md text-on-surface-variant font-bold">Total Shots</span></div><div class="text-left font-label-md text-label-md font-bold text-on-surface-variant text-headline-sm">8</div><div class="col-span-3 flex items-center justify-center gap-1 mt-1"><div class="w-1/2 bg-surface-variant rounded-l-full flex justify-end overflow-hidden h-4"><div class="stat-bar-turi rounded-l-full" style="width: 11%;"></div></div><div class="w-1/2 bg-surface-variant rounded-r-full flex justify-start overflow-hidden h-4"><div class="stat-bar-opponent rounded-r-full" style="width: 89%;"></div></div></div></div></div>
+</div>
+</div>
+<!-- Contextual Quote -->
+<div class="mt-16 pl-6 border-l-4 border-crest-gold py-2 mb-16 max-w-3xl">
+<p class="font-headline-sm text-headline-sm text-dark-blue italic mb-4">"A resolute display of discipline and tactical superiority. The boys executed the game plan with Highland spirit."</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest font-bold">Director of Sport, St. Andrew's Turi</p>
+</div>
+</main>
+</div>
+<!-- Footer -->
+<footer class="w-full py-12 px-margin-mobile md:px-margin-desktop flex flex-col items-center gap-4 mt-auto bg-highland-mist border-t-[0.5px] border-outline-variant z-10 relative">
+<span class="font-headline-sm text-headline-sm text-dark-blue mb-4">St. Andrew's Turi Sports</span>
+<div class="flex gap-8 mb-4">
+<a class="text-on-surface-variant font-label-sm text-label-sm hover:text-dark-blue underline decoration-crest-gold transition-colors" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant font-label-sm text-label-sm hover:text-dark-blue underline decoration-crest-gold transition-colors" href="#">Athletic Standards</a>
+<a class="text-on-surface-variant font-label-sm text-label-sm hover:text-dark-blue underline decoration-crest-gold transition-colors" href="#">Contact Coach</a>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant text-center max-w-md">
+            © 2024 St. Andrew's School, Turi. Excellence in the Highlands.
+        </p>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body></html>

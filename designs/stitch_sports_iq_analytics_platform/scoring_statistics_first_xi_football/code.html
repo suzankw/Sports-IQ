@@ -1,0 +1,404 @@
+<!DOCTYPE html><html lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Season Scoring - First XI Football</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "turi-maroon": "#800000",
+                      "error-container": "#ffdad6",
+                      "on-secondary-fixed-variant": "#244581",
+                      "background": "#fcf9f8",
+                      "primary-fixed-dim": "#ffb4a8",
+                      "secondary": "#3e5d9b",
+                      "on-secondary-container": "#294a86",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary-container": "#ff8371",
+                      "on-primary-fixed-variant": "#8f0f07",
+                      "surface-dim": "#dcd9d9",
+                      "on-error-container": "#93000a",
+                      "surface": "#fcf9f8",
+                      "outline-variant": "#e2bfb9",
+                      "royal-navy": "#335390",
+                      "error": "#ba1a1a",
+                      "surface-container": "#f0eded",
+                      "primary-container": "#800000",
+                      "inverse-surface": "#303030",
+                      "on-background": "#1b1c1c",
+                      "surface-tint": "#b22b1d",
+                      "outline": "#8e706c",
+                      "on-tertiary-fixed-variant": "#574500",
+                      "on-tertiary-container": "#4e3d00",
+                      "tertiary-container": "#cba72f",
+                      "on-error": "#ffffff",
+                      "crest-gold": "#D4AF37",
+                      "tertiary-fixed": "#ffe088",
+                      "highland-mist": "#F4F4F4",
+                      "on-surface": "#1b1c1c",
+                      "surface-container-low": "#f6f3f2",
+                      "surface-container-high": "#eae7e7",
+                      "tertiary": "#735c00",
+                      "inverse-on-surface": "#f3f0ef",
+                      "on-secondary": "#ffffff",
+                      "secondary-container": "#9dbbff",
+                      "surface-bright": "#fcf9f8",
+                      "on-primary-fixed": "#410000",
+                      "secondary-fixed": "#d8e2ff",
+                      "on-secondary-fixed": "#001a42",
+                      "on-primary": "#ffffff",
+                      "secondary-fixed-dim": "#aec6ff",
+                      "inverse-primary": "#ffb4a8",
+                      "tertiary-fixed-dim": "#e9c349",
+                      "on-tertiary-fixed": "#241a00",
+                      "primary": "#570000",
+                      "primary-fixed": "#ffdad4",
+                      "on-tertiary": "#ffffff",
+                      "surface-container-highest": "#e5e2e1",
+                      "on-surface-variant": "#5a413d",
+                      "surface-variant": "#e5e2e1"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "margin-desktop": "80px",
+                      "container-max": "1280px",
+                      "unit": "8px",
+                      "margin-mobile": "20px",
+                      "gutter": "24px"
+              },
+              "fontFamily": {
+                      "headline-sm": [
+                              "\"Source Serif 4\""
+                      ],
+                      "display-lg-mobile": [
+                              "\"Source Serif 4\""
+                      ],
+                      "label-md": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "\"Source Serif 4\""
+                      ],
+                      "label-sm": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "\"Source Serif 4\""
+                      ],
+                      "display-lg": [
+                              "\"Source Serif 4\""
+                      ],
+                      "body-lg": [
+                              "\"Source Serif 4\""
+                      ]
+              },
+              "fontSize": {
+                      "headline-sm": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-lg-mobile": [
+                              "36px",
+                              {
+                                      "lineHeight": "44px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.08em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-md": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap');
+        
+        body {
+            background-color: theme('colors.background');
+        }
+        
+        /* Legacy Shadow Utility */
+        .legacy-shadow {
+            box-shadow: 0 20px 40px rgba(51, 83, 144, 0.06);
+        }
+    </style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&amp;display=swap" data-snapdom="injected-import"></head>
+<body class="text-on-surface antialiased flex min-h-screen">
+<!-- SideNavBar (Shared Component) -->
+<aside class="hidden md:flex fixed left-0 top-0 h-screen flex-col p-4 z-40 dark:bg-on-background border-r dark:border-outline-variant shadow-sm dark:shadow-none w-64 bg-royal-navy border-crest-gold" style="background-color: rgb(0, 33, 71); border-color: rgb(212, 175, 55);">
+<!-- Header -->
+<div class="flex items-center gap-4 mb-8 px-4 mt-2">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-container flex-shrink-0 border border-outline-variant">
+<img alt="School Crest" class="w-full h-full object-cover" data-alt="A highly detailed, professional vector illustration of a traditional British school crest featuring a shield with a lion, cross, and Latin motto, rendered in deep navy blue and gold on a white background, symbolizing heritage and academic excellence." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFIsgXjGSY-bMvk_REY58Z_DNONNPCu0_sw1YJQ4krwOc2OfQBWJ6e9_fMqN1-_aZtCV03nMnuyKS1t4GhdEjwk9q92GsLv_6x0e4ZXtFpb4gQjcIhB36Kc9uKBj6wH7yujvYcwOKHtKVaApR0jfyoky9udByXzZdkz69Ozvj57MpfjZE9MFqU1xsvComc0_MX1X9GEJolKW22EJtEkgOTSwUGQAljgJ7VA4EC9bZwpojv6u1MOf9V">
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-turi-maroon dark:text-on-primary-container m-0">Turi Sports</h2>
+<p class="font-label-sm text-label-sm m-0 text-on-primary text-white">Excellence in Sport</p>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="flex flex-col gap-2 flex-1">
+<!-- Active: Football -->
+<a class="flex items-center gap-4 bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-full px-4 py-3 font-bold font-label-md text-label-md scale-[0.98] transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="sports_soccer" style="font-variation-settings: &quot;FILL&quot; 1;">sports_soccer</span>
+                Football
+            </a>
+<a class="flex items-center gap-4 dark:text-surface-variant hover:bg-surface-variant dark:hover:bg-inverse-surface rounded-full px-4 py-3 font-label-md text-label-md hover:bg-crest-gold/10 dark:hover:bg-tertiary-fixed/10 transition-all text-on-primary text-white" href="#">
+<span class="material-symbols-outlined" data-icon="sports_basketball">sports_basketball</span>
+                Basketball
+            </a>
+<a class="flex items-center gap-4 dark:text-surface-variant hover:bg-surface-variant dark:hover:bg-inverse-surface rounded-full px-4 py-3 font-label-md text-label-md hover:bg-crest-gold/10 dark:hover:bg-tertiary-fixed/10 transition-all text-on-primary text-white" href="#">
+<span class="material-symbols-outlined" data-icon="sports_rugby">sports_rugby</span>
+                Rugby
+            </a>
+<a class="flex items-center gap-4 dark:text-surface-variant hover:bg-surface-variant dark:hover:bg-inverse-surface rounded-full px-4 py-3 font-label-md text-label-md hover:bg-crest-gold/10 dark:hover:bg-tertiary-fixed/10 transition-all text-on-primary text-white" href="#">
+<span class="material-symbols-outlined" data-icon="sports_hockey">sports_hockey</span>
+                Hockey
+            </a>
+<a class="flex items-center gap-4 dark:text-surface-variant hover:bg-surface-variant dark:hover:bg-inverse-surface rounded-full px-4 py-3 font-label-md text-label-md hover:bg-crest-gold/10 dark:hover:bg-tertiary-fixed/10 transition-all text-on-primary text-white" href="#">
+<span class="material-symbols-outlined" data-icon="sports_cricket">sports_cricket</span>
+                Cricket
+            </a>
+</nav>
+<!-- CTA & Footer -->
+<div class="mt-auto flex flex-col gap-4">
+<button class="w-full bg-turi-maroon text-on-primary rounded-full py-3 px-6 font-label-md text-label-md hover:bg-primary transition-colors duration-200">
+                View All Fixtures
+            </button>
+<div class="flex flex-col gap-1 mt-4 pt-4 border-t border-surface-variant">
+<a class="flex items-center gap-4 text-on-surface-variant hover:text-royal-navy px-4 py-2 font-label-md text-label-md transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+                    Support
+                </a>
+<a class="flex items-center gap-4 text-on-surface-variant hover:text-royal-navy px-4 py-2 font-label-md text-label-md transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+                    Archive
+                </a>
+</div>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<div class="flex-1 md:ml-64 flex flex-col min-h-screen">
+<!-- TopNavBar (Shared Component) -->
+<header class="dark:bg-on-background sticky top-0 z-30 w-full flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto border-b dark:border-outline-variant bg-royal-navy border-crest-gold" style="background-color: rgb(0, 33, 71); border-color: rgb(212, 175, 55);">
+<!-- Mobile Menu Toggle (Visible only on mobile) -->
+<button class="md:hidden text-royal-navy p-2 -ml-2">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<!-- Brand Logo (Visible mostly on mobile or if configured, keeping structural integrity) -->
+<div class="md:hidden font-display-lg-mobile text-display-lg-mobile text-turi-maroon dark:text-on-primary-container tracking-tight">
+                S.A.T.
+            </div>
+<!-- Navigation Links (Desktop) -->
+<nav class="hidden md:flex gap-8 items-center font-headline-sm text-headline-sm">
+<a class="dark:text-surface-variant hover:text-royal-navy dark:hover:text-secondary-fixed hover:text-crest-gold dark:hover:text-tertiary-fixed-dim transition-colors duration-200 text-on-primary text-white" href="#">Overview</a>
+<a class="dark:text-surface-variant hover:text-royal-navy dark:hover:text-secondary-fixed hover:text-crest-gold dark:hover:text-tertiary-fixed-dim transition-colors duration-200 text-on-primary text-white" href="#">Schedule</a>
+<a class="dark:text-surface-variant hover:text-royal-navy dark:hover:text-secondary-fixed hover:text-crest-gold dark:hover:text-tertiary-fixed-dim transition-colors duration-200 text-on-primary text-white" href="#">Players</a>
+<!-- Active: Stats -->
+<a class="dark:text-secondary-fixed-dim border-b-2 border-crest-gold pb-1 font-bold opacity-80 scale-95 transition-all text-crest-gold" href="#">Stats</a>
+<a class="dark:text-surface-variant hover:text-royal-navy dark:hover:text-secondary-fixed hover:text-crest-gold dark:hover:text-tertiary-fixed-dim transition-colors duration-200 text-on-primary text-white" href="#">League Table</a>
+<a class="dark:text-surface-variant hover:text-royal-navy dark:hover:text-secondary-fixed hover:text-crest-gold dark:hover:text-tertiary-fixed-dim transition-colors duration-200 text-on-primary text-white" href="#">Hall of Fame</a>
+</nav>
+<!-- Trailing Icons -->
+<div class="flex items-center gap-4 dark:text-primary-fixed-dim text-crest-gold">
+<button class="p-2 hover:bg-surface-variant rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 hover:bg-surface-variant rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="flex-1 w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-12 md:py-16">
+<!-- Page Header -->
+<div class="mb-12 border-l-4 border-crest-gold pl-6 py-2">
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-royal-navy mb-4">
+                    Season Scoring - First XI Football
+                </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+                    Comprehensive breakdown of offensive contributions for the 2023/2024 season.
+                </p>
+</div>
+<!-- Content Grid: Two Tables -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-gutter">
+<!-- Top Scorers Card -->
+<div class="bg-surface-container-lowest border border-highland-mist rounded-xl legacy-shadow overflow-hidden flex flex-col">
+<div class="border-t-4 border-crest-gold px-6 py-5 bg-surface-bright flex justify-between items-center border-b border-surface-container">
+<h3 class="font-headline-md text-headline-sm md:text-headline-md text-royal-navy flex items-center gap-2">
+<span class="material-symbols-outlined text-crest-gold" style="font-variation-settings: &quot;FILL&quot; 1;">sports_score</span>
+                            Top Scorers
+                        </h3>
+<span class="bg-secondary-container text-on-secondary-container font-label-sm text-label-sm px-3 py-1 rounded-full">
+                            Goals
+                        </span>
+</div>
+<div class="p-0 overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-surface-container text-on-surface-variant font-label-md text-label-md uppercase tracking-wider">
+<th class="py-4 px-6 font-semibold">Player Name</th>
+<th class="py-4 px-6 font-semibold text-center w-24">P</th>
+<th class="py-4 px-6 font-semibold text-center w-24 text-royal-navy">G</th>
+</tr>
+</thead>
+<tbody class="font-body-md text-body-md text-on-surface divide-y divide-surface-container-high">
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="py-4 px-6 font-semibold text-royal-navy flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-turi-maroon text-on-primary flex items-center justify-center font-label-md text-label-sm">ZK</div>
+                                        Zahara Kamau
+                                    </td>
+<td class="py-4 px-6 text-center text-on-surface-variant">14</td>
+<td class="py-4 px-6 text-center font-bold text-royal-navy text-lg">12</td>
+</tr>
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="py-4 px-6 font-semibold text-royal-navy flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary text-on-primary flex items-center justify-center font-label-md text-label-sm">AO</div>
+                                        Amina Okafor
+                                    </td>
+<td class="py-4 px-6 text-center text-on-surface-variant">14</td>
+<td class="py-4 px-6 text-center font-bold text-royal-navy text-lg">9</td>
+</tr>
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="py-4 px-6 font-semibold text-royal-navy flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest text-on-surface flex items-center justify-center font-label-md text-label-sm">FA</div>
+                                        Fatima Ali
+                                    </td>
+<td class="py-4 px-6 text-center text-on-surface-variant">13</td>
+<td class="py-4 px-6 text-center font-bold text-royal-navy text-lg">7</td>
+</tr>
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="py-4 px-6 font-semibold text-royal-navy flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest text-on-surface flex items-center justify-center font-label-md text-label-sm">IK</div>
+                                        Imani Kibet
+                                    </td>
+<td class="py-4 px-6 text-center text-on-surface-variant">10</td>
+<td class="py-4 px-6 text-center font-bold text-royal-navy text-lg">5</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Top Assists Card -->
+<div class="bg-surface-container-lowest border border-highland-mist rounded-xl legacy-shadow overflow-hidden flex flex-col">
+<div class="border-t-4 border-crest-gold px-6 py-5 bg-surface-bright flex justify-between items-center border-b border-surface-container">
+<h3 class="font-headline-md text-headline-sm md:text-headline-md text-royal-navy flex items-center gap-2">
+<span class="material-symbols-outlined text-crest-gold" style="font-variation-settings: &quot;FILL&quot; 1;">assist_walker</span>
+                            Top Assists
+                        </h3>
+<span class="bg-tertiary-container text-on-tertiary-container font-label-sm text-label-sm px-3 py-1 rounded-full">
+                            Assists
+                        </span>
+</div>
+<div class="p-0 overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-surface-container text-on-surface-variant font-label-md text-label-md uppercase tracking-wider">
+<th class="py-4 px-6 font-semibold">Player Name</th>
+<th class="py-4 px-6 font-semibold text-center w-24">P</th>
+<th class="py-4 px-6 font-semibold text-center w-24 text-royal-navy">A</th>
+</tr>
+</thead>
+<tbody class="font-body-md text-body-md text-on-surface divide-y divide-surface-container-high">
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="py-4 px-6 font-semibold text-royal-navy flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-turi-maroon text-on-primary flex items-center justify-center font-label-md text-label-sm">NM</div>
+                                        Nia Mensah
+                                    </td>
+<td class="py-4 px-6 text-center text-on-surface-variant">14</td>
+<td class="py-4 px-6 text-center font-bold text-royal-navy text-lg">11</td>
+</tr>
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="py-4 px-6 font-semibold text-royal-navy flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary text-on-primary flex items-center justify-center font-label-md text-label-sm">AO</div>
+                                        Adoma Osei
+                                    </td>
+<td class="py-4 px-6 text-center text-on-surface-variant">12</td>
+<td class="py-4 px-6 text-center font-bold text-royal-navy text-lg">8</td>
+</tr>
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="py-4 px-6 font-semibold text-royal-navy flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest text-on-surface flex items-center justify-center font-label-md text-label-sm">ZK</div>
+                                        Zahara Kamau
+                                    </td>
+<td class="py-4 px-6 text-center text-on-surface-variant">14</td>
+<td class="py-4 px-6 text-center font-bold text-royal-navy text-lg">6</td>
+</tr>
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="py-4 px-6 font-semibold text-royal-navy flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest text-on-surface flex items-center justify-center font-label-md text-label-sm">FA</div>
+                                        Fatima Ali
+                                    </td>
+<td class="py-4 px-6 text-center text-on-surface-variant">13</td>
+<td class="py-4 px-6 text-center font-bold text-royal-navy text-lg">4</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
+</div>
+
+
+</body></html>

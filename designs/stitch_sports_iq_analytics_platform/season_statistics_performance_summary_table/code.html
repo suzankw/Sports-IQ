@@ -1,0 +1,269 @@
+<!DOCTYPE html><html class="light" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Season Statistics | St. Andrew's Turi Sports</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-tertiary-container": "#4e3d00",
+                        "on-secondary-container": "#294a86",
+                        "surface-dim": "#dcd9d9",
+                        "surface-variant": "#e5e2e1",
+                        "error": "#ba1a1a",
+                        "outline": "#8e706c",
+                        "highland-mist": "#F4F4F4",
+                        "secondary": "#3e5d9b",
+                        "secondary-fixed": "#d8e2ff",
+                        "primary-container": "#800000",
+                        "surface-container-low": "#f6f3f2",
+                        "surface-container-high": "#eae7e7",
+                        "surface": "#fcf9f8",
+                        "royal-navy": "#002147",
+                        "on-primary-container": "#ff8371",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed-dim": "#e9c349",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-container": "#cba72f",
+                        "on-primary-fixed-variant": "#8f0f07",
+                        "tertiary": "#735c00",
+                        "on-tertiary-fixed-variant": "#574500",
+                        "primary": "#570000",
+                        "inverse-surface": "#303030",
+                        "on-secondary-fixed-variant": "#244581",
+                        "on-surface": "#1b1c1c",
+                        "outline-variant": "#e2bfb9",
+                        "on-primary-fixed": "#410000",
+                        "secondary-container": "#9dbbff",
+                        "secondary-fixed-dim": "#aec6ff",
+                        "on-tertiary-fixed": "#241a00",
+                        "on-primary": "#ffffff",
+                        "on-background": "#1b1c1c",
+                        "surface-bright": "#fcf9f8",
+                        "surface-tint": "#b22b1d",
+                        "surface-container-highest": "#e5e2e1",
+                        "on-secondary-fixed": "#001a42",
+                        "surface-container": "#f0eded",
+                        "crest-gold": "#E9C176",
+                        "turi-maroon": "#800000",
+                        "background": "#fcf9f8",
+                        "on-error-container": "#93000a",
+                        "primary-fixed-dim": "#ffb4a8",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed": "#ffdad4",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed": "#ffe088",
+                        "inverse-primary": "#ffb4a8",
+                        "on-secondary": "#ffffff",
+                        "on-surface-variant": "#5a413d",
+                        "inverse-on-surface": "#f3f0ef",
+                        "pure-black": "#000000",
+                        "pure-white": "#ffffff"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    spacing: {
+                        "margin-desktop": "80px",
+                        "margin-mobile": "20px",
+                        "gutter": "24px",
+                        "unit": "8px",
+                        "container-max": "1280px"
+                    },
+                    fontFamily: {
+                        "display-lg": ["\"Source Serif 4\""],
+                        "body-lg": ["\"Source Serif 4\""],
+                        "display-lg-mobile": ["\"Source Serif 4\""],
+                        "headline-sm": ["\"Source Serif 4\""],
+                        "body-md": ["\"Source Serif 4\""],
+                        "headline-md": ["\"Source Serif 4\""],
+                        "label-md": ["Inter"],
+                        "label-sm": ["Inter"]
+                    },
+                    fontSize: {
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "display-lg-mobile": ["36px", { "lineHeight": "44px", "fontWeight": "700" }],
+                        "headline-sm": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-md": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+        }
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: theme('colors.surface-container-low');
+        }
+        ::-webkit-scrollbar-thumb {
+            background: theme('colors.surface-variant');
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: theme('colors.outline');
+        }
+    </style>
+</head>
+<body class="text-royal-navy antialiased flex min-h-screen">
+<!-- SideNavBar (Full Height) -->
+<aside class="hidden md:flex flex-col fixed left-0 top-0 h-screen w-64 p-gutter gap-unit bg-royal-navy z-50 border-r border-outline-variant/30 h-screen">
+<div class="mb-8 pt-6"><img alt="St. Andrew's Turi Logo" class="w-full h-auto max-w-[180px]" src="https://lh3.googleusercontent.com/aida/AEtjO1WNWe_pHcANJSms1V4Vq0ZpSs_u3X0F2wdRB1VXVOxg9w1k9zPN_AwvdiJ1pgSwXbhOm8H1RSgcs9tKXlHhLQeoXdLcV5lFD6Qg-mSr5NVFlqrxXww3ptM_mWXg7LalJ0tToPDqkiOfhqPBkNIQU53WqY_PaaHM_clejrT3kN6wyV_PVyT8x03m4T_Gb0TASbyUMESR69y0SBTWscjuUfjMifdFBY68Zvq5CT5HDZR8qB8WPhEMgHczgQ"></div>
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-4 py-3 bg-surface-variant/10 text-crest-gold font-bold rounded-xl translate-x-1 duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 1;">sports_soccer</span>
+<span class="font-label-md text-label-md">Football</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-pure-white hover:bg-surface-variant/20 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0;">sports_basketball</span>
+<span class="font-label-md text-label-md">Basketball</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-pure-white hover:bg-surface-variant/20 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0;">sports_rugby</span>
+<span class="font-label-md text-label-md">Rugby</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-pure-white hover:bg-surface-variant/20 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0;">sports_hockey</span>
+<span class="font-label-md text-label-md">Hockey</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-pure-white hover:bg-surface-variant/20 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0;">sports_cricket</span>
+<span class="font-label-md text-label-md">Cricket</span>
+</a>
+</nav>
+<div class="mt-auto pt-8">
+<button class="w-full py-3 px-4 border border-crest-gold text-crest-gold font-label-md text-label-md rounded-lg hover:bg-crest-gold hover:text-royal-navy transition-colors duration-200">
+                    View All Sports
+                </button>
+</div>
+</aside>
+<div class="flex flex-1 flex-col md:ml-64 w-full">
+<!-- TopNavBar -->
+<nav class="sticky top-0 w-full z-40 flex justify-between items-center px-margin-desktop h-20 bg-royal-navy border-b-[0.5px] border-outline-variant/30">
+<div class="flex items-center gap-4">
+<span class="md:hidden font-headline-sm text-headline-sm font-bold text-crest-gold tracking-tight">St. Andrew's</span>
+</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="font-label-md text-label-md text-pure-white hover:text-crest-gold transition-colors duration-200" href="#">Overview</a>
+<a class="font-label-md text-label-md text-pure-white hover:text-crest-gold transition-colors duration-200" href="#">Schedule</a>
+<a class="font-label-md text-label-md text-pure-white hover:text-crest-gold transition-colors duration-200" href="#">Players</a>
+<a class="font-label-md text-label-md text-crest-gold border-b-2 border-crest-gold pb-1 opacity-100 scale-95 transition-all" href="#">Stats</a>
+<a class="font-label-md text-label-md text-pure-white hover:text-crest-gold transition-colors duration-200" href="#">League Table</a>
+<a class="font-label-md text-label-md text-pure-white hover:text-crest-gold transition-colors duration-200" href="#">Hall of Fame</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-pure-white hover:text-crest-gold transition-colors duration-200">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0;">notifications</span>
+</button>
+<button class="text-pure-white hover:text-crest-gold transition-colors duration-200">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0;">settings</span>
+</button>
+<img alt="Administrator Profile" class="w-10 h-10 rounded-full object-cover border border-crest-gold" data-alt="A small circular profile image of a sports administrator, wearing professional athletic attire, against a light clean background, high resolution, soft lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6PTxq_viQUsv7-ynbWiTVtSJOWZI2fuCop4NTkRcYMBCjfzG9JC8dsj0ySWvA4xYHtDrbhWvounFUSMh0yHZwh9j88mBqIqEOPVI2ZxyZvvwkVDE5tcjizHWg_cVFdOrZzvOzL6KR0FNFN35z3SGvzdZqVbYx4mOAlXkUxmO3rt5W2EleU8bwKCnYvisfJs-z2Ueu7_l7kiVCjtrWYlKXckYMAc1esbZryUV5jpBKxPVV1SKjIZBv">
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 p-margin-mobile md:p-margin-desktop max-w-container-max mx-auto w-full">
+<!-- Page Header -->
+<header class="mb-8 text-center md:text-left">
+<h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-royal-navy mb-2">Season Statistics</h1>
+<p class="font-body-lg text-body-lg text-royal-navy flex items-center justify-center md:justify-start gap-2">
+<span class="w-1.5 h-1.5 bg-crest-gold rotate-45 inline-block"></span>
+                    2023/2024 First XI Football
+                </p>
+</header>
+<!-- Sub Navigation -->
+<div class="flex justify-center gap-8 mb-12 border-b border-outline-variant/50 bg-royal-navy p-4 rounded-lg justify-between"><a class="flex items-center gap-2 font-label-md text-label-md text-pure-white transition-colors duration-200" href="#"><span class="material-symbols-outlined text-[20px]">analytics</span>OVERVIEW</a><a class="flex items-center gap-2 font-label-md text-label-md transition-colors duration-200 text-pure-white" href="#"><span class="material-symbols-outlined text-[20px]">sports_soccer</span>SCORING</a><a class="flex items-center gap-2 font-label-md text-label-md text-pure-white transition-colors duration-200" href="#"><span class="material-symbols-outlined text-[20px]">gavel</span>DISCIPLINE</a><a class="flex items-center gap-2 font-label-md text-label-md transition-colors duration-200 text-crest-gold font-bold border-b-2 border-crest-gold" href="#"><span class="material-symbols-outlined text-[20px]">monitoring</span>PERFORMANCE</a></div><div class="mb-12 overflow-hidden rounded-xl border border-outline-variant/30 bg-surface shadow-sm">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-royal-navy text-pure-white">
+<th class="p-4 font-label-md text-label-md uppercase tracking-wider border-r border-outline-variant/20">Category</th>
+<th class="p-4 font-label-md text-label-md uppercase tracking-wider border-r border-outline-variant/20">Goals</th>
+<th class="p-4 font-label-md text-label-md uppercase tracking-wider border-r border-outline-variant/20">Match (Schools)</th>
+<th class="p-4 font-label-md text-label-md uppercase tracking-wider">Date</th>
+</tr>
+</thead>
+<tbody class="text-royal-navy">
+<tr class="border-b border-outline-variant/20 hover:bg-surface-variant/10 transition-colors">
+<td class="p-4 font-bold border-r border-outline-variant/20">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-crest-gold">military_tech</span>
+                        Scoring Peak
+                    </div>
+</td>
+<td class="p-4 font-body-md border-r border-outline-variant/20">6</td>
+<td class="p-4 font-body-md border-r border-outline-variant/20">St Andrew's Turi vs Peponi School</td>
+<td class="p-4 font-body-md">Oct 12, 2024</td>
+</tr>
+<tr class="border-b border-outline-variant/20 hover:bg-surface-variant/10 transition-colors">
+<td class="p-4 font-bold border-r border-outline-variant/20">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-crest-gold">shield</span>
+                        Defensive Struggle
+                    </div>
+</td>
+<td class="p-4 font-body-md border-r border-outline-variant/20">3</td>
+<td class="p-4 font-body-md border-r border-outline-variant/20">St Andrew's Turi vs Brookhouse</td>
+<td class="p-4 font-body-md">Sept 28, 2024</td>
+</tr>
+<tr class="hover:bg-surface-variant/10 transition-colors">
+<td class="p-4 font-bold border-r border-outline-variant/20">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-crest-gold">star</span>
+                        Dominant Win
+                    </div>
+</td>
+<td class="p-4 font-body-md border-r border-outline-variant/20 text-crest-gold font-bold">+5</td>
+<td class="p-4 font-body-md border-r border-outline-variant/20">St Andrew's Turi vs Hillcrest</td>
+<td class="p-4 font-body-md">Oct 05, 2024</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Dashboard Grid -->
+<!-- Heritage Signature Component -->
+<div class="mt-16 mb-8 pl-6 border-l-4 border-crest-gold">
+<p class="font-display-lg-mobile text-display-lg-mobile italic text-royal-navy max-w-3xl">
+                    "Discipline, teamwork, and an unwavering commitment to excellence have defined our football program this season. The statistics reflect character as much as skill."
+                </p>
+<p class="mt-4 font-label-md text-label-md text-royal-navy uppercase tracking-widest">
+                    — Director of Athletics
+                </p>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-12 px-margin-desktop flex flex-col items-center gap-4 mt-auto bg-highland-mist dark:bg-inverse-surface border-t-[0.5px] border-outline-variant">
+<h4 class="font-headline-sm text-headline-sm text-royal-navy mb-2">St. Andrew's Turi Sports</h4>
+<div class="flex gap-6 mb-4">
+<a class="font-label-sm text-label-sm text-royal-navy hover:text-crest-gold underline decoration-crest-gold transition-colors" href="#">Privacy Policy</a>
+<a class="font-label-sm text-label-sm text-royal-navy hover:text-crest-gold underline decoration-crest-gold transition-colors" href="#">Athletic Standards</a>
+<a class="font-label-sm text-label-sm text-royal-navy hover:text-crest-gold underline decoration-crest-gold transition-colors" href="#">Contact Coach</a>
+</div>
+<p class="font-body-md text-body-md text-royal-navy text-center opacity-70">
+            © 2024 St. Andrew's School, Turi. Excellence in the Highlands.
+        </p>
+</footer>
+</div>
+
+
+
+
+</body></html>

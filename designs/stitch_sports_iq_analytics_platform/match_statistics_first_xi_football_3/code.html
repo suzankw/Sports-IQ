@@ -1,0 +1,513 @@
+<!DOCTYPE html><html class="light" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Match Statistics - St. Andrew's Turi Football</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-error-container": "#93000a",
+                    "outline": "#8e706c",
+                    "turi-maroon": "#800000",
+                    "on-background": "#1b1c1c",
+                    "surface-container-high": "#eae7e7",
+                    "inverse-primary": "#ffb4a8",
+                    "on-tertiary-fixed-variant": "#574500",
+                    "on-secondary-fixed": "#001a42",
+                    "surface-container-low": "#f6f3f2",
+                    "on-primary-container": "#ff8371",
+                    "on-error": "#ffffff",
+                    "secondary": "#3e5d9b",
+                    "surface-variant": "#e5e2e1",
+                    "tertiary-fixed-dim": "#e9c349",
+                    "on-surface": "#1b1c1c",
+                    "on-primary-fixed": "#410000",
+                    "on-secondary-fixed-variant": "#244581",
+                    "on-surface-variant": "#5a413d",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-surface": "#303030",
+                    "on-secondary": "#ffffff",
+                    "primary": "#570000",
+                    "on-primary": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "tertiary-fixed": "#ffe088",
+                    "royal-navy": "#335390",
+                    "background": "#fcf9f8",
+                    "on-tertiary-container": "#4e3d00",
+                    "on-secondary-container": "#294a86",
+                    "surface-dim": "#dcd9d9",
+                    "on-tertiary-fixed": "#241a00",
+                    "primary-fixed-dim": "#ffb4a8",
+                    "secondary-fixed-dim": "#aec6ff",
+                    "primary-container": "#800000",
+                    "surface-container": "#f0eded",
+                    "crest-gold": "#D4AF37",
+                    "primary-fixed": "#ffdad4",
+                    "error": "#ba1a1a",
+                    "secondary-container": "#9dbbff",
+                    "outline-variant": "#e2bfb9",
+                    "on-primary-fixed-variant": "#8f0f07",
+                    "tertiary-container": "#cba72f",
+                    "surface": "#fcf9f8",
+                    "surface-container-highest": "#e5e2e1",
+                    "tertiary": "#735c00",
+                    "surface-tint": "#b22b1d",
+                    "surface-bright": "#fcf9f8",
+                    "highland-mist": "#F4F4F4",
+                    "secondary-fixed": "#d8e2ff",
+                    "inverse-on-surface": "#f3f0ef"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "container-max": "1280px",
+                    "unit": "8px",
+                    "margin-desktop": "80px",
+                    "margin-mobile": "20px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "body-lg": [
+                            "\"Source Serif 4\""
+                    ],
+                    "display-lg-mobile": [
+                            "\"Source Serif 4\""
+                    ],
+                    "label-md": [
+                            "Inter"
+                    ],
+                    "display-lg": [
+                            "\"Source Serif 4\""
+                    ],
+                    "label-sm": [
+                            "Inter"
+                    ],
+                    "headline-md": [
+                            "\"Source Serif 4\""
+                    ],
+                    "body-md": [
+                            "\"Source Serif 4\""
+                    ],
+                    "headline-sm": [
+                            "\"Source Serif 4\""
+                    ]
+            },
+            "fontSize": {
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "display-lg-mobile": [
+                            "36px",
+                            {
+                                    "lineHeight": "44px",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "label-md": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "letterSpacing": "0.05em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "display-lg": [
+                            "48px",
+                            {
+                                    "lineHeight": "56px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "label-sm": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "letterSpacing": "0.08em",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "headline-md": [
+                            "32px",
+                            {
+                                    "lineHeight": "40px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-sm": [
+                            "24px",
+                            {
+                                    "lineHeight": "32px",
+                                    "fontWeight": "600"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        .football-pitch {
+            background-color: #2e7d32;
+            background-image: linear-gradient(0deg, transparent 24%, rgba(255, 255, 255, 0.1) 25%, rgba(255, 255, 255, 0.1) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, 0.1) 75%, rgba(255, 255, 255, 0.1) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(255, 255, 255, 0.1) 25%, rgba(255, 255, 255, 0.1) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, 0.1) 75%, rgba(255, 255, 255, 0.1) 76%, transparent 77%, transparent);
+            background-size: 50px 50px;
+            border: 2px solid white;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+        .pitch-lines::before, .pitch-lines::after {
+            content: '';
+            position: absolute;
+            border: 2px solid white;
+        }
+        /* Center Circle */
+        .pitch-lines::before {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+        }
+        /* Halfway Line */
+        .pitch-lines::after {
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: white;
+            border: none;
+        }
+        /* Penalty Areas */
+        .penalty-area-top {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50%;
+            height: 15%;
+            border: 2px solid white;
+            border-top: none;
+        }
+        .penalty-area-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50%;
+            height: 15%;
+            border: 2px solid white;
+            border-bottom: none;
+        }
+        
+        .player-node {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="text-on-background font-body-md antialiased flex bg-[#ffffff]">
+<!-- SideNavBar -->
+<nav class="bg-surface-container-low dark:bg-surface-dim border-r border-outline-variant fixed left-0 top-0 h-full w-64 flex flex-col py-8 px-4 hidden md:flex z-50 bottom-0" style="background-color: rgb(0, 33, 71);">
+<div class="flex flex-col items-center mb-8">
+<img alt="St. Andrew's Crest" class="w-16 h-auto mb-4 object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WNWe_pHcANJSms1V4Vq0ZpSs_u3X0F2wdRB1VXVOxg9w1k9zPN_AwvdiJ1pgSwXbhOm8H1RSgcs9tKXlHhLQeoXdLcV5lFD6Qg-mSr5NVFlqrxXww3ptM_mWXg7LalJ0tToPDqkiOfhqPBkNIQU53WqY_PaaHM_clejrT3kN6wyV_PVyT8x03m4T_Gb0TASbyUMESR69y0SBTWscjuUfjMifdFBY68Zvq5CT5HDZR8qB8WPhEMgHczgQ">
+<h1 class="font-headline-sm text-headline-sm font-bold text-center text-white">Turi Sports</h1>
+<p class="font-label-sm text-label-sm text-center mt-1 text-crest-gold">Excellence &amp; Character</p>
+</div>
+<ul class="flex flex-col gap-2 flex-grow">
+<li class="">
+<a class="flex items-center gap-3 p-3 rounded-xl font-label-md text-label-md dark:text-surface-variant hover:bg-surface-container-high transition-colors" href="#" style="color: rgb(234, 179, 8);"><span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0;">sports_netball</span><span class="">Netball</span></a>
+</li>
+<li class="">
+<a class="flex items-center gap-3 p-3 rounded-xl font-label-md text-label-md dark:text-surface-variant hover:bg-surface-container-high transition-colors text-white" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0;">sports_basketball</span>
+<span class="">Basketball</span>
+</a>
+</li>
+<li class="">
+<a class="flex items-center gap-3 p-3 rounded-xl font-label-md text-label-md dark:text-surface-variant hover:bg-surface-container-high transition-colors text-white" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0;">sports_rugby</span>
+<span class="">Rugby</span>
+</a>
+</li>
+<li class="">
+<a class="flex items-center gap-3 p-3 rounded-xl font-label-md text-label-md dark:text-surface-variant hover:bg-surface-container-high transition-colors text-white" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0;">sports_hockey</span>
+<span class="">Hockey</span>
+</a>
+</li>
+<li class="">
+<a class="flex items-center gap-3 p-3 rounded-xl font-label-md text-label-md dark:text-surface-variant hover:bg-surface-container-high transition-colors text-white" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0;">sports_cricket</span>
+<span class="">Cricket</span>
+</a>
+</li>
+</ul>
+<button class="mt-4 bg-turi-maroon text-on-primary py-2 px-4 rounded-xl font-label-md text-label-md hover:bg-primary-fixed-variant transition-colors w-full">View All Disciplines</button>
+<div class="mt-8 pt-4 border-t border-white/20">
+<ul class="flex flex-col gap-2">
+<li class="">
+<a class="flex items-center gap-3 p-3 rounded-xl font-label-md text-label-md hover:bg-surface-container-high transition-colors text-white" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0;">help</span>
+<span class="">Help</span>
+</a>
+</li>
+<li class="">
+<a class="flex items-center gap-3 p-3 rounded-xl font-label-md text-label-md hover:bg-surface-container-high transition-colors text-white" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0;">logout</span>
+<span class="">Logout</span>
+</a>
+</li>
+</ul>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 md:ml-64 w-full min-h-screen bg-[#ffffff]">
+<!-- TopNavBar -->
+<header class="bg-background dark:bg-on-background border-b border-outline-variant dark:border-outline sticky top-0 z-40 w-full transition-all duration-200 ease-in-out text-white" style="background-color: rgb(0, 33, 71);">
+<div class="flex justify-between items-center w-full px-4 md:px-margin-desktop h-20 max-w-container-max mx-auto text-white">
+<div class="md:hidden flex items-center gap-4">
+<img alt="Turi Athletics Logo" class="h-10 w-auto" src="https://lh3.googleusercontent.com/aida/AEtjO1WNWe_pHcANJSms1V4Vq0ZpSs_u3X0F2wdRB1VXVOxg9w1k9zPN_AwvdiJ1pgSwXbhOm8H1RSgcs9tKXlHhLQeoXdLcV5lFD6Qg-mSr5NVFlqrxXww3ptM_mWXg7LalJ0tToPDqkiOfhqPBkNIQU53WqY_PaaHM_clejrT3kN6wyV_PVyT8x03m4T_Gb0TASbyUMESR69y0SBTWscjuUfjMifdFBY68Zvq5CT5HDZR8qB8WPhEMgHczgQ">
+<span class="font-headline-sm text-headline-sm font-bold text-turi-maroon dark:text-primary-fixed-dim">Turi Athletics</span>
+</div>
+<nav class="hidden md:flex gap-8 h-full text-white">
+<a class="flex items-center h-full dark:text-surface-variant hover:text-royal-navy dark:hover:text-secondary-fixed hover:border-b-2 hover:border-outline-variant font-label-md text-label-md transition-all duration-200 text-white" href="#">Overview</a>
+<a class="flex items-center h-full dark:text-secondary-fixed-dim border-b-2 pb-1 font-bold font-label-md text-label-md transition-all duration-200" href="#" style="color: rgb(233, 193, 118); border-color: rgb(233, 193, 118);">Schedule</a>
+<a class="flex items-center h-full text-on-surface-variant dark:text-surface-variant hover:text-royal-navy dark:hover:text-secondary-fixed hover:border-b-2 hover:border-outline-variant font-label-md text-label-md transition-all duration-200" href="#">Players</a>
+<a class="flex items-center h-full text-on-surface-variant dark:text-surface-variant hover:text-royal-navy dark:hover:text-secondary-fixed hover:border-b-2 hover:border-outline-variant font-label-md text-label-md transition-all duration-200" href="#">Stats</a>
+<a class="flex items-center h-full text-on-surface-variant dark:text-surface-variant hover:text-royal-navy dark:hover:text-secondary-fixed hover:border-b-2 hover:border-outline-variant font-label-md text-label-md transition-all duration-200" href="#">Hall of Fame</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="hover:text-royal-navy transition-colors text-white">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="hover:text-royal-navy transition-colors text-white">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden border border-outline-variant ml-2">
+<img alt="Administrator Profile" class="w-full h-full object-cover" data-alt="A small, professional circular portrait photo of a high school sports administrator wearing a navy blue blazer and a maroon tie. The background is a soft, blurred bright white office setting, emphasizing a clean light-mode modern aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8f5q5xYZyXEklhO860m74R14BiyY6fbeeQzlvdKdGeFzlIWLFWpv-f-fszuS1dFuRFTlwq5mywyA2mb_hZEudD2JM2gAYBuPOGIoMzCQE--eIDk3JBZ4wQkGCsuf84M9eWiDFcOwyIt_5ks81o8OOyu92L5VUP7gQ_AMiwfEejwwr2agZNUYMRmaAqXBMaQPUosOd3zMxt3KEerV7brW2qJSJwaChel7Yz4eGpI51D4JzyDPdlvQB">
+</div>
+</div>
+</div>
+</header>
+<div class="p-4 md:p-8 max-w-container-max mx-auto space-y-12">
+<!-- Page Header -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+<div>
+<h2 class="font-display-lg text-display-lg text-[#000000] text-royal-navy">Match Statistics</h2>
+<p class="font-body-md text-body-md text-[#000000] opacity-75 mt-1 text-royal-navy">U19 Boys 1st XI - Rift Valley Regional Final</p>
+</div>
+<div class="flex gap-4">
+<button class="border border-royal-navy text-[#000000] px-6 py-2 rounded font-label-md text-label-md hover:bg-surface-container-low transition-colors text-royal-navy">Export PDF</button>
+<button class="bg-turi-maroon text-[#ffffff] px-6 py-2 rounded font-label-md text-label-md hover:bg-primary transition-colors">Share Report</button>
+</div>
+</div>
+<!-- Dashboard Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Match Summary (Top Center/Full Width) -->
+<div class="lg:col-span-12 bg-[#ffffff] border border-highland-mist rounded-lg p-8 relative overflow-hidden">
+<div class="absolute inset-0 opacity-10 pointer-events-none">
+<img alt="Action background" class="w-full h-full object-cover grayscale" src="https://lh3.googleusercontent.com/aida/AEtjO1XFSbFFs29o4H41V7ac-_NJBlJPnwwqZtKJS5Wakr5IUzbaS34T7iA1kCpxhML2h0gqCan0Byqw7DNcjWnUJsbIejjUgMQ7rFjhVcluQfICaiXYKiugRJw7uXr8xIsA7XiIa00nD8mBHmpSfrKh9Ecf16AJzZSGh4VqLrH33AsyQtGLNdC84ZXpVjdVmYXQdNlTN9KwESg4-fqmnsxBh54pvLsMTnQ_R7LoLAlDLAlIghRAtuY-9Sy3Zg">
+</div>
+<div class="relative z-10 flex flex-col items-center justify-center">
+<p class="font-label-sm text-label-sm text-[#000000] uppercase tracking-wider mb-6">Full Time</p>
+<div class="flex items-center justify-center gap-8 md:gap-16 w-full">
+<!-- Team 1 -->
+<div class="flex flex-col items-center text-center w-1/3">
+<img alt="St. Andrew's Turi" class="w-20 h-auto mb-4 drop-shadow-md" src="https://lh3.googleusercontent.com/aida/AEtjO1WNWe_pHcANJSms1V4Vq0ZpSs_u3X0F2wdRB1VXVOxg9w1k9zPN_AwvdiJ1pgSwXbhOm8H1RSgcs9tKXlHhLQeoXdLcV5lFD6Qg-mSr5NVFlqrxXww3ptM_mWXg7LalJ0tToPDqkiOfhqPBkNIQU53WqY_PaaHM_clejrT3kN6wyV_PVyT8x03m4T_Gb0TASbyUMESR69y0SBTWscjuUfjMifdFBY68Zvq5CT5HDZR8qB8WPhEMgHczgQ">
+<h3 class="font-headline-md text-headline-md text-[#000000]">St. Andrew's Turi</h3>
+</div>
+<!-- Score -->
+<div class="flex flex-col items-center justify-center w-1/3">
+<div class="flex items-center gap-4 font-display-lg text-display-lg text-[#000000]">
+<span class="text-[#000000] bg-surface-container-low px-6 py-4 rounded-lg shadow-sm border border-highland-mist">3</span>
+<span class="text-on-surface-variant opacity-50">-</span>
+<span class="text-[#000000] bg-surface-container-low px-6 py-4 rounded-lg shadow-sm border border-highland-mist">1</span>
+</div>
+</div>
+<!-- Team 2 -->
+<div class="flex flex-col items-center text-center w-1/3">
+<div class="w-20 h-20 rounded-full bg-surface-container-high flex items-center justify-center mb-4 border border-outline-variant"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvdmks5Y8o1VgbADYMndAPsrsBebnyrtqHt287YpPB0a2f8W9CpblefXcx0T8iFvuA8fWGrC-H7J-j2UH5T_zYOM9EGiFzS3QicIDUHV-lyzNl6kZ4CNCKfdZLzO-skOIDPMoxuwIctGCYfQhqoX-v8lWp5vBEuFg-0ZgdR0dp9PfR4NJh3PvwKCeZtN0rWgy6aiPebA9mIVT4dQPw_GYkTiiwa5aZSR77L1f8KN7-9ffr4ycDFIMmQcDeKYN2BYET-w" alt="Peponi School Logo" class="w-full h-full object-contain p-2"></div>
+<h3 class="font-headline-md text-headline-md text-[#000000]">Peponi School</h3>
+</div>
+</div>
+<!-- Goal Scorers -->
+<div class="mt-8 flex justify-center w-full max-w-2xl border-t border-highland-mist pt-6">
+<div class="w-1/2 pr-4 text-right">
+<ul class="font-body-md text-body-md text-[#000000] space-y-1">
+<li class="">O. Kariuki 14', 68'</li>
+<li class="">J. Mwangi 42'</li>
+</ul>
+</div>
+<div class="w-px bg-highland-mist"></div>
+<div class="w-1/2 pl-4 text-left">
+<ul class="font-body-md text-body-md text-[#000000] space-y-1">
+<li class="">D. Patel 81'</li>
+</ul>
+</div>
+</div>
+</div>
+</div><div class="lg:col-span-12 flex border-b border-highland-mist bg-surface-container-low rounded-t-lg overflow-hidden">
+  <button class="flex-1 py-4 px-6 text-center font-label-md text-label-md bg-royal-navy text-white transition-colors" style="background-color: rgb(0, 33, 71);">Starting Lineups
+  </button>
+  <button class="flex-1 py-4 px-6 text-center font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-high transition-colors border-r border-highland-mist">
+    Stats
+  </button>
+  <button class="flex-1 py-4 px-6 text-center font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-high transition-colors">
+    Player Stats
+  </button>
+</div>
+<!-- Tactical View (Left Col) -->
+<div class="lg:col-span-12 flex flex-col gap-6">
+<div class="bg-[#ffffff] border border-highland-mist rounded-lg overflow-hidden flex flex-col h-auto">
+<div class="bg-surface-container-low border-b border-highland-mist p-4 flex justify-between items-center">
+<h3 class="font-headline-sm text-headline-sm text-[#000000]">Starting Seven &amp; Formation</h3>
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full font-label-sm text-label-sm">4-3-3 Attacking</span>
+</div>
+<div class="flex-1 flex items-center justify-center bg-surface-container-lowest">
+<!-- Football Pitch Container -->
+<div class="w-full flex justify-center items-center bg-surface-container-lowest"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9N2Xx8uy17PNuBPudL_91Adjm5eTYhY6s3MrWBj0aBM4rYCs_3UKoL_VYYcLJ49jE4Joo-x_MdqUcMnvLg_Xa7GBJ4C4UHQ4JEdgi5qWJ1OW5sxwcLDPKJdgfSnVadQBcsk8s8ORiKC6jmr0DrPG4HWE0tYTWRJmqvRZnwjI2EGORIL-eKFXCXER8klnz2e3T5LwqJ9su0mxOcqFdQa-Cu9u0lqZffQ7oF7NKABJxekdJ-rm37c0W" alt="A professional sports broadcast lineup graphic for a netball team featuring the Starting Seven in navy blue kits on a court." class="max-w-full h-auto shadow-md object-contain w-full"></div>
+</div>
+</div>
+<div class="bg-[#ffffff] border border-highland-mist rounded-lg overflow-hidden">
+<div class="bg-surface-container-low border-b border-highland-mist p-4">
+<h3 class="font-headline-sm text-headline-sm text-[#000000]">Starting Seven &amp; Formation</h3>
+</div>
+<div class="p-4 space-y-4">
+<!-- Subs -->
+<div>
+<h4 class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-4">SUBSTITUTES</h4>
+<ul class="space-y-3">
+<li class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container-high">
+<img alt="Sub player 1" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1Vi5mtLIQFsr6zrJ98-epb7qZgYR0Lo4jpXQa6Qm8J7JIHxs9wVe7nVqo1OOXNgdDUx2LnUzJZw0ngH65vAwpgXDmwBb6fE2hoGfRiShHl80J1aP3eHlFoyHgTO4095KkQw7wP_MT_aN_ghUzqsl6d8ds9fEnY8w8IKgdQd2Rq4Hv3rnJQ_98U3kkAVFkXpK3kTXbrVpboAtfN2xwopdOGaZvCxnvdFIVGeDQR70zJbFVzgbokNpDaw6nc">
+</div>
+<span class="font-label-md text-label-md text-[#000000] w-6">12</span>
+<span class="font-body-md text-body-md text-[#000000] flex-1">S. Omondi</span>
+<span class="material-symbols-outlined text-on-surface-variant text-sm">swap_horiz</span>
+<span class="font-label-sm text-label-sm text-[#000000]">65'</span>
+</li>
+<li class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container-high">
+<img alt="Sub player 2" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1UBg670K8TkpiFfaI94asJ-ae_WhCd72NY_JQ89m7qbNMXSsafaoY4mH-E1Ecq7YUMD6WSM8AjoNsSO9ZYlAsblGfXXKGB7YVeQUP_t6nntdTePVgkuhNmEv6FqLHtE7QKGtpIwgpWDpPZg9rjCZMt1XdzqZwD_JDuG474WEAQQvUvi-RHvepGPmzNKsJHqqnXgdbvPNOLkub8kr0LVq0aEdZUnYeEhj6bh5_ztCrblvD7auVixepoMcKg">
+</div>
+<span class="font-label-md text-label-md text-[#000000] w-6">14</span>
+<span class="font-body-md text-body-md text-[#000000] flex-1">P. Kinyua</span>
+</li>
+<li class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container-high">
+<img alt="Sub player 3" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCw_Y-uqrnwI94pDygCkMNRbQ4miyy6pGlXw5Lper0PvQWubfghywhrPxB8p4AvA-LYxf6wNoH2K1AbGPyxGifhsRp_Yf2aqRsjcOIy6KqHMGxc6eSLtiQJiuFPD4ZaKxJUg3bVbd30_7SHUzAGRJ0za9AZj-t3AhCbJmyp-TBxX6cbmN4unUX1EDFbkFpF_kvAocvI08ZlQggRvo3ZacD--Z3TAkSD77GVQTJWlEDs1M1lWTzChxki">
+</div>
+<span class="font-label-md text-label-md text-[#000000] w-6">15</span>
+<span class="font-body-md text-body-md text-[#000000] flex-1">E. Waweru</span>
+</li>
+</ul>
+</div>
+<hr class="border-highland-mist">
+<!-- Coaching Staff -->
+<div>
+<h4 class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-2">Coaching Staff</h4>
+<ul class="space-y-3">
+<li class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-high border border-highland-mist">
+<img alt="Head Coach" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAihFmIK6DMzipcIldESqIeB4O0nfr_91MLePQMITAXyRleut2XWVPXEdzUxjY2ksmnQCla5Yo4TuNFcd-xiWOPSgFYQ_uDhldU_aQgzeupkZyRFewxgG9HxQ3wKkFrCjWztADoIIFN1kToCe8r4CuCH3Vn-iqUbYJzVyQVMAUvw73bBHfGeBxOFAE0sPnNMeQkrLvB866ieyI0vbFbRLxJmwFzVTtXFjadWsDADa8NFoXAquPxpzU">
+</div>
+<div>
+<p class="font-label-md text-label-md text-[#000000]">Mr. J. Smith</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Head Coach</p>
+</div>
+</li>
+<li class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-high border border-highland-mist">
+<img alt="Asst Coach" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAy1L1Pb5nBHbNV88j2XE23HVITSWsFr5Y8S33WmGIBICvtKvhyibHq2-UCjdG15Sz4fXR5m6UYxacZNVIZhEZjjwQ9cwCxIXxVX7MidtTG3tdoZGIBFNDmSScEB82B-uyT5cm1cwt-XAQufN3tQRCz2gN2JdXAGGa6WO3MDXSYa2Re-YZFBq6nk4Qg1Rfe5f9qtoi5TiGRwL74g1SWj8GleBKSjmkb_0k54tSLB8C10G-VgQyqaZJP">
+</div>
+<div>
+<p class="font-label-md text-label-md text-[#000000]">Mr. D. Ochieng</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Assistant Coach</p>
+</div>
+</li>
+</ul>
+</div>
+<hr class="border-highland-mist"><div class="mt-4"><h4 class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-4">Depth Chart</h4><div class="overflow-x-auto"><table class="w-full text-left border-collapse"><thead class="bg-royal-navy text-white"><tr class="font-label-sm text-label-sm"><th class="p-2 border border-white/10">Pos</th><th class="p-2 border border-white/10">Starter</th><th class="p-2 border border-white/10">1st Sub</th><th class="p-2 border border-white/10">2nd Sub</th><th class="p-2 border border-white/10">3rd Sub</th></tr></thead><tbody class="font-body-md text-body-md text-[#000000]"><tr class="border-b border-highland-mist"><td class="p-2 font-bold text-royal-navy">GS</td><td class="p-2">C. Okonkwo</td><td class="p-2">S. Omondi</td><td class="p-2">M. Anyango</td><td class="p-2">L. Njeri</td></tr><tr class="border-b border-highland-mist bg-surface-container-low"><td class="p-2 font-bold text-royal-navy">GA</td><td class="p-2">A. Bello</td><td class="p-2">P. Kinyua</td><td class="p-2">J. Kamau</td><td class="p-2">R. Otieno</td></tr><tr class="border-b border-highland-mist"><td class="p-2 font-bold text-royal-navy">WA</td><td class="p-2">Z. Adebayo</td><td class="p-2">E. Waweru</td><td class="p-2">F. Mutua</td><td class="p-2">S. Kiprop</td></tr><tr class="border-b border-highland-mist bg-surface-container-low"><td class="p-2 font-bold text-royal-navy">C</td><td class="p-2">N. Eze</td><td class="p-2">S. Omondi</td><td class="p-2">A. Maina</td><td class="p-2">K. Odhiambo</td></tr><tr class="border-b border-highland-mist"><td class="p-2 font-bold text-royal-navy">WD</td><td class="p-2">K. Oluwafemi</td><td class="p-2">P. Kinyua</td><td class="p-2">M. Wambui</td><td class="p-2">H. Hassan</td></tr><tr class="border-b border-highland-mist bg-surface-container-low"><td class="p-2 font-bold text-royal-navy">GD</td><td class="p-2">F. Jalloh</td><td class="p-2">E. Waweru</td><td class="p-2">G. Mwangi</td><td class="p-2">B. Chebet</td></tr><tr class="border-b border-highland-mist"><td class="p-2 font-bold text-royal-navy">GK</td><td class="p-2">B. Sow</td><td class="p-2">M. Anyango</td><td class="p-2">D. Korir</td><td class="p-2">N. Abdi</td></tr></tbody></table></div><p class="mt-2 text-label-sm text-crest-gold italic">* Highlighted players indicate multi-role versatility</p></div></div>
+</div>
+</div>
+<!-- Right Sidebar (Stats & Bench) -->
+
+<!-- Player Statistics Table (Full Width) -->
+
+</div>
+</div>
+</main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body></html>

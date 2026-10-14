@@ -1,0 +1,358 @@
+<!DOCTYPE html><html class="light" lang="en" style="width: 1280px; height: 1189px; overflow: hidden; position: relative;"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Sports IQ - Netball Schedule</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Montserrat:wght@400;600;700&amp;family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "secondary": "#3e5d9b",
+                "on-primary-fixed": "#410000",
+                "tertiary-fixed-dim": "#e9c349",
+                "tertiary-container": "#cba72f",
+                "surface-bright": "#fcf9f8",
+                "surface": "#fcf9f8",
+                "surface-tint": "#b22b1d",
+                "on-primary-container": "#ff8371",
+                "on-secondary-fixed-variant": "#244581",
+                "on-surface-variant": "#5a413d",
+                "on-secondary-fixed": "#001a42",
+                "tertiary": "#735c00",
+                "outline": "#8e706c",
+                "on-error-container": "#93000a",
+                "surface-container-highest": "#e5e2e1",
+                "surface-container-low": "#f6f3f2",
+                "surface-container-high": "#eae7e7",
+                "primary-fixed-dim": "#ffb4a8",
+                "secondary-container": "#9dbbff",
+                "inverse-surface": "#303030",
+                "outline-variant": "#e2bfb9",
+                "on-secondary-container": "#294a86",
+                "error": "#ba1a1a",
+                "surface-dim": "#dcd9d9",
+                "tertiary-fixed": "#ffe088",
+                "inverse-on-surface": "#f3f0ef",
+                "primary": "#570000",
+                "on-primary": "#ffffff",
+                "on-error": "#ffffff",
+                "on-tertiary": "#ffffff",
+                "on-secondary": "#ffffff",
+                "on-tertiary-fixed-variant": "#574500",
+                "surface-container": "#f0eded",
+                "on-background": "#1b1c1c",
+                "on-surface": "#1b1c1c",
+                "crest-gold": "#D4AF37",
+                "on-primary-fixed-variant": "#8f0f07",
+                "error-container": "#ffdad6",
+                "background": "#fcf9f8",
+                "turi-maroon": "#800000",
+                "royal-navy": "#335390",
+                "inverse-primary": "#ffb4a8",
+                "primary-fixed": "#ffdad4",
+                "on-tertiary-fixed": "#241a00",
+                "surface-variant": "#e5e2e1",
+                "on-tertiary-container": "#4e3d00",
+                "surface-container-lowest": "#ffffff",
+                "secondary-fixed-dim": "#aec6ff",
+                "highland-mist": "#F4F4F4",
+                "primary-container": "#800000",
+                "secondary-fixed": "#d8e2ff"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.125rem",
+                "lg": "0.25rem",
+                "xl": "0.5rem",
+                "full": "0.75rem"
+        },
+        "spacing": {
+                "margin-desktop": "80px",
+                "unit": "8px",
+                "gutter": "24px",
+                "margin-mobile": "20px",
+                "container-max": "1280px"
+        },
+        "fontFamily": {
+                "display-lg-mobile": [
+                        "\"Source Serif 4\""
+                ],
+                "display-lg": [
+                        "\"Source Serif 4\""
+                ],
+                "label-md": [
+                        "Inter"
+                ],
+                "body-lg": [
+                        "\"Source Serif 4\""
+                ],
+                "body-md": [
+                        "\"Source Serif 4\""
+                ],
+                "label-sm": [
+                        "Inter"
+                ],
+                "headline-sm": [
+                        "\"Source Serif 4\""
+                ],
+                "headline-md": [
+                        "\"Source Serif 4\""
+                ]
+        },
+        "fontSize": {
+                "display-lg-mobile": [
+                        "36px",
+                        {
+                                "lineHeight": "44px",
+                                "fontWeight": "700"
+                        }
+                ],
+                "display-lg": [
+                        "48px",
+                        {
+                                "lineHeight": "56px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "label-md": [
+                        "14px",
+                        {
+                                "lineHeight": "20px",
+                                "letterSpacing": "0.05em",
+                                "fontWeight": "600"
+                        }
+                ],
+                "body-lg": [
+                        "18px",
+                        {
+                                "lineHeight": "28px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "body-md": [
+                        "16px",
+                        {
+                                "lineHeight": "24px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "label-sm": [
+                        "12px",
+                        {
+                                "lineHeight": "16px",
+                                "letterSpacing": "0.08em",
+                                "fontWeight": "500"
+                        }
+                ],
+                "headline-sm": [
+                        "24px",
+                        {
+                                "lineHeight": "32px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "headline-md": [
+                        "32px",
+                        {
+                                "lineHeight": "40px",
+                                "fontWeight": "600"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script>
+</head>
+<body class="bg-background text-on-surface font-body-md antialiased selection:bg-turi-maroon selection:text-white">
+<!-- TopNavBar (Hidden on Mobile, Visible on md+) -->
+<nav class="hidden md:flex bg-surface-bright dark:bg-surface-container-lowest text-primary dark:text-inverse-primary font-body-md text-body-md docked full-width top-0 border-b border-outline-variant flat no shadows fixed right-0 left-64 justify-between items-center px-gutter h-16 z-40" style="background-color: rgb(0, 33, 71); color: white;">
+<div class="flex items-center gap-gutter">
+
+<div>
+<h1 class="font-display-lg text-3xl font-bold leading-tight text-white">Sports IQ</h1>
+
+</div>
+<nav class="hidden lg:flex items-center gap-4 ml-8"><a class="text-white hover:text-crest-gold transition-all text-sm font-semibold" href="#">Overview</a><a class="border-b-2 pb-1 text-sm font-semibold" href="#" style="color: rgb(153, 101, 21); border-color: rgb(153, 101, 21);">Schedule</a><a class="text-white hover:text-crest-gold transition-all text-sm font-semibold" href="#">Players</a><a class="text-white hover:text-crest-gold transition-all text-sm font-semibold" href="#">Statistics</a><a class="text-white hover:text-crest-gold transition-all text-sm font-semibold" href="#">League Table</a><a class="text-white hover:text-crest-gold transition-all text-sm font-semibold" href="#">Hall of Fame</a></nav>
+</div>
+<div class="flex items-center gap-gutter">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-2 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="pl-8 pr-4 py-1 text-sm bg-surface-container-low border border-outline-variant rounded focus:border-turi-maroon focus:ring-0 outline-none w-40" placeholder="Search athletes, teams..." type="text">
+</div>
+
+<img alt="Athlete Profile" class="w-8 h-8 rounded-full border border-outline-variant object-cover" data-alt="A professional headshot of an elite athlete in high contrast black and white, serving as a placeholder for a user profile avatar." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDwe9mQnXezq81H5Aq4TIb7HvvqeF9VegjK4lb4awWaakXz9COozuu2KpcExKR-WnBHMwOvmtpytWyefDWAaBXM-7SlTxtCMdHHEeA9ibzTczUT8vP3es5UVxtE4dmSUMQyGUuT_Zg5A5eN8yw6NLOL5Wp8ubTwzQRHq8xsI1daxx7pJA1kfAjd1cqi-Nx-C0d5j4PIsY9ij-yUSbHNFrd7sEa1cWisFFO7JlTEnAUXQMHRDMXuQ1w1">
+</div>
+</nav>
+<!-- SideNavBar (Hidden on Mobile, Visible on md+) -->
+<aside class="hidden md:flex bg-surface dark:bg-surface-container-high text-primary dark:text-inverse-primary font-body-md text-body-md docked full-height left-0 w-64 border-r border-outline-variant flat no shadows fixed h-full flex flex-col py-gutter z-50 overflow-y-auto pt-24 bottom-0" style="background-color: rgb(0, 33, 71); color: white;"><div class="px-6 mb-8 flex w-full justify-center items-center"><img src="https://lh3.googleusercontent.com/aida/AEtjO1WNWe_pHcANJSms1V4Vq0ZpSs_u3X0F2wdRB1VXVOxg9w1k9zPN_AwvdiJ1pgSwXbhOm8H1RSgcs9tKXlHhLQeoXdLcV5lFD6Qg-mSr5NVFlqrxXww3ptM_mWXg7LalJ0tToPDqkiOfhqPBkNIQU53WqY_PaaHM_clejrT3kN6wyV_PVyT8x03m4T_Gb0TASbyUMESR69y0SBTWscjuUfjMifdFBY68Zvq5CT5HDZR8qB8WPhEMgHczgQ" alt="St. Andrew's Turi Logo" class="h-auto object-contain w-24"></div>
+
+<nav class="px-unit space-y-1">
+<div class="px-3 py-2 text-xs font-bold text-white uppercase tracking-wider mb-2">Sports Directory</div>
+<a class="flex items-center gap-3 px-3 py-1.5 hover:text-primary hover:bg-surface-container-low transition-colors text-sm text-white" href="#">Basketball</a>
+<a class="flex items-center gap-3 px-3 py-1.5 hover:text-primary hover:bg-surface-container-low transition-colors text-sm text-white" href="#">Football</a>
+<a class="flex items-center gap-3 px-3 py-1.5 hover:text-primary hover:bg-surface-container-low transition-colors text-sm text-white" href="#">Rugby</a>
+<a class="flex items-center gap-3 px-3 py-1.5 hover:text-primary hover:bg-surface-container-low transition-colors text-sm text-white" href="#">Hockey</a>
+<a class="flex items-center gap-3 px-3 py-1.5 hover:text-primary hover:bg-surface-container-low transition-colors text-sm text-white underline" href="#" style="color: #EAB308; background-color: transparent;">Netball</a>
+<a class="flex items-center gap-3 px-3 py-1.5 hover:text-primary hover:bg-surface-container-low transition-colors text-sm text-white" href="#">Cricket</a>
+<a class="flex items-center gap-3 px-3 py-1.5 hover:text-primary hover:bg-surface-container-low transition-colors text-sm text-white" href="#">Swimming</a>
+<a class="flex items-center gap-3 px-3 py-1.5 hover:text-primary hover:bg-surface-container-low transition-colors text-sm text-white" href="#">Athletics</a>
+<a class="flex items-center gap-3 px-3 py-1.5 hover:text-primary hover:bg-surface-container-low transition-colors text-sm text-white" href="#">Tennis</a>
+<a class="flex items-center gap-3 px-3 py-1.5 hover:text-primary hover:bg-surface-container-low transition-colors text-sm text-white" href="#">Golf</a>
+<a class="flex items-center gap-3 px-3 py-1.5 hover:text-primary hover:bg-surface-container-low transition-colors text-sm text-white" href="#">Squash</a>
+<a class="flex items-center gap-3 px-3 py-1.5 hover:text-primary hover:bg-surface-container-low transition-colors text-sm text-white" href="#">Equestrianism</a>
+</nav>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:ml-64 md:pt-16 min-h-screen p-4 md:p-6 lg:p-gutter max-w-container-max mx-auto flex flex-col gap-8 bg-background">
+<!-- Header Section -->
+<section class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 border-t-[4px] border-crest-gold pt-2 mt-4" style="border-top-color: rgb(233, 193, 118);">
+<div>
+<h1 class="font-headline-md text-headline-md text-black mt-8">Netball Schedule</h1>
+<p class="font-body-lg text-body-lg text-black mt-1">2024 Elite Performance League Fixtures</p>
+</div>
+<div class="flex gap-2">
+<select class="bg-surface-container-lowest border border-outline-variant text-on-surface text-sm font-body-md rounded px-3 py-1.5 focus:border-royal-navy focus:ring-0 outline-none">
+<option>All Teams</option>
+<option>FC Analytics</option>
+<option>Data United</option>
+</select>
+<select class="bg-surface-container-lowest border border-outline-variant text-on-surface text-sm font-body-md rounded px-3 py-1.5 focus:border-royal-navy focus:ring-0 outline-none">
+<option>All Months</option>
+<option>October 2024</option>
+<option>November 2024</option>
+</select>
+</div>
+</section>
+<!-- Live Match Banner (Bento-style highlight) -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded p-6 relative overflow-hidden flex flex-col md:flex-row items-center gap-6 md:justify-center"><div class="absolute top-0 left-0 w-2 h-full bg-turi-maroon" style="background-color: rgb(0, 33, 71);"></div><div class="flex flex-col md:flex-row items-center justify-center gap-12 z-10 w-full"><div class="flex items-center gap-4"><div class="flex flex-col items-end"><span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Premier Division</span><div class="flex items-center gap-4"><span class="font-headline-md text-headline-md text-black">St Andrew's School, Turi</span><span class="font-display-lg text-display-lg text-black">28</span></div></div></div><div class="text-on-surface-variant font-body-md"><img src="https://lh3.googleusercontent.com/aida/AEtjO1V_SoQFa3mRPaqMvBIO__dqeM0F-VSEOGMzbrU5O11iCzaTPP3Y-i4Kw5RSTT0QXUQhC6SZY1mgQWb2v9fO2mhyJv2CxqWi0pLMxJORFaK3ZSYh84U0FR4OS38IdSDdG6D9a8F-TPox7ZDQotz4XNXA9hFckbn6nrF2_EAQ9FO_zI0D0xfEDDtf-IpCBf6IPISMCGgHhDyyeivnzQMmB6l9vR519jzCaF30JpPAOcy-9rYXp1JhBg9_RFg" alt="Netball" class="w-12 h-12 object-contain"></div><div class="flex items-center gap-4"><div class="flex flex-col items-start"><span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1 invisible">Opponent</span><div class="flex items-center gap-4"><span class="font-display-lg text-display-lg text-black">31</span><span class="font-headline-md text-headline-md text-black">Braeburn Garden Estate</span></div></div></div></div></section>
+<!-- Main Data Table Container -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded shadow-sm overflow-hidden flex flex-col">
+<!-- Tabs -->
+<div class="flex border-b border-outline-variant bg-surface-container-low">
+<button class="px-6 py-3 font-label-sm text-label-sm text-primary border-b-2 border-primary bg-surface-container-lowest transition-colors uppercase" style="color: rgb(0, 33, 71); border-color: rgb(233, 193, 118);">UPCOMING FIXTURES</button>
+<button class="px-6 py-3 font-label-sm text-label-sm text-on-surface-variant hover:text-primary hover:bg-surface-container-lowest transition-colors uppercase">COMPLETED</button>
+</div>
+<!-- Table Wrapper (Horizontal Scroll on Mobile) -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse min-w-[800px]">
+<thead class="bg-surface-container-low border-b border-outline-variant">
+<tr>
+<th class="px-4 py-3 font-label-sm text-label-sm uppercase tracking-wider w-1/4 text-black">Date &amp; Time</th>
+<th class="px-4 py-3 font-label-sm text-label-sm uppercase tracking-wider w-2/5 text-black">Matchup</th>
+<th class="px-4 py-3 font-label-sm text-label-sm uppercase tracking-wider w-1/4 text-black">Venue</th><th class="px-4 py-3 font-label-sm text-label-sm uppercase tracking-wider text-black">Competition</th>
+<th class="px-4 py-3 font-label-sm text-label-sm uppercase tracking-wider w-12 text-center text-black">Status</th>
+</tr>
+</thead>
+<tbody class="font-body-md text-sm text-on-surface">
+<!-- Row 1 -->
+<tr class="border-b border-outline-variant hover:bg-surface-container-low transition-colors group">
+<td class="px-4 py-4 align-top">
+<div class="font-semibold text-black">Sat, 28 Oct</div>
+<div class="text-black">15:00 EAT</div>
+</td>
+<td class="px-4 py-4 align-top"><div class="flex flex-col gap-2"><div class="flex items-center gap-2 font-semibold text-black"><div class="w-4 h-4 rounded bg-royal-navy text-white flex items-center justify-center text-[10px]">H</div><img src="https://lh3.googleusercontent.com/aida/AEtjO1WGRXz-NlboDe9VXkWljaDBY2cAX0NzEGc56wOBncxHAc7JpUKQnkHsL8nMrq02GRh52ReKKQ_XHUjvjlTOML8LrnU-JJ4GHBWc29mqHcY1-qh93KzcUqn9qNZjpDDucPE--89lsPMgVBOraMnQgZIMgFVNLVCuXLknZIi_KByURCMD2o3-xOIX-6h3eOLnlCgU1Rzeg-rGVmy_V38D5f6q_T4KUQl7eKLKQSyy13NRNnAYygp9yuGiO6g" class="w-6 h-6 object-contain" alt="St. Andrew's Turi"><span class="">St. Andrew's Turi</span></div><div class="flex items-center gap-2 text-black"><div class="w-4 h-4 rounded bg-surface-variant flex items-center justify-center text-[10px] text-black">A</div><img src="https://lh3.googleusercontent.com/aida/AEtjO1Uzlyjozx85238tHDFZHrcca_EOrcSgac4Z17oMkcIca-Hz2hOc8nQzuW7ym_VKZYUS5__AXYHV8gvGFiepIwM38qI9tLZJxW9_fYSoEXbSiqDtdIiV4rvBHvaDwGbPmiNoQhP3F3gIDGlgWnBUyjvytYQp1PVimpuCVthEvxwV3g9qJaUnFx1NWmjT2WAO01Pd0bqCUUGDbi8wW_RHoVZxzgGNd_xF6HfOGlwEEI8HaMuqrwP1hS1bPfc" class="w-6 h-6 object-contain" alt="Brookhouse School"><span class="">Brookhouse School</span></div></div></td>
+<td class="px-4 py-4 align-top">
+<div class="font-medium text-black">Brookhouse</div>
+<div class="text-black"><br></div>
+</td><td class="px-4 py-4 align-top text-black">KAISSO</td>
+<td class="px-4 py-4 align-top text-center">
+<span class="inline-block px-2 py-1 bg-royal-navy text-white rounded text-xs font-bold uppercase">UPCOMING</span>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="border-b border-outline-variant hover:bg-surface-container-low transition-colors group">
+<td class="px-4 py-4 align-top">
+<div class="font-semibold text-black">Wed, 01 Nov</div>
+<div class="text-black">19:45 EAT</div>
+</td>
+<td class="px-4 py-4 align-top"><div class="flex flex-col gap-2"><div class="flex items-center gap-2 text-black"><div class="w-4 h-4 rounded bg-surface-variant flex items-center justify-center text-[10px] text-black">A</div><img src="https://lh3.googleusercontent.com/aida/AEtjO1UDRYUcdloW17p9YjOgvcR2kA3vrD1X0HVdfoJtLOdkJAjz1Y4QipQMcrOa3T3wxWaff92HP-6NmnhRdUGLaqL3lqurc0t-O3fPp6DQPHjvZS46iz67MMPHqXRf3gIfd_DRvY_4ZQSXqohDc-Lqb2wTISvq7AylW0_uDP0dxVskbAhYZaW9Q0pbsosSM1_ymmHLBNRJFDPirGCRtrsHAVV41P_Ca439x61MxGL-9PNL0iNY4u-qtmiAvRg" class="w-6 h-6 object-contain" alt="Hillcrest International School"><span class="">Hillcrest International School</span></div><div class="flex items-center gap-2 font-semibold text-black"><div class="w-4 h-4 rounded bg-royal-navy text-white flex items-center justify-center text-[10px]">H</div><img src="https://lh3.googleusercontent.com/aida/AEtjO1WGRXz-NlboDe9VXkWljaDBY2cAX0NzEGc56wOBncxHAc7JpUKQnkHsL8nMrq02GRh52ReKKQ_XHUjvjlTOML8LrnU-JJ4GHBWc29mqHcY1-qh93KzcUqn9qNZjpDDucPE--89lsPMgVBOraMnQgZIMgFVNLVCuXLknZIi_KByURCMD2o3-xOIX-6h3eOLnlCgU1Rzeg-rGVmy_V38D5f6q_T4KUQl7eKLKQSyy13NRNnAYygp9yuGiO6g" class="w-6 h-6 object-contain" alt="St. Andrew's Turi"><span class="">St. Andrew's Turi</span></div></div></td>
+<td class="px-4 py-4 align-top">
+<div class="font-medium text-black">Turi</div>
+<div class="text-black"><br></div>
+</td><td class="px-4 py-4 align-top text-black">KAISSO</td>
+<td class="px-4 py-4 align-top text-center">
+<span class="inline-block px-2 py-1 bg-royal-navy text-white rounded text-xs font-bold uppercase">UPCOMING</span>
+</td>
+</tr>
+<!-- Completed Row (Simulated state change) -->
+
+<tr class="border-b border-outline-variant hover:bg-surface-container-low transition-colors group"><td class="px-4 py-4 align-top"><div class="font-semibold text-black">Sat, 04 Nov</div><div class="text-black">14:00 EAT</div></td><td class="px-4 py-4 align-top"><div class="flex flex-col gap-2"><div class="flex items-center gap-2 font-semibold text-black"><div class="w-4 h-4 rounded bg-royal-navy text-white flex items-center justify-center text-[10px]">H</div><img src="https://lh3.googleusercontent.com/aida/AEtjO1WGRXz-NlboDe9VXkWljaDBY2cAX0NzEGc56wOBncxHAc7JpUKQnkHsL8nMrq02GRh52ReKKQ_XHUjvjlTOML8LrnU-JJ4GHBWc29mqHcY1-qh93KzcUqn9qNZjpDDucPE--89lsPMgVBOraMnQgZIMgFVNLVCuXLknZIi_KByURCMD2o3-xOIX-6h3eOLnlCgU1Rzeg-rGVmy_V38D5f6q_T4KUQl7eKLKQSyy13NRNnAYygp9yuGiO6g" class="w-6 h-6 object-contain" alt="St. Andrew's Turi"><span class="">St. Andrew's Turi</span></div><div class="flex items-center gap-2 text-black"><div class="w-4 h-4 rounded bg-surface-variant flex items-center justify-center text-[10px] text-black">A</div><img src="https://lh3.googleusercontent.com/aida/AEtjO1UDRYUcdloW17p9YjOgvcR2kA3vrD1X0HVdfoJtLOdkJAjz1Y4QipQMcrOa3T3wxWaff92HP-6NmnhRdUGLaqL3lqurc0t-O3fPp6DQPHjvZS46iz67MMPHqXRf3gIfd_DRvY_4ZQSXqohDc-Lqb2wTISvq7AylW0_uDP0dxVskbAhYZaW9Q0pbsosSM1_ymmHLBNRJFDPirGCRtrsHAVV41P_Ca439x61MxGL-9PNL0iNY4u-qtmiAvRg" class="w-6 h-6 object-contain" alt="Peponi School"><span class="">Peponi School</span></div></div></td><td class="px-4 py-4 align-top"><div class="font-medium text-black">Turi Main Pitch</div></td><td class="px-4 py-4 align-top text-black">KAISSO</td><td class="px-4 py-4 align-top text-center"><span class="inline-block px-2 py-1 bg-royal-navy text-white rounded text-xs font-bold uppercase">UPCOMING</span></td></tr><tr class="border-b border-outline-variant hover:bg-surface-container-low transition-colors group"><td class="px-4 py-4 align-top"><div class="font-semibold text-black">Wed, 08 Nov</div><div class="text-black">16:30 EAT</div></td><td class="px-4 py-4 align-top"><div class="flex flex-col gap-2"><div class="flex items-center gap-2 text-black"><div class="w-4 h-4 rounded bg-surface-variant flex items-center justify-center text-[10px] text-black">A</div><img src="https://lh3.googleusercontent.com/aida/AEtjO1UqgeBviVmxvK5Thz12D-TJbuiA7FsSP336mTWk3I9NVujLCBIaHUqmkDTnXlyj5zSxIEVmFpQ-knYurtVANy7r5AAftUp44rzdXfc4tCL0oRSUiPQDJYSH5cV2AFeMYsYhNNpYYtmAMREfv2Kbdt-bCxoQsKj_We58bGNB_cKCILMeJCPoTB1N4NXKahYYheKOrgmnggPTZyIXznB23g6YPcs4wnsBJY0IXALj4CaVpG51xKJYcfLso7M" class="w-6 h-6 object-contain" alt="Kenton College"><span class="">Kenton College</span></div><div class="flex items-center gap-2 font-semibold text-black"><div class="w-4 h-4 rounded bg-royal-navy text-white flex items-center justify-center text-[10px]">H</div><img src="https://lh3.googleusercontent.com/aida/AEtjO1WGRXz-NlboDe9VXkWljaDBY2cAX0NzEGc56wOBncxHAc7JpUKQnkHsL8nMrq02GRh52ReKKQ_XHUjvjlTOML8LrnU-JJ4GHBWc29mqHcY1-qh93KzcUqn9qNZjpDDucPE--89lsPMgVBOraMnQgZIMgFVNLVCuXLknZIi_KByURCMD2o3-xOIX-6h3eOLnlCgU1Rzeg-rGVmy_V38D5f6q_T4KUQl7eKLKQSyy13NRNnAYygp9yuGiO6g" class="w-6 h-6 object-contain" alt="St. Andrew's Turi"><span class="">St. Andrew's Turi</span></div></div></td><td class="px-4 py-4 align-top"><div class="font-medium text-black">Turi</div></td><td class="px-4 py-4 align-top text-black">IAPS</td><td class="px-4 py-4 align-top text-center"><span class="inline-block px-2 py-1 bg-royal-navy text-white rounded text-xs font-bold uppercase">UPCOMING</span></td></tr><tr class="border-b border-outline-variant hover:bg-surface-container-low transition-colors group"><td class="px-4 py-4 align-top"><div class="font-semibold text-black">Sat, 11 Nov</div><div class="text-black">10:00 EAT</div></td><td class="px-4 py-4 align-top"><div class="flex flex-col gap-2"><div class="flex items-center gap-2 font-semibold text-black"><div class="w-4 h-4 rounded bg-royal-navy text-white flex items-center justify-center text-[10px]">H</div><img src="https://lh3.googleusercontent.com/aida/AEtjO1WGRXz-NlboDe9VXkWljaDBY2cAX0NzEGc56wOBncxHAc7JpUKQnkHsL8nMrq02GRh52ReKKQ_XHUjvjlTOML8LrnU-JJ4GHBWc29mqHcY1-qh93KzcUqn9qNZjpDDucPE--89lsPMgVBOraMnQgZIMgFVNLVCuXLknZIi_KByURCMD2o3-xOIX-6h3eOLnlCgU1Rzeg-rGVmy_V38D5f6q_T4KUQl7eKLKQSyy13NRNnAYygp9yuGiO6g" class="w-6 h-6 object-contain" alt="St. Andrew's Turi"><span class="">St. Andrew's Turi</span></div><div class="flex items-center gap-2 text-black"><div class="w-4 h-4 rounded bg-surface-variant flex items-center justify-center text-[10px] text-black">A</div><img src="https://lh3.googleusercontent.com/aida/AEtjO1Uzlyjozx85238tHDFZHrcca_EOrcSgac4Z17oMkcIca-Hz2hOc8nQzuW7ym_VKZYUS5__AXYHV8gvGFiepIwM38qI9tLZJxW9_fYSoEXbSiqDtdIiV4rvBHvaDwGbPmiNoQhP3F3gIDGlgWnBUyjvytYQp1PVimpuCVthEvxwV3g9qJaUnFx1NWmjT2WAO01Pd0bqCUUGDbi8wW_RHoVZxzgGNd_xF6HfOGlwEEI8HaMuqrwP1hS1bPfc" class="w-6 h-6 object-contain" alt="Braeburn Garden Estate"><span class="">Braeburn Garden Estate</span></div></div></td><td class="px-4 py-4 align-top"><div class="font-medium text-black">Turi</div></td><td class="px-4 py-4 align-top text-black">Friendlies</td><td class="px-4 py-4 align-top text-center"><span class="inline-block px-2 py-1 bg-royal-navy text-white rounded text-xs font-bold uppercase">UPCOMING</span></td></tr><tr class="border-b border-outline-variant bg-surface-container-lowest opacity-75"><td class="px-4 py-4 align-top"><div class="font-semibold line-through text-black">Sat, 21 Oct</div><div class="text-outline">15:00 EAT</div></td><td class="px-4 py-4 align-top"><div class="flex items-center justify-between mr-4"><div class="flex flex-col gap-2"><div class="flex items-center gap-2 font-semibold text-black"><div class="w-4 h-4 rounded bg-royal-navy text-white flex items-center justify-center text-[10px]">H</div><img src="https://lh3.googleusercontent.com/aida/AEtjO1WGRXz-NlboDe9VXkWljaDBY2cAX0NzEGc56wOBncxHAc7JpUKQnkHsL8nMrq02GRh52ReKKQ_XHUjvjlTOML8LrnU-JJ4GHBWc29mqHcY1-qh93KzcUqn9qNZjpDDucPE--89lsPMgVBOraMnQgZIMgFVNLVCuXLknZIi_KByURCMD2o3-xOIX-6h3eOLnlCgU1Rzeg-rGVmy_V38D5f6q_T4KUQl7eKLKQSyy13NRNnAYygp9yuGiO6g" class="w-6 h-6 object-contain" alt="St. Andrew's Turi"><span class="">St. Andrew's Turi</span></div><div class="flex items-center gap-2 text-black"><div class="w-4 h-4 rounded bg-surface-variant flex items-center justify-center text-[10px] text-black">A</div><img src="https://lh3.googleusercontent.com/aida/AEtjO1UqgeBviVmxvK5Thz12D-TJbuiA7FsSP336mTWk3I9NVujLCBIaHUqmkDTnXlyj5zSxIEVmFpQ-knYurtVANy7r5AAftUp44rzdXfc4tCL0oRSUiPQDJYSH5cV2AFeMYsYhNNpYYtmAMREfv2Kbdt-bCxoQsKj_We58bGNB_cKCILMeJCPoTB1N4NXKahYYheKOrgmnggPTZyIXznB23g6YPcs4wnsBJY0IXALj4CaVpG51xKJYcfLso7M" class="w-6 h-6 object-contain" alt="Braeburn School"><span class="">Braeburn School</span></div></div><div class="flex flex-col gap-1 text-right font-display-sm text-xl leading-none"><span class="text-[#22C55E]">3</span><span class="text-black">0</span></div></div></td><td class="px-4 py-4 align-top"><div class="text-black">Tech Stadium</div></td><td class="px-4 py-4 align-top text-black">Friendlies</td><td class="px-4 py-4 align-top text-center"><button class="bg-surface-variant border border-outline-variant font-label-sm text-[10px] px-2 py-1 rounded hover:bg-outline hover:text-white transition-colors uppercase text-black" style="background-color: rgb(233, 193, 118); color: rgb(0, 33, 71); border-color: rgb(233, 193, 118);">SUMMARY</button></td></tr></tbody>
+</table>
+</div>
+
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-high dark:bg-surface-container-highest text-primary dark:text-on-primary-fixed font-body-md text-body-md full-width bottom bg-surface-container-high dark:bg-surface-container-highest flat no shadows w-full mt-12 py-12 px-12 flex flex-col md:flex-row justify-between items-center border-t border-outline-variant md:ml-64 w-full md:w-[calc(100%-16rem)] gap-6 z-40 relative">
+<div class="font-label-sm text-label-sm uppercase text-center md:text-left text-black">
+            © 2024 Sports IQ Platform. Elite Performance Analytics.
+        </div>
+<div class="flex flex-wrap justify-center gap-6">
+<a class="dark:text-outline hover:text-primary underline transition-all text-sm text-black" href="#">Privacy Policy</a>
+<a class="dark:text-outline hover:text-primary underline transition-all text-sm text-black" href="#">Terms of Service</a>
+<a class="dark:text-outline hover:text-primary underline transition-all text-sm text-black" href="#">Support</a>
+<a class="dark:text-outline hover:text-primary underline transition-all text-sm text-black" href="#">API Documentation</a>
+</div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="snapdom-sandbox" data-snapdom-sandbox="true" aria-hidden="true" style="position: absolute; left: -9999px; top: -9999px; width: 0px; height: 0px; overflow: hidden;"></div>
+
+
+
+</body></html>

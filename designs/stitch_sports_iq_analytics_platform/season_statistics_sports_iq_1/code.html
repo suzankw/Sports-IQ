@@ -1,0 +1,520 @@
+<!DOCTYPE html><html lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Stats Dashboard | Sports IQ</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "outline": "#8e706c",
+                    "on-surface-variant": "#5a413d",
+                    "tertiary-fixed": "#ffe088",
+                    "highland-mist": "#F4F4F4",
+                    "surface-bright": "#fcf9f8",
+                    "tertiary-fixed-dim": "#e9c349",
+                    "on-surface": "#1b1c1c",
+                    "secondary": "#3e5d9b",
+                    "crest-gold": "#D4AF37",
+                    "surface-tint": "#b22b1d",
+                    "on-secondary-fixed": "#001a42",
+                    "primary-fixed": "#ffdad4",
+                    "on-primary-container": "#ff8371",
+                    "on-tertiary": "#ffffff",
+                    "inverse-on-surface": "#f3f0ef",
+                    "error": "#ba1a1a",
+                    "on-error": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "primary": "#570000",
+                    "surface-variant": "#e5e2e1",
+                    "secondary-fixed": "#d8e2ff",
+                    "tertiary-container": "#cba72f",
+                    "on-tertiary-fixed": "#241a00",
+                    "tertiary": "#735c00",
+                    "surface-container-high": "#eae7e7",
+                    "inverse-primary": "#ffb4a8",
+                    "on-primary-fixed": "#410000",
+                    "primary-fixed-dim": "#ffb4a8",
+                    "background": "#fcf9f8",
+                    "secondary-container": "#9dbbff",
+                    "error-container": "#ffdad6",
+                    "turi-maroon": "#800000",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-fixed-variant": "#574500",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-fixed-dim": "#aec6ff",
+                    "surface-container-low": "#f6f3f2",
+                    "on-primary-fixed-variant": "#8f0f07",
+                    "surface": "#fcf9f8",
+                    "surface-container": "#f0eded",
+                    "inverse-surface": "#303030",
+                    "primary-container": "#800000",
+                    "royal-navy": "#335390",
+                    "surface-container-highest": "#e5e2e1",
+                    "on-background": "#1b1c1c",
+                    "on-tertiary-container": "#4e3d00",
+                    "surface-dim": "#dcd9d9",
+                    "on-secondary": "#ffffff",
+                    "on-secondary-fixed-variant": "#244581",
+                    "outline-variant": "#e2bfb9",
+                    "on-secondary-container": "#294a86"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "container-max": "1280px",
+                    "margin-desktop": "80px",
+                    "margin-mobile": "20px",
+                    "unit": "8px"
+            },
+            "fontFamily": {
+                    "display-lg-mobile": [
+                            "\"Source Serif 4\""
+                    ],
+                    "display-lg": [
+                            "\"Source Serif 4\""
+                    ],
+                    "label-md": [
+                            "Inter"
+                    ],
+                    "headline-sm": [
+                            "\"Source Serif 4\""
+                    ],
+                    "label-sm": [
+                            "Inter"
+                    ],
+                    "headline-md": [
+                            "\"Source Serif 4\""
+                    ],
+                    "body-lg": [
+                            "\"Source Serif 4\""
+                    ],
+                    "body-md": [
+                            "\"Source Serif 4\""
+                    ]
+            },
+            "fontSize": {
+                    "display-lg-mobile": [
+                            "36px",
+                            {
+                                    "lineHeight": "44px",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "display-lg": [
+                            "48px",
+                            {
+                                    "lineHeight": "56px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "label-md": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "letterSpacing": "0.05em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "headline-sm": [
+                            "24px",
+                            {
+                                    "lineHeight": "32px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "label-sm": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "letterSpacing": "0.08em",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "headline-md": [
+                            "32px",
+                            {
+                                    "lineHeight": "40px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "400"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #fcf9f8;
+            color: #1b1c1c;
+        }
+        .legacy-shadow {
+            box-shadow: 0 20px 40px -10px rgba(51, 83, 144, 0.08);
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full w-64 shadow-sm flex flex-col py-6 px-4 gap-4 hidden md:flex z-50 bottom-0" style="background-color: rgb(0, 33, 71);">
+<div class="flex items-center gap-4 mb-8 px-2">
+
+<div class="flex-1 flex justify-center items-center"><img src="https://lh3.googleusercontent.com/aida/AEtjO1WNWe_pHcANJSms1V4Vq0ZpSs_u3X0F2wdRB1VXVOxg9w1k9zPN_AwvdiJ1pgSwXbhOm8H1RSgcs9tKXlHhLQeoXdLcV5lFD6Qg-mSr5NVFlqrxXww3ptM_mWXg7LalJ0tToPDqkiOfhqPBkNIQU53WqY_PaaHM_clejrT3kN6wyV_PVyT8x03m4T_Gb0TASbyUMESR69y0SBTWscjuUfjMifdFBY68Zvq5CT5HDZR8qB8WPhEMgHczgQ" alt="St. Andrew's Turi Logo" class="w-32 h-auto object-contain bg-transparent"></div>
+</div>
+<nav class="flex-1 flex flex-col gap-2"><a class="text-crest-gold rounded-lg flex items-center gap-3 px-4 py-3 transition-all hover:bg-white/10" href="#"><span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0;">sports_soccer</span><span class="text-label-md font-label-md">Football</span></a><a class="text-white rounded-lg flex items-center gap-3 px-4 py-3 transition-all hover:bg-white/10 hover:text-crest-gold" href="#"><span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0;">sports_basketball</span><span class="text-label-md font-label-md">Basketball</span></a><a class="text-white rounded-lg flex items-center gap-3 px-4 py-3 transition-all hover:bg-white/10 hover:text-crest-gold" href="#"><span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0;">sports_rugby</span><span class="text-label-md font-label-md">Rugby</span></a><a class="text-white rounded-lg flex items-center gap-3 px-4 py-3 transition-all hover:bg-white/10 hover:text-crest-gold" href="#"><span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0;">sports_hockey</span><span class="text-label-md font-label-md">Hockey</span></a><a class="text-white rounded-lg flex items-center gap-3 px-4 py-3 transition-all hover:bg-white/10 hover:text-crest-gold" href="#"><span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0;">sports_cricket</span><span class="text-label-md font-label-md">Cricket</span></a><a class="text-white rounded-lg flex items-center gap-3 px-4 py-3 transition-all hover:bg-white/10 hover:text-crest-gold" href="#"><span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0;">pool</span><span class="text-label-md font-label-md">Swimming</span></a></nav>
+<div class="mt-auto flex flex-col gap-2">
+
+<div class="border-t border-outline-variant pt-4">
+<a class="text-white/80 hover:text-white hover:bg-white/10 rounded-lg flex items-center gap-3 px-4 py-2 transition-all" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="text-label-sm font-label-sm">Help</span>
+</a>
+<a class="text-white/80 hover:text-white hover:bg-white/10 rounded-lg flex items-center gap-3 px-4 py-2 transition-all" href="#">
+<span class="material-symbols-outlined">contact_support</span>
+<span class="text-label-sm font-label-sm">Support</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-64 flex flex-col min-h-screen">
+<!-- TopNavBar -->
+<header class="bg-royal-navy w-full sticky top-0 z-50" style="background-color: rgb(0, 33, 71);"><div class="flex justify-between items-center w-full px-12 mx-auto h-24"><div class="flex items-center"><span class="text-headline-md font-headline-sm font-bold text-white">Sports IQ</span></div><nav class="hidden md:flex gap-12 h-full"><a class="text-white flex items-center h-full text-body-md font-label-md hover:text-crest-gold transition-colors" href="#">Overview</a><a class="text-white flex items-center h-full text-body-md font-label-md hover:text-crest-gold transition-colors" href="#">Schedule</a><a class="text-white flex items-center h-full text-body-md font-label-md hover:text-crest-gold transition-colors" href="#">Players</a><a class="text-crest-gold border-b-2 border-crest-gold pb-1 flex items-center h-full text-body-md font-label-md" href="#">Stats</a><a class="text-white flex items-center h-full text-body-md font-label-md hover:text-crest-gold transition-colors" href="#">League Table</a><a class="text-white flex items-center h-full text-body-md font-label-md hover:text-crest-gold transition-colors" href="#">Hall of Fame</a></nav><div class="flex items-center gap-6"><div class="hidden lg:flex items-center bg-white/10 rounded px-4 py-2 border border-white/20 focus-within:border-crest-gold transition-colors"><span class="material-symbols-outlined text-white mr-3 text-lg">search</span><input class="bg-transparent border-none focus:ring-0 text-body-md font-label-md p-0 w-40 text-white placeholder:text-white/60" placeholder="Search..." type="text"></div><div class="flex items-center gap-4 text-white"><button class="p-2.5 rounded-full hover:bg-white/10 transition-colors"><span class="material-symbols-outlined text-lg">settings</span></button></div><div class="w-10 h-10 rounded-full overflow-hidden border border-white/20"><img alt="User profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYJYOrjmHAf_MYDmdbF099KVINMXzZ_R1RxnaWxvpF9crFHySzY7t3Awb2UiT5EmgIAC2Cl4JxziLnxHGjdgACkETjWRputE8Sgt3qs8LqrJim02gMra58gDW8aE6PE-9BN5-1GVhL8Df2MiH4Fdunln8QvjRbicT6vgEieoaE3YngERnRMrFmQPcED7sn-Y-jVVsQmQkZLWMSPwW_A9yIqtVL3fWpIi4XNdTjqQ3_xf4k0diW8m2W"></div></div></div></header>
+<!-- Dashboard Canvas -->
+<div class="flex-1 w-full max-w-container-max mx-auto px-4 md:px-gutter py-8 md:py-margin-desktop flex flex-col gap-12">
+<!-- Page Header -->
+<div class="border-l-4 border-crest-gold pl-6 py-2">
+<h1 class="text-display-lg-mobile md:text-display-lg font-display-lg-mobile md:font-display-lg text-royal-navy mb-2">Season Statistics</h1>
+<p class="text-body-lg font-body-lg italic text-royal-navy">2023/2024 First XI Football</p>
+</div>
+<!-- Section 1: KPI Cards Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-4 gap-8 bg-royal-navy p-6 rounded-lg" style="background-color: rgb(0, 33, 71);">
+  <!-- 1. Overview -->
+  <div class="flex flex-col gap-4">
+    <h3 class="text-label-md font-label-md font-bold uppercase tracking-wider flex items-center gap-2 border-b-2 border-crest-gold pb-1 text-crest-gold">
+      <span class="material-symbols-outlined text-lg text-crest-gold">info</span>
+      Overview
+    </h3>
+    
+  </div>
+
+  <!-- 2. Scoring -->
+  <div class="flex flex-col gap-4">
+    <h3 class="text-label-md font-label-md font-bold uppercase tracking-wider flex items-center gap-2 text-white">
+      <span class="material-symbols-outlined text-white text-lg">sports_soccer</span>
+      Scoring
+    </h3>
+    <div class="grid grid-cols-1 gap-4">
+      
+    </div>
+  </div>
+
+  <!-- 3. Discipline -->
+  <div class="flex flex-col gap-4">
+    <h3 class="text-label-md font-label-md font-bold uppercase tracking-wider flex items-center gap-2 text-white">
+      <span class="material-symbols-outlined text-white text-lg">gavel</span>
+      Discipline
+    </h3>
+    
+  </div>
+
+  <!-- 4. Performance -->
+  <div class="flex flex-col gap-4">
+    <h3 class="text-label-md font-label-md font-bold uppercase tracking-wider flex items-center gap-2 text-white">
+      <span class="material-symbols-outlined text-white text-lg">monitoring</span>
+      Performance
+    </h3>
+    
+  </div>
+</div>
+<!-- Section 2: Chart -->
+<section class="bg-white border border-highland-mist rounded legacy-shadow p-6 md:p-8">
+<div class="flex justify-between items-center mb-8 border-b border-outline-variant pb-4">
+<h3 class="text-headline-sm font-headline-sm text-on-surface">Team Form <span class="text-body-md font-body-md text-on-surface-variant ml-2">(Last 10 Matches)</span></h3>
+<div class="flex gap-4">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-royal-navy"></div>
+<span class="text-label-sm font-label-sm text-royal-navy">Possession %</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-crest-gold"></div>
+<span class="text-label-sm font-label-sm text-royal-navy">Goal Diff</span>
+</div>
+</div>
+</div>
+<div class="w-full h-80 relative">
+<canvas id="formChart" width="1750" height="480" style="display: block; box-sizing: border-box; height: 320px; width: 1166.7px;"></canvas>
+</div>
+</section>
+<!-- Section 3: Leaderboards -->
+<section>
+<h3 class="text-headline-sm font-headline-sm text-on-surface mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-turi-maroon">workspace_premium</span>
+                    Player Leaderboards
+                </h3>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Top Scorers -->
+<div class="bg-white border border-highland-mist rounded legacy-shadow overflow-hidden">
+<div class="bg-surface-container-low px-6 py-4 border-b border-outline-variant flex items-center justify-between">
+<h4 class="text-label-md font-label-md font-bold text-royal-navy uppercase tracking-wider">Top Scorers</h4>
+<span class="material-symbols-outlined text-white">sports_soccer</span>
+</div>
+<ul class="flex flex-col">
+<li class="flex justify-between items-center px-6 py-4 border-b border-outline-variant/50 hover:bg-surface-bright transition-colors">
+<div class="flex items-center gap-4">
+<span class="text-crest-gold font-bold text-lg w-4">1</span>
+<div class="w-8 h-8 rounded-full bg-surface-variant overflow-hidden">
+<img alt="Zahara Kamau" class="w-full h-full object-cover" data-alt="A portrait of a young female athlete wearing a dark maroon and navy sports kit, focused expression, bright studio lighting, plain white background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhcGVg38_jPkCEiJ-ttJ7Uzbo8YMRPqw58Zmljfp4CpVO_LuosimIkDB2zJOf73JxRlmRktG9OVhQqzNLyy0tDNWmYbqgwmDteFuEmO0qVzq4zNCYCuYJ8p4jSiry6tN35ZUbnKFmgO4RzVUM88u42Jz4GRaSQ3wHD7h6cb6HMSUG4WfV_2SX9L3LONhWcYnZH4XzBN0Q5gZ4xgNcOZLAQ_1f_oOTUKfyzkZWhu9Rh0JArEwIY1dkc">
+</div>
+<span class="text-body-md font-body-md font-medium text-on-surface">Zahara Kamau</span>
+</div>
+<span class="text-headline-sm font-headline-sm text-royal-navy">14</span>
+</li>
+<li class="flex justify-between items-center px-6 py-4 border-b border-outline-variant/50 hover:bg-surface-bright transition-colors">
+<div class="flex items-center gap-4">
+<span class="text-on-surface-variant font-bold text-lg w-4">2</span>
+<div class="w-8 h-8 rounded-full bg-surface-variant overflow-hidden">
+<img alt="Amina Okafor" class="w-full h-full object-cover" data-alt="A portrait of a young female athlete smiling confidently, wearing a navy blue athletic top, bright studio lighting, minimalist clean background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDE2P26OLGWTseUqoe1urS1frT4tfh2VdENMYIaESPs5NUl8u4AhFNFJzTLrk6xrMsT0wePvW_PyuWOC_ykl2Bce4jjWLTD28WrRP_NQTnFowgKYfQ7MYnj6gHQMqOdlEVhzJbPAYcUJ-cxVhcNnjLcfhjYp9UYIDVHF1HJjZwUd5KkTX4l0kGxzVnvxAteZmRJgSAdoYHAYecn6om8bZgJc3X2FYh4M_OX4xotfCy534LFXTG1PV6_">
+</div>
+<span class="text-body-md font-body-md text-on-surface-variant">Amina Okafor</span>
+</div>
+<span class="text-body-lg font-body-lg text-on-surface-variant font-bold">11</span>
+</li>
+<li class="flex justify-between items-center px-6 py-4 hover:bg-surface-bright transition-colors">
+<div class="flex items-center gap-4">
+<span class="text-on-surface-variant font-bold text-lg w-4">3</span>
+<div class="w-8 h-8 rounded-full bg-surface-variant overflow-hidden">
+<img alt="Nia Mensah" class="w-full h-full object-cover" data-alt="A portrait of a young female soccer player looking determined, wearing a maroon sports jersey, soft professional lighting, neutral grey background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_bv8n-15p7NIAnf4Pgo_9j7sHP76c3PMdfD2mE4tj5y2kKHV6_Eq94BX4RBVK9DEmuXTRRdYgG2ybZpSUCF6U6DuGVJ__pHeTb6o37ryBTceTQvOuQj1FcQhGza6gmjm2heIPc2QtiowrliG6thuCQf8STzatJ1tRZ-JpG1g8TM5kRNWjVBl93454ekYqS0_psQcnNJy6usg69wAd55j-hq8-orKw56wlZDAj7NpNOUPHIS5sAjEV">
+</div>
+<span class="text-body-md font-body-md text-on-surface-variant">Nia Mensah</span>
+</div>
+<span class="text-body-lg font-body-lg text-on-surface-variant font-bold">8</span>
+</li>
+</ul>
+</div>
+<!-- Playmakers -->
+<div class="bg-white border border-highland-mist rounded legacy-shadow overflow-hidden">
+<div class="bg-surface-container-low px-6 py-4 border-b border-outline-variant flex items-center justify-between border-t-4 border-t-crest-gold">
+<h4 class="text-label-md font-label-md font-bold text-royal-navy uppercase tracking-wider">Playmakers (Assists)</h4>
+<span class="material-symbols-outlined text-on-surface-variant">moving</span>
+</div>
+<ul class="flex flex-col">
+<li class="flex justify-between items-center px-6 py-4 border-b border-outline-variant/50 hover:bg-surface-bright transition-colors">
+<div class="flex items-center gap-4">
+<span class="text-crest-gold font-bold text-lg w-4">1</span>
+<span class="text-body-md font-body-md font-medium text-on-surface">Adoma Osei</span>
+</div>
+<span class="text-headline-sm font-headline-sm text-royal-navy">9</span>
+</li>
+<li class="flex justify-between items-center px-6 py-4 border-b border-outline-variant/50 hover:bg-surface-bright transition-colors">
+<div class="flex items-center gap-4">
+<span class="text-on-surface-variant font-bold text-lg w-4">2</span>
+<span class="text-body-md font-body-md text-on-surface-variant">Fatimah Ali</span>
+</div>
+<span class="text-body-lg font-body-lg text-on-surface-variant font-bold">7</span>
+</li>
+<li class="flex justify-between items-center px-6 py-4 hover:bg-surface-bright transition-colors">
+<div class="flex items-center gap-4">
+<span class="text-on-surface-variant font-bold text-lg w-4">3</span>
+<span class="text-body-md font-body-md text-on-surface-variant">Imani Kibet</span>
+</div>
+<span class="text-body-lg font-body-lg text-on-surface-variant font-bold">6</span>
+</li>
+</ul>
+</div>
+<!-- Defensive Pillars -->
+<div class="bg-white border border-highland-mist rounded legacy-shadow overflow-hidden">
+<div class="bg-surface-container-low px-6 py-4 border-b border-outline-variant flex items-center justify-between">
+<h4 class="text-label-md font-label-md font-bold text-royal-navy uppercase tracking-wider">Defensive Pillars</h4>
+<span class="material-symbols-outlined text-on-surface-variant">security</span>
+</div>
+<ul class="flex flex-col">
+<li class="flex justify-between items-center px-6 py-4 border-b border-outline-variant/50 hover:bg-surface-bright transition-colors">
+<div class="flex items-center gap-4">
+<span class="text-crest-gold font-bold text-lg w-4">1</span>
+<span class="text-body-md font-body-md font-medium text-on-surface">Samuel Njoroge</span>
+</div>
+<span class="text-headline-sm font-headline-sm text-royal-navy">45</span>
+</li>
+<li class="flex justify-between items-center px-6 py-4 border-b border-outline-variant/50 hover:bg-surface-bright transition-colors">
+<div class="flex items-center gap-4">
+<span class="text-on-surface-variant font-bold text-lg w-4">2</span>
+<span class="text-body-md font-body-md text-on-surface-variant">David Kiptoo</span>
+</div>
+<span class="text-body-lg font-body-lg text-on-surface-variant font-bold">38</span>
+</li>
+<li class="flex justify-between items-center px-6 py-4 hover:bg-surface-bright transition-colors">
+<div class="flex items-center gap-4">
+<span class="text-on-surface-variant font-bold text-lg w-4">3</span>
+<span class="text-body-md font-body-md text-on-surface-variant">Liam Ochieng</span>
+</div>
+<span class="text-body-lg font-body-lg text-on-surface-variant font-bold">34</span>
+</li>
+</ul>
+</div>
+</div>
+</section>
+</div>
+<!-- Footer -->
+<footer class="bg-surface-container-highest dark:bg-surface-dim border-t border-outline-variant w-full mt-auto">
+<div class="w-full py-12 px-gutter flex flex-col md:flex-row justify-between items-center max-w-container-max mx-auto gap-6">
+<span class="text-label-md font-label-md font-bold text-royal-navy">Sports IQ</span>
+<div class="flex gap-6">
+<a class="text-label-sm font-label-sm text-on-surface-variant hover:text-crest-gold transition-colors duration-300 ease-in-out" href="#">Privacy Policy</a>
+<a class="text-label-sm font-label-sm text-on-surface-variant hover:text-crest-gold transition-colors duration-300 ease-in-out" href="#">Contact Support</a>
+<a class="text-label-sm font-label-sm text-on-surface-variant hover:text-crest-gold transition-colors duration-300 ease-in-out" href="#">Turi Portal</a>
+</div>
+<p class="text-body-md font-body-md text-on-surface-variant dark:text-surface-variant text-center md:text-right">
+                    © 2024 St. Andrew's School, Turi. All Rights Reserved.
+                </p>
+</div>
+</footer>
+</main>
+<!-- Chart Configuration Script -->
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('formChart').getContext('2d');
+            
+            Chart.defaults.font.family = 'Inter, sans-serif';
+            Chart.defaults.color = '#5a413d';
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M7', 'M8', 'M9', 'M10'],
+                    datasets: [
+                        {
+                            label: 'Possession %',
+                            data: [58, 62, 55, 68, 70, 64, 59, 65, 72, 64],
+                            borderColor: '#335390', // royal-navy
+                            backgroundColor: 'rgba(51, 83, 144, 0.1)',
+                            borderWidth: 2,
+                            tension: 0.4,
+                            fill: true,
+                            pointBackgroundColor: '#335390',
+                            pointRadius: 4,
+                            pointHoverRadius: 6
+                        },
+                        {
+                            label: 'Goal Difference',
+                            data: [1, 2, 0, 3, 4, 1, -1, 2, 3, 2],
+                            borderColor: '#D4AF37', // crest-gold
+                            backgroundColor: 'transparent',
+                            borderWidth: 2,
+                            borderDash: [5, 5],
+                            tension: 0.4,
+                            yAxisID: 'y1',
+                            pointBackgroundColor: '#D4AF37',
+                            pointRadius: 4,
+                            pointHoverRadius: 6
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: '#1b1c1c',
+                            titleFont: { size: 13, family: 'Inter' },
+                            bodyFont: { size: 14, family: 'Inter', weight: 'bold' },
+                            padding: 12,
+                            cornerRadius: 4,
+                            displayColors: true
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                display: false,
+                                drawBorder: false
+                            }
+                        },
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            grid: {
+                                color: '#e5e2e1',
+                                drawBorder: false
+                            },
+                            suggestedMin: 40,
+                            suggestedMax: 80
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            grid: {
+                                display: false,
+                                drawBorder: false
+                            },
+                            suggestedMin: -2,
+                            suggestedMax: 5
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body></html>

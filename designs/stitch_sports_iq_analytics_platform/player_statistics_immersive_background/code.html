@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en" style=""><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Player Statistics | St. Andrew's Turi Sports</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary": "#3e5d9b",
+                    "primary-fixed": "#ffdad4",
+                    "surface-bright": "#fcf9f8",
+                    "on-surface": "#1b1c1c",
+                    "surface-container": "#f0eded",
+                    "secondary-fixed-dim": "#aec6ff",
+                    "secondary-fixed": "#d8e2ff",
+                    "inverse-primary": "#ffb4a8",
+                    "surface-container-high": "#eae7e7",
+                    "on-surface-variant": "#5a413d",
+                    "tertiary-fixed": "#ffe088",
+                    "error": "#ba1a1a",
+                    "highland-mist": "#F4F4F4",
+                    "primary-container": "#800000",
+                    "tertiary-fixed-dim": "#e9c349",
+                    "inverse-on-surface": "#f3f0ef",
+                    "surface-container-highest": "#e5e2e1",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-fixed-variant": "#574500",
+                    "outline-variant": "#e2bfb9",
+                    "turi-maroon": "#800000",
+                    "royal-navy": "#335390",
+                    "surface-variant": "#e5e2e1",
+                    "on-secondary-fixed-variant": "#244581",
+                    "primary": "#570000",
+                    "surface-tint": "#b22b1d",
+                    "surface": "#fcf9f8",
+                    "on-primary-fixed": "#410000",
+                    "background": "#fcf9f8",
+                    "on-secondary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "on-error-container": "#93000a",
+                    "inverse-surface": "#303030",
+                    "primary-fixed-dim": "#ffb4a8",
+                    "on-tertiary-fixed": "#241a00",
+                    "on-primary": "#ffffff",
+                    "tertiary-container": "#cba72f",
+                    "tertiary": "#735c00",
+                    "surface-container-low": "#f6f3f2",
+                    "on-secondary-fixed": "#001a42",
+                    "surface-dim": "#dcd9d9",
+                    "on-error": "#ffffff",
+                    "secondary-container": "#9dbbff",
+                    "on-primary-fixed-variant": "#8f0f07",
+                    "on-tertiary-container": "#4e3d00",
+                    "on-primary-container": "#ff8371",
+                    "outline": "#8e706c",
+                    "on-secondary-container": "#294a86",
+                    "on-background": "#1b1c1c",
+                    "on-tertiary": "#ffffff",
+                    "crest-gold": "#E9C176",
+                    "dark-blue": "#002147"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "container-max": "1280px",
+                    "margin-mobile": "20px",
+                    "unit": "8px",
+                    "margin-desktop": "80px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "display-lg": [
+                            "\"Source Serif 4\""
+                    ],
+                    "headline-md": [
+                            "\"Source Serif 4\""
+                    ],
+                    "headline-sm": [
+                            "\"Source Serif 4\""
+                    ],
+                    "body-lg": [
+                            "\"Source Serif 4\""
+                    ],
+                    "body-md": [
+                            "\"Source Serif 4\""
+                    ],
+                    "label-md": [
+                            "Inter"
+                    ],
+                    "label-sm": [
+                            "Inter"
+                    ],
+                    "display-lg-mobile": [
+                            "\"Source Serif 4\""
+                    ]
+            },
+            "fontSize": {
+                    "display-lg": [
+                            "48px",
+                            {
+                                    "lineHeight": "56px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "headline-md": [
+                            "32px",
+                            {
+                                    "lineHeight": "40px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "headline-sm": [
+                            "24px",
+                            {
+                                    "lineHeight": "32px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "label-md": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "letterSpacing": "0.05em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "label-sm": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "letterSpacing": "0.08em",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "display-lg-mobile": [
+                            "36px",
+                            {
+                                    "lineHeight": "44px",
+                                    "fontWeight": "700"
+                            }
+                    ]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        body {
+            background-color: #FDFBF7;
+        }
+        
+        .stat-bar-turi {
+            background-color: #002147;
+            height: 100%;
+            transition: width 1s ease-in-out;
+        }
+        
+        .stat-bar-opponent {
+            background-color: #E9C176;
+            height: 100%;
+            transition: width 1s ease-in-out;
+        }
+        
+        .legacy-shadow {
+            box-shadow: 0 10px 40px -10px rgba(0, 33, 71, 0.08);
+        }
+    </style>
+</head>
+<body class="text-on-surface flex flex-col min-h-screen" style="background-image: linear-gradient(rgba(0, 33, 71, 0.85), rgba(0, 33, 71, 0.85)), url('https://lh3.googleusercontent.com/aida/AEtjO1XFSbFFs29o4H41V7ac-_NJBlJPnwwqZtKJS5Wakr5IUzbaS34T7iA1kCpxhML2h0gqCan0Byqw7DNcjWnUJsbIejjUgMQ7rFjhVcluQfICaiXYKiugRJw7uXr8xIsA7XiIa00nD8mBHmpSfrKh9Ecf16AJzZSGh4VqLrH33AsyQtGLNdC84ZXpVjdVmYXQdNlTN9KwESg4-fqmnsxBh54pvLsMTnQ_R7LoLAlDLAlIghRAtuY-9Sy3Zg'); background-size: cover; background-position: center; background-attachment: fixed;">
+<!-- TopNavBar -->
+<nav class="sticky top-0 w-full z-50 flex justify-between items-center px-margin-mobile md:px-margin-desktop h-20 border-b-[0.5px] border-outline-variant bg-[#002147]">
+<div class="flex items-center gap-4">
+<span class="font-headline-sm text-headline-sm font-bold text-white">St. Andrew's Turi Sports</span>
+</div>
+<div class="hidden md:flex gap-6 items-center">
+<a class="font-label-md text-label-md hover:text-dark-blue transition-colors duration-200 text-white" href="#">Overview</a>
+<a class="font-label-md text-label-md hover:text-dark-blue transition-colors duration-200 text-white" href="#">Schedule</a>
+<a class="font-label-md text-label-md hover:text-dark-blue transition-colors duration-200 text-white" href="#">Players</a>
+<a class="border-b-2 border-crest-gold pb-1 font-label-md text-label-md text-white text-crest-gold" href="#">Stats</a>
+<a class="font-label-md text-label-md hover:text-dark-blue transition-colors duration-200 text-white" href="#">League Table</a>
+<a class="font-label-md text-label-md hover:text-dark-blue transition-colors duration-200 text-white" href="#">Hall of Fame</a>
+</div>
+<div class="flex items-center gap-4 text-white">
+<button class="hover:text-dark-blue transition-colors duration-200">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="hover:text-dark-blue transition-colors duration-200">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant bg-surface-variant ml-2 flex items-center justify-center">
+<span class="material-symbols-outlined text-sm">person</span>
+</div>
+</div>
+</nav>
+<div class="flex flex-1 w-full max-w-container-max mx-auto relative">
+<!-- SideNavBar -->
+<aside class="hidden md:flex flex-col gap-unit w-64 p-gutter fixed left-0 top-20 h-[calc(100vh-80px)] border-r-[0.5px] border-outline-variant z-40 bg-[#002147]">
+<div class="mb-8">
+<div class="w-16 h-16 rounded-full overflow-hidden mb-4 border border-outline-variant flex items-center justify-center bg-white p-2">
+<img alt="Turi Crest" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WNWe_pHcANJSms1V4Vq0ZpSs_u3X0F2wdRB1VXVOxg9w1k9zPN_AwvdiJ1pgSwXbhOm8H1RSgcs9tKXlHhLQeoXdLcV5lFD6Qg-mSr5NVFlqrxXww3ptM_mWXg7LalJ0tToPDqkiOfhqPBkNIQU53WqY_PaaHM_clejrT3kN6wyV_PVyT8x03m4T_Gb0TASbyUMESR69y0SBTWscjuUfjMifdFBY68Zvq5CT5HDZR8qB8WPhEMgHczgQ"/>
+</div>
+<h2 class="leading-tight text-white font-headline-md text-headline-md font-display-lg">Sports directory</h2>
+<p class="font-label-sm text-label-sm uppercase tracking-widest mt-1 text-crest-gold font-body-md">Elite Athletics</p>
+</div>
+<nav class="flex flex-col gap-2 flex-1">
+<a class="flex items-center gap-3 px-4 py-3 bg-[#e6ebf2] text-dark-blue font-bold rounded-xl font-label-md text-label-md translate-x-1 duration-150 shadow-sm border border-[#d0dbe8] font-body-md" href="#">
+<span class="material-symbols-outlined">sports_soccer</span>
+                    Football
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 hover:bg-surface-variant rounded-xl font-label-md text-label-md transition-all duration-200 text-white font-body-md" href="#">
+<span class="material-symbols-outlined">sports_basketball</span>
+                    Basketball
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 hover:bg-surface-variant rounded-xl font-label-md text-label-md transition-all duration-200 text-white font-body-md" href="#">
+<span class="material-symbols-outlined">sports_rugby</span>
+                    Rugby
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 hover:bg-surface-variant rounded-xl font-label-md text-label-md transition-all duration-200 text-white font-body-md" href="#">
+<span class="material-symbols-outlined">sports_hockey</span>
+                    Hockey
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 hover:bg-surface-variant rounded-xl font-label-md text-label-md transition-all duration-200 text-white font-body-md" href="#">
+<span class="material-symbols-outlined">sports_cricket</span>
+                    Cricket
+                </a>
+</nav>
+<button class="w-full py-3 px-4 border rounded-lg font-label-md text-label-md hover:bg-surface-variant transition-colors mt-auto text-center text-white border-crest-gold font-body-md">
+                View All Sports
+            </button>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 w-full md:ml-64 p-margin-mobile md:p-margin-desktop min-h-screen">
+<!-- Context Header -->
+<div class="mb-12">
+<p class="font-label-sm text-label-sm text-dark-blue uppercase tracking-[0.1em] mb-2 font-semibold">First XI Football</p>
+<h1 class="font-headline-md text-headline-md text-on-surface mb-4 text-white" data-stitch-orig-opacity="0">Player Statistics</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl text-white/90">Individual performance metrics and key contributions from the First XI squad during the recent fixture.</p>
+</div>
+<!-- Scoreboard Header -->
+<div class="rounded-2xl p-8 mb-12 legacy-shadow border border-highland-mist relative overflow-hidden bg-white/90">
+<div class="absolute top-0 left-0 w-full h-1 bg-crest-gold mb-4 bg-white/90"></div>
+<div class="flex flex-col md:flex-row items-center justify-between gap-8 flex-wrap gap-3 bg-white/90">
+<!-- Home Team -->
+<div class="flex flex-col items-center flex-1">
+<div class="w-24 h-24 rounded-full bg-white border border-highland-mist flex items-center justify-center p-3 mb-4 shadow-sm">
+<img alt="St. Andrew's Turi Logo" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WNWe_pHcANJSms1V4Vq0ZpSs_u3X0F2wdRB1VXVOxg9w1k9zPN_AwvdiJ1pgSwXbhOm8H1RSgcs9tKXlHhLQeoXdLcV5lFD6Qg-mSr5NVFlqrxXww3ptM_mWXg7LalJ0tToPDqkiOfhqPBkNIQU53WqY_PaaHM_clejrT3kN6wyV_PVyT8x03m4T_Gb0TASbyUMESR69y0SBTWscjuUfjMifdFBY68Zvq5CT5HDZR8qB8WPhEMgHczgQ"/>
+</div>
+<h2 class="font-headline-sm text-center text-dark-blue text-lg">St. Andrew's Turi</h2>
+<span class="font-label-sm text-label-sm bg-[#002147] text-white px-3 py-1 rounded-full mt-2 tracking-wider">HOME</span>
+</div>
+<!-- Score -->
+<div class="flex flex-col items-center px-8">
+<div class="font-label-md text-label-md text-on-surface-variant mb-2">FULL TIME</div>
+<div class="flex items-center gap-6 font-display-lg text-display-lg text-on-surface">
+<span class="text-dark-blue font-bold text-headline-md">3</span>
+<span class="text-outline-variant font-light text-headline-md">-</span>
+<span class="text-on-surface-variant font-bold text-headline-md">1</span>
+</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant mt-4 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">calendar_month</span>
+                            Oct 14, 2024
+                        </div>
+</div>
+<!-- Away Team -->
+<div class="flex flex-col items-center flex-1">
+<div class="w-24 h-24 rounded-full bg-surface-container border border-highland-mist flex items-center justify-center p-4 mb-4 shadow-sm relative overflow-hidden">
+<!-- Placeholder for opponent logo, using a generic shape for now since we don't have a specific image -->
+<img alt="Hillcrest International Logo" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuANRG6dH4fdQg3BjcbQ2KLAdutW387uSbGpzOVdLwCDj-aP6wNNLD4EUXTBwyb_e42E2Gzmq79z-DQQuchEom11U6npvmEk6HTPDTVyaG5XBHnBbOYfdUcqRAnD4-DOlcnJKVt1o9VdNq60_xh_1NB8pisnnA6afMwzVHVBiOOM2s1-XEHdZSLieJKQERM1eHBH1HjEo9BPKwSkxRNQ6XExAIIpRZaV5mQqHudmHO2hiXdW31AbE1yAHIiKVRXBom9tGg"/>
+</div>
+<h2 class="font-headline-sm text-center text-on-surface text-lg">Hillcrest International</h2>
+<span class="font-label-sm text-label-sm bg-[#E9C176] text-[#002147] px-3 py-1 rounded-full mt-2 font-semibold tracking-wider">AWAY</span>
+</div>
+<div class="w-full flex justify-center mt-4 p-4 col-span-full bg-[#002147] rounded-b-xl">
+<div class="flex gap-8"><a class="text-white/70 font-label-md text-label-md hover:text-white transition-colors duration-200 pb-2" href="#">Lineups</a><a class="text-white/70 font-label-md text-label-md hover:text-white transition-colors duration-200 pb-2" href="#">Stats</a><a class="text-white font-bold font-label-md text-label-md border-b-2 border-crest-gold pb-2" href="#">Player Stats</a></div>
+</div></div>
+</div>
+<!-- Detailed Stats Section -->
+<div class="mb-12"><h3 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-3 mb-6 pb-4 border-b border-highland-mist"><span class="material-symbols-outlined text-crest-gold" style='font-variation-settings: "FILL" 1;'>star</span>Top Performers</h3><div class="grid grid-cols-1 md:grid-cols-3 gap-6 bg-white/90"><div class="rounded-xl border border-highland-mist p-6 legacy-shadow flex flex-col items-center text-center bg-white/90"><div class="w-24 h-24 rounded-full overflow-hidden mb-4 border-2 border-crest-gold"><img alt="M. Mensah" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1W8Cpi5FApfypqreGPO28MJQ7UyKgqzIFAoZ0vO78K7y3GS08-TuTMcS0nDi1R7uYzCdsyHEiHTTwMFwrFKLgYdNspIpl9B1tfT3GpFkoqtNtJ-_LF1JPdHQvZaCPTi-hhcos95ydr3AKfsyFzs6uTifN4P0Sdz_jnsU1ALc7urhL6nhzDWMNws923vO54WLOrR6VIId8s7HgbykPdmI1rtuukR1WuY-wBBNDPcBzTTE-WPqr2O0nc_qA"/></div><h4 class="font-bold text-dark-blue text-lg">M. Mensah</h4><p class="text-label-sm text-on-surface-variant uppercase mb-4 text-white/90">Forward</p><div class="grid grid-cols-2 gap-4 w-full border-t border-highland-mist pt-4"><div class="flex flex-col"><span class="text-headline-sm font-bold text-dark-blue">2</span><span class="text-label-sm text-on-surface-variant">Goals</span></div><div class="flex flex-col"><span class="text-headline-sm font-bold text-dark-blue">4</span><span class="text-label-sm text-on-surface-variant">Shots</span></div></div></div><div class="rounded-xl border border-highland-mist p-6 legacy-shadow flex flex-col items-center text-center bg-white/90"><div class="w-24 h-24 rounded-full overflow-hidden mb-4 border-2 border-crest-gold"><img alt="A. Okoro" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1Vq2LGxWdGmbzSBp6rQMhm1oIl8hu3s9tcErKlCJgQqvoRoDuo8Te5GFjb5ICdEBqjQeqv3p63ytcjchGOvBO8QqGDsv3FocAe-m_t8GiFGzkkTNWtnmEewKFJTtKspVZZwxC7xUHEPNa7RJHJj6wx0wg0YD7Icvcn9L_O1c7zaADUYq5zInHITNLRtZHnG8Ju2gOmJprDpAPez3jRcac-qX_05U2s3-LXYFBi6JJq5v8TiCehYB8XoMMA"/></div><h4 class="font-bold text-dark-blue text-lg">A. Okoro</h4><p class="text-label-sm text-on-surface-variant uppercase mb-4 text-white/90">Midfielder</p><div class="grid grid-cols-2 gap-4 w-full border-t border-highland-mist pt-4"><div class="flex flex-col"><span class="text-headline-sm font-bold text-dark-blue">1</span><span class="text-label-sm text-on-surface-variant">Assist</span></div><div class="flex flex-col"><span class="text-headline-sm font-bold text-dark-blue">92%</span><span class="text-label-sm text-on-surface-variant">Pass Acc.</span></div></div></div><div class="rounded-xl border border-highland-mist p-6 legacy-shadow flex flex-col items-center text-center bg-white/90"><div class="w-24 h-24 rounded-full overflow-hidden mb-4 border-2 border-crest-gold"><img alt="S. Kamau" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1Uv8OOM_e5Kgpgt6S9xtQLyWEQXVG8SNMUHCDlYWgUKqkT3Ipd65HoEMK8O2ZurSjCg3CJeEUU1EjPWbRCBkE1HFjwddPxbCs4OoDuUiJQzTtKakIBF_2pPOyuDNr92_4J8kN1v2cfI_bRT_zV_ytbPx2ylR8pVUxfR7HyMsjP-EYxNUzO0Usm3JYXabIpGccscCsnytjayc1whnBZoLu09la37pEF9eOeuwyyuaKF678I8gLBXSnXn8w"/></div><h4 class="font-bold text-dark-blue text-lg">S. Kamau</h4><p class="text-label-sm text-on-surface-variant uppercase mb-4 text-white/90">Defender</p><div class="grid grid-cols-2 gap-4 w-full border-t border-highland-mist pt-4"><div class="flex flex-col"><span class="text-headline-sm font-bold text-dark-blue">6</span><span class="text-label-sm text-on-surface-variant">Tackles</span></div><div class="flex flex-col"><span class="text-headline-sm font-bold text-dark-blue">10.2km</span><span class="text-label-sm text-on-surface-variant">Distance</span></div></div></div></div></div><div class="mb-12"><h3 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-3 mb-6 pb-4 border-b border-highland-mist"><span class="material-symbols-outlined text-crest-gold" style='font-variation-settings: "FILL" 1;'>list_alt</span>Full Squad Statistics</h3><div class="rounded-xl border border-highland-mist overflow-hidden legacy-shadow bg-white/90"><div class="overflow-x-auto"><table class="w-full text-left border-collapse"><thead class="bg-[#002147] text-white"><tr class="font-label-md text-label-md"><th class="p-4">Player Name</th><th class="p-4">Pos</th><th class="p-4">Min</th><th class="p-4">G</th><th class="p-4">A</th><th class="p-4">SOT</th><th class="p-4">Tkl</th><th class="p-4">Pass %</th></tr></thead><tbody class="text-body-md"><tr class="border-b border-highland-mist hover:bg-surface-variant transition-colors"><td class="p-4 font-bold text-dark-blue">M. Mensah</td><td class="p-4">FW</td><td class="p-4">82'</td><td class="p-4">2</td><td class="p-4">0</td><td class="p-4">4</td><td class="p-4">1</td><td class="p-4">78%</td></tr><tr class="border-b border-highland-mist hover:bg-surface-variant transition-colors"><td class="p-4 font-bold text-dark-blue">A. Okoro</td><td class="p-4">MF</td><td class="p-4">90'</td><td class="p-4">0</td><td class="p-4">1</td><td class="p-4">2</td><td class="p-4">3</td><td class="p-4">92%</td></tr><tr class="border-b border-highland-mist hover:bg-surface-variant transition-colors"><td class="p-4 font-bold text-dark-blue">S. Kamau</td><td class="p-4">DF</td><td class="p-4">90'</td><td class="p-4">0</td><td class="p-4">0</td><td class="p-4">0</td><td class="p-4">6</td><td class="p-4">85%</td></tr><tr class="border-b border-highland-mist hover:bg-surface-variant transition-colors"><td class="p-4 font-bold text-dark-blue">J. Mwangi</td><td class="p-4">MF</td><td class="p-4">75'</td><td class="p-4">1</td><td class="p-4">0</td><td class="p-4">2</td><td class="p-4">2</td><td class="p-4">81%</td></tr><tr class="border-b border-highland-mist hover:bg-surface-variant transition-colors"><td class="p-4 font-bold text-dark-blue">L. Otieno</td><td class="p-4">GK</td><td class="p-4">90'</td><td class="p-4">0</td><td class="p-4">0</td><td class="p-4">0</td><td class="p-4">0</td><td class="p-4">65%</td></tr></tbody></table></div></div></div>
+<!-- Contextual Quote -->
+<div class="mt-16 pl-6 border-l-4 border-crest-gold py-2 mb-16 max-w-3xl">
+<p class="font-headline-sm text-headline-sm text-dark-blue italic mb-4">"A resolute display of discipline and tactical superiority. The boys executed the game plan with Highland spirit."</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest font-bold">Director of Sport, St. Andrew's Turi</p>
+</div>
+</main>
+</div>
+<!-- Footer -->
+<footer class="w-full py-12 px-margin-mobile md:px-margin-desktop flex flex-col items-center gap-4 mt-auto bg-highland-mist border-t-[0.5px] border-outline-variant z-10 relative">
+<span class="font-headline-sm text-headline-sm text-dark-blue mb-4">St. Andrew's Turi Sports</span>
+<div class="flex gap-8 mb-4">
+<a class="text-on-surface-variant font-label-sm text-label-sm hover:text-dark-blue underline decoration-crest-gold transition-colors" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant font-label-sm text-label-sm hover:text-dark-blue underline decoration-crest-gold transition-colors" href="#">Athletic Standards</a>
+<a class="text-on-surface-variant font-label-sm text-label-sm hover:text-dark-blue underline decoration-crest-gold transition-colors" href="#">Contact Coach</a>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant text-center max-w-md">
+            © 2024 St. Andrew's School, Turi. Excellence in the Highlands.
+        </p>
+</footer>
+</body></html>

@@ -4,6 +4,7 @@ import { PublicShell } from './components/PublicShell/PublicShell.jsx';
 import { NotFoundPage } from './pages/NotFoundPage.jsx';
 import { RouteError } from './pages/RouteError.jsx';
 import { HomeRedirect } from './pages/public/HomeRedirect.jsx';
+import { LeagueTablePage } from './pages/public/LeagueTablePage/LeagueTablePage.jsx';
 import { MatchPage } from './pages/public/MatchPage/MatchPage.jsx';
 import { OverviewPage } from './pages/public/OverviewPage/OverviewPage.jsx';
 import { RosterPage } from './pages/public/RosterPage/RosterPage.jsx';
@@ -23,6 +24,7 @@ const router = createBrowserRouter([
           { path: 'schedule', element: <SchedulePage /> },
           { path: 'schedule/:matchId', element: <MatchPage /> },
           { path: 'players', element: <RosterPage /> },
+          { path: 'league-table', element: <LeagueTablePage /> },
         ],
       },
       { path: '*', element: <NotFoundPage /> },

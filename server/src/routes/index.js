@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import * as auth from '../controllers/auth.js';
+import * as competitions from '../controllers/competitions.js';
 import { crudController } from '../controllers/crud.js';
 import * as matches from '../controllers/matches.js';
 import * as sports from '../controllers/sports.js';
@@ -31,3 +32,5 @@ apiRouter.get('/matches/:id', matches.get);
 
 apiRouter.get('/team-seasons', teamSeasons.list);
 apiRouter.get('/team-seasons/:id', teamSeasons.get);
+
+apiRouter.get('/competitions/:id/standings', competitions.standings);

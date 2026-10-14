@@ -3,6 +3,7 @@ import * as auth from '../controllers/auth.js';
 import { crudController } from '../controllers/crud.js';
 import * as matches from '../controllers/matches.js';
 import * as sports from '../controllers/sports.js';
+import * as teamSeasons from '../controllers/teamSeasons.js';
 import { schoolService } from '../services/schools.js';
 import { seasonService } from '../services/seasons.js';
 import { loginLimiter } from '../middleware/loginLimiter.js';
@@ -26,3 +27,6 @@ mountCrud(apiRouter, '/seasons', crudController(seasonService));
 mountCrud(apiRouter, '/schools', crudController(schoolService));
 
 apiRouter.get('/matches/:id', matches.get);
+
+apiRouter.get('/team-seasons', teamSeasons.list);
+apiRouter.get('/team-seasons/:id', teamSeasons.get);

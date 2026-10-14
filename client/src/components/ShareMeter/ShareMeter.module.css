@@ -1,0 +1,50 @@
+.meter {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-weight: var(--weight-semibold);
+  color: var(--color-primary-container);
+}
+
+.value {
+  font: var(--type-title);
+  color: var(--color-primary-container);
+}
+
+.detail {
+  font: var(--type-body-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.track {
+  height: 0.5rem;
+  border-radius: var(--radius-full);
+  background: var(--color-surface-container-high);
+  overflow: hidden;
+}
+
+.fill {
+  display: block;
+  width: var(--percent);
+  height: 100%;
+}
+
+.navy {
+  background: var(--color-primary-container);
+}
+
+.gold {
+  background: var(--color-excellence-gold);
+}

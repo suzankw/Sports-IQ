@@ -1,10 +1,8 @@
 import { Avatar } from '../Avatar/Avatar.jsx';
 import { Card, CardHeader } from '../Card/Card.jsx';
 import { Icon } from '../Icon/Icon.jsx';
+import { STAFF_ROLES, staffName } from '../../lib/people.js';
 import styles from './BenchAndStaff.module.css';
-
-const ROLE_LABELS = { head: 'Head Coach', assistant: 'Assistant Coach' };
-export const staffName = (user) => [user.title, user.name].filter(Boolean).join(' ');
 
 /** substitutes: [{ player, number, onMinute }] · staff: [{ user, role }] */
 export function BenchAndStaff({ substitutes, staff }) {
@@ -36,7 +34,7 @@ export function BenchAndStaff({ substitutes, staff }) {
               <Avatar src={user.photoUrl} name={user.name} size="sm" />
               <span>
                 <span className={styles.name}>{staffName(user)}</span>
-                <span className={styles.role}>{ROLE_LABELS[role]}</span>
+                <span className={styles.role}>{STAFF_ROLES[role].label}</span>
               </span>
             </li>
           ))}

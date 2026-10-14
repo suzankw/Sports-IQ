@@ -5,6 +5,7 @@ import { NotFoundPage } from './pages/NotFoundPage.jsx';
 import { HomeRedirect } from './pages/public/HomeRedirect.jsx';
 import { MatchPage } from './pages/public/MatchPage/MatchPage.jsx';
 import { OverviewPage } from './pages/public/OverviewPage/OverviewPage.jsx';
+import { RosterPage } from './pages/public/RosterPage/RosterPage.jsx';
 
 // Route map: docs/01-architecture.md §5.1–5.2.
 const router = createBrowserRouter([
@@ -17,6 +18,7 @@ const router = createBrowserRouter([
         children: [
           { index: true, element: <OverviewPage /> },
           { path: 'schedule/:matchId', element: <MatchPage /> },
+          { path: 'players', element: <RosterPage /> },
         ],
       },
       { path: '*', element: <NotFoundPage /> },

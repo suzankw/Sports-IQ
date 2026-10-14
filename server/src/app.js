@@ -13,6 +13,7 @@ import { authenticate } from './middleware/authenticate.js';
 import { requireAuth } from './middleware/requireAuth.js';
 import { errorHandler } from './middleware/errorHandler.js';
 import { apiRouter } from './routes/index.js';
+import { NotFoundError } from './lib/errors.js';
 
 const root = path.dirname(fileURLToPath(import.meta.url));
 const apiSpec = path.resolve(root, '../../docs/openapi.yaml');
@@ -58,6 +59,9 @@ export function buildApp() {
     }),
   );
   app.use('/api/v1', apiRouter);
+  app.use('/api/v1', () => {
+    throw new NotFoundError('Route');
+  });
 
   if (config.isProduction && fs.existsSync(clientDist)) {
     app.use(express.static(clientDist, { index: false }));

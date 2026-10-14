@@ -1,0 +1,23 @@
+.icon {
+  font-size: var(--size-icon-md);
+  line-height: 1;
+  flex-shrink: 0;
+  user-select: none;
+  font-variation-settings: 'FILL' 0;
+}
+
+.sm {
+  font-size: var(--size-icon-sm);
+}
+
+.lg {
+  font-size: var(--size-icon-lg);
+}
+
+.xl {
+  font-size: var(--size-icon-xl);
+}
+
+.filled {
+  font-variation-settings: 'FILL' 1;
+}

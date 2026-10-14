@@ -77,16 +77,22 @@ paths:
     get:
       tags: [Auth]
       summary: Current user and permissions
-      description: Every page (avatar menu, dashboard menus and guards). 401 means the visitor is anonymous.
+      description: |
+        Every page (avatar menu, dashboard menus and guards). `data` is null for a visitor who isn't signed in
+        (a 200, not a 401, so public pages don't log a browser console error on every load).
       operationId: getMe
-      security: [{ cookieAuth: [] }]
       responses:
         '200':
-          description: The signed-in user
+          description: The signed-in user, or null
           content:
             application/json:
-              schema: { $ref: '#/components/schemas/MeResponse' }
-        '401': { $ref: '#/components/responses/Unauthorized' }
+              schema:
+                type: object
+                additionalProperties: false
+                required: [data]
+                properties:
+                  data:
+                    anyOf: [{ $ref: '#/components/schemas/Me' }, { type: 'null' }]
     patch:
       tags: [Auth]
       summary: Update my profile

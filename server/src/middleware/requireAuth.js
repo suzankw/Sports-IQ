@@ -2,9 +2,9 @@ import { ForbiddenError, UnauthorizedError } from '../lib/errors.js';
 
 const WRITE_METHODS = new Set(['POST', 'PUT', 'PATCH', 'DELETE']);
 const OPEN_WRITES = new Set(['POST /auth/login']);
-const ALLOWED_WITH_TEMPORARY_PASSWORD = new Set(['GET /auth/me', 'POST /auth/logout', 'POST /auth/password']);
+const ALLOWED_WITH_TEMPORARY_PASSWORD = new Set(['POST /auth/logout', 'POST /auth/password']);
 
-const isStaffRead = (req) => req.path === '/auth/me' || req.path.startsWith('/users') || req.query.mine === 'true';
+const isStaffRead = (req) => req.path.startsWith('/users') || req.query.mine === 'true';
 
 /** Mounted once for the whole API: every write and staff-only read needs a session. */
 export function requireAuth(req, _res, next) {

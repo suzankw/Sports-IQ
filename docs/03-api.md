@@ -35,7 +35,7 @@ Checked on 2026-10-14: Redocly lint passes, and all 57 operations compile in `ex
 | 201 | Created (returns the new resource) | — |
 | 204 | Delete, logout, admin password reset | — |
 | 400 | Doesn't match the contract, or breaks a domain rule | `VALIDATION_ERROR` |
-| 401 | No session, expired or revoked (every write, `mine=true`, `/users`, `/auth/*` except login) | `UNAUTHENTICATED` |
+| 401 | No session, expired or revoked (every write, `mine=true`, `/users`) | `UNAUTHENTICATED` |
 | 403 | The policy says no / temporary password not changed yet | `FORBIDDEN` / `PASSWORD_CHANGE_REQUIRED` |
 | 404 | Missing | `NOT_FOUND` |
 | 409 | Duplicate, still in use, or stale `version` | `CONFLICT` |
@@ -78,7 +78,7 @@ Every response has an `X-Request-Id` header.
 |---|---|---|---|---|
 | `POST /auth/login` | Login page | P | `{ email, password }` → 200 `Me` + cookie | 401 (same message for every failure), 429 |
 | `POST /auth/logout` | Avatar menu | S | — → 204, cookie cleared | 401 |
-| `GET /auth/me` | Every page, guards, menus | S | — → 200 `Me` | 401 = anonymous |
+| `GET /auth/me` | Every page, guards, menus | P | — → 200 `Me`, or `{ "data": null }` when not signed in | — |
 | `PATCH /auth/me` | D17 My account | S | `{ name?, title?, photoUrl? }` → 200 `Me` | — |
 | `POST /auth/password` | D17, forced change | S (even with a temporary password) | `{ currentPassword, newPassword }` → 200 `Me` + new cookie | 400 wrong current password |
 
@@ -392,7 +392,7 @@ Every write endpoint. Each cell is the expected status. These four columns becom
 
 Restricted reads, tested the same way: `GET /users` (401 / 403 / 403 / 200). `mine=true` on any list (401 when anonymous). `GET /matches/{id}` for a draft returns the full result only to the own-team coach and admins; anonymous callers and other coaches get the public fields.
 
-Any signed-in user with `mustChangePassword: true` gets **403 `PASSWORD_CHANGE_REQUIRED`** on everything except `GET /auth/me`, `POST /auth/logout` and `POST /auth/password`.
+Any signed-in user with `mustChangePassword: true` gets **403 `PASSWORD_CHANGE_REQUIRED`** on every write and staff-only read except `POST /auth/logout` and `POST /auth/password` (public reads and `GET /auth/me` still work).
 
 ---
 
@@ -401,6 +401,7 @@ Any signed-in user with `mustChangePassword: true` gets **403 `PASSWORD_CHANGE_R
 | Change | Why |
 |---|---|
 | **`PATCH /auth/me`** added (alongside the `POST /auth/password` already agreed in Phase 1) | D17 My account: staff edit their own name, title and photo without needing admin rights on `/users` |
+| `GET /auth/me` returns **`{ "data": null }`** for anonymous visitors instead of 401 (changed in Phase 4) | Browsers log every 401 as a console error, and the definition of done requires a clean console on public pages |
 | Contract is **OpenAPI 3.1** (Phase 1 didn't say which) | 3.0 can't express "this reference or null", which almost every response needs. The validator supports 3.1 |
 | Sports are addressed by **slug** in paths | Public page URLs carry the slug; no extra lookup needed |
 | **No `GET /{id}`** for small admin resources | List rows already hold the full resource (minimal endpoints) |

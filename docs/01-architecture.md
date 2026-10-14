@@ -278,7 +278,7 @@ flowchart TD
 | Hooks only | Components never call `fetch` or the client. Each resource has hooks in `hooks/` (`useMatch`, `useSchedule`, `useSaveMatchResult`, …) built on **TanStack Query** (ADR-09) |
 | Query keys | Mirror the API path and params: `['matches', id]`, `['matches', { sport, team, season }]` |
 | Freshness | Public data `staleTime` 60 s. After a mutation, invalidate that resource's keys so lists and the public pages show the change |
-| Auth state | `useMe()` is a query on `/auth/me`. A 401 means anonymous. No global store library |
+| Auth state | `useMe()` is a query on `/auth/me`; `data: null` means anonymous. No global store library |
 | Forms | React Hook Form (ADR-11). Server `VALIDATION_ERROR.details[].path` maps onto form fields |
 | Loading, error, empty | One `QueryState` component renders all three for any query |
 | URL state | `useUrlState()` wraps the router's search params for team, season, tab and filters, and leaves defaults out of the URL |

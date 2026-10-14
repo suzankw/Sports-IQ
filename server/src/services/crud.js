@@ -4,6 +4,10 @@ import { pageOf } from '../lib/pagination.js';
 import { stamp } from '../models/audit.js';
 import { AUDIT_POPULATE } from './serializers.js';
 
+/** True if any [Model, filter] pair matches a document — used to block deletes of things still in use. */
+export const anyExists = async (checks) =>
+  (await Promise.all(checks.map(([Model, filter]) => Model.exists(filter)))).some(Boolean);
+
 /**
  * List / create / update / delete for the simple resources (seasons, schools, teams, …).
  * Each resource configures: how to filter, check input, serialize and guard deletes.

@@ -1,4 +1,5 @@
 import { User } from '../models/User.js';
+import { toActor } from '../auth/actor.js';
 import { SESSION_COOKIE, verifySession } from '../auth/session.js';
 
 /** Sets req.actor from the session cookie, or null. The user is reloaded so disabling or reassigning takes effect at once. */
@@ -11,10 +12,3 @@ export async function authenticate(req, _res, next) {
   }
   next();
 }
-
-const toActor = (user) => ({
-  id: String(user._id),
-  role: user.role,
-  mustChangePassword: user.mustChangePassword,
-  teamSeasonIds: new Set(user.assignments.map((a) => String(a.teamSeason))),
-});

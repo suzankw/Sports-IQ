@@ -1,0 +1,65 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  font: var(--type-label-caps);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.navy {
+  background: var(--color-primary-container);
+  color: var(--color-on-primary);
+}
+
+.gold {
+  background: var(--color-excellence-gold);
+  color: var(--color-primary-container);
+}
+
+.red {
+  background: var(--color-turi-red);
+  color: var(--color-on-secondary);
+}
+
+.neutral {
+  background: var(--color-surface-container-high);
+  color: var(--color-on-surface-variant);
+}
+
+.blue {
+  background: var(--color-primary-fixed);
+  color: var(--color-on-primary-fixed);
+}
+
+.positive {
+  background: var(--color-surface-container-low);
+  color: var(--color-positive);
+}
+
+.pill {
+  display: inline-grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: var(--radius-sm);
+  font: var(--type-label-caps);
+}
+
+.W {
+  background: var(--color-primary-container);
+  color: var(--color-on-primary);
+}
+
+.D {
+  background: var(--color-surface-container-high);
+  color: var(--color-on-surface-variant);
+}
+
+.L {
+  background: var(--color-turi-red);
+  color: var(--color-on-secondary);
+}

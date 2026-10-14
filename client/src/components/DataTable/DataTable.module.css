@@ -1,0 +1,59 @@
+.scroll {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  font: var(--type-body-sm);
+}
+
+.table th,
+.table td {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: var(--border);
+  font-weight: inherit;
+  white-space: nowrap;
+}
+
+.table tbody tr:last-child > * {
+  border-bottom: none;
+}
+
+.light th {
+  background: var(--color-surface-container-low);
+  color: var(--color-on-surface-variant);
+}
+
+.navy th {
+  background: var(--color-primary-container);
+  color: var(--color-on-primary);
+}
+
+thead th {
+  font: var(--type-label-caps);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.start {
+  text-align: start;
+}
+
+.center {
+  text-align: center;
+}
+
+.end {
+  text-align: end;
+}
+
+.highlight {
+  background: var(--color-heritage-cream);
+  box-shadow: inset var(--border-accent) 0 0 var(--color-excellence-gold);
+}
+
+.empty {
+  padding: var(--space-6);
+  text-align: center;
+  color: var(--color-on-surface-variant);
+}

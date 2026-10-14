@@ -1,0 +1,7 @@
+designs/
+docs/
+dist/
+coverage/
+server/uploads/
+server/.dev-db/
+package-lock.json

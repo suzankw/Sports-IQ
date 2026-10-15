@@ -6,6 +6,7 @@ import * as matches from '../controllers/matches.js';
 import * as sports from '../controllers/sports.js';
 import * as teamSeasons from '../controllers/teamSeasons.js';
 import * as uploads from '../controllers/uploads.js';
+import * as users from '../controllers/users.js';
 import { competitionService } from '../services/competitions.js';
 import { schoolService } from '../services/schools.js';
 import { seasonService } from '../services/seasons.js';
@@ -44,5 +45,10 @@ apiRouter.delete('/team-seasons/:id', teamSeasons.remove);
 apiRouter.get('/team-seasons/:id/stats', teamSeasons.stats);
 
 apiRouter.get('/competitions/:id/standings', competitions.standings);
+
+apiRouter.get('/users', users.list);
+apiRouter.post('/users', users.create);
+apiRouter.patch('/users/:id', users.update);
+apiRouter.post('/users/:id/password-reset', users.passwordReset);
 
 apiRouter.post('/uploads', uploads.create);

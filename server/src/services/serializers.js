@@ -8,6 +8,8 @@ export const teamRef = (t) => ({ id: idOf(t), slug: t.slug, name: t.name });
 export const schoolRef = (s) => ({ id: idOf(s), name: s.name, shortName: s.shortName, crestUrl: s.crestUrl ?? null });
 export const competitionRef = (c) => ({ id: idOf(c), name: c.name, shortName: c.shortName, type: c.type });
 export const staffRef = (u) => ({ id: idOf(u), name: u.name, title: u.title ?? null, photoUrl: u.photoUrl ?? null });
+/** Needs sport, team and season populated. */
+export const teamSeasonRef = (ts) => ({ id: idOf(ts), sport: sportRef(ts.sport), team: teamRef(ts.team), season: seasonRef(ts.season) });
 export const playerRef = (p) => ({
   id: idOf(p),
   firstName: p.firstName,

@@ -16,12 +16,9 @@ import {
   AUDIT_POPULATE,
   auditFields,
   competitionRef,
-  idOf,
   playerRef,
-  seasonRef,
-  sportRef,
   staffRef,
-  teamRef,
+  teamSeasonRef,
 } from './serializers.js';
 import { staffOf } from './staff.js';
 import { assertVersion } from './version.js';
@@ -34,10 +31,7 @@ const REF_POPULATE = [
 ];
 
 const refsOf = (ts) => ({
-  id: idOf(ts),
-  sport: sportRef(ts.sport),
-  team: teamRef(ts.team),
-  season: seasonRef(ts.season),
+  ...teamSeasonRef(ts),
   leagueCompetition: ts.leagueCompetition ? competitionRef(ts.leagueCompetition) : null,
 });
 

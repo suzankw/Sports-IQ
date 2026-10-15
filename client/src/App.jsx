@@ -11,6 +11,7 @@ import { SeasonsPage } from './pages/dashboard/SeasonsPage/SeasonsPage.jsx';
 import { SportEditorPage } from './pages/dashboard/SportEditorPage/SportEditorPage.jsx';
 import { SportsPage } from './pages/dashboard/SportsPage/SportsPage.jsx';
 import { TeamsPage } from './pages/dashboard/TeamsPage/TeamsPage.jsx';
+import { UsersPage } from './pages/dashboard/UsersPage/UsersPage.jsx';
 import { LoginPage } from './pages/LoginPage/LoginPage.jsx';
 import { NotFoundPage } from './pages/NotFoundPage.jsx';
 import { HomeRedirect } from './pages/public/HomeRedirect.jsx';
@@ -45,6 +46,7 @@ const router = createBrowserRouter([
       screen('teams', 'teams', <TeamsPage />),
       screen('competitions', 'competitions', <CompetitionsPage />),
       screen('schools', 'schools', <SchoolsPage />),
+      screen('users', 'users', <UsersPage />),
       { path: '*', element: <NotFoundPage /> },
     ],
   },

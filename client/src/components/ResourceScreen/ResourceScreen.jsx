@@ -12,9 +12,9 @@ import styles from './ResourceScreen.module.css';
 /**
  * A dashboard list screen (docs/04 "ResourceScreen"): header with Add, filters, table with Edit / Delete,
  * the add/edit `Form` in a dialog ({ item, resource, onSaved, onCancel }; item null = new) and a confirmed delete.
- * With `editTo(row)` Edit links to a page instead (sports have their own editor).
+ * With `editTo(row)` Edit links to a page instead (sports have their own editor); `rowActions(row)` adds buttons.
  */
-export function ResourceScreen({ title, subtitle, noun, nameOf, filters, query, columns, resource, Form, formProps, canDelete = () => true, editTo, children }) {
+export function ResourceScreen({ title, subtitle, noun, nameOf, filters, query, columns, resource, Form, formProps, canDelete = () => true, editTo, rowActions, children }) {
   const [editing, setEditing] = useState(null); // null = closed, {} = new, a row = editing it
   const [deleting, setDeleting] = useState(null);
   const toast = useToast();
@@ -36,6 +36,7 @@ export function ResourceScreen({ title, subtitle, noun, nameOf, filters, query, 
     align: 'end',
     render: (row) => (
       <div className={styles.rowActions}>
+        {rowActions?.(row)}
         <Button variant="ghost" size="sm" icon="edit" title="Edit" aria-label={`Edit ${nameOf(row)}`} {...(editTo ? { to: editTo(row) } : { onClick: () => setEditing(row) })} />
         {canDelete(row) && <Button variant="ghost" size="sm" icon="delete" title="Delete" aria-label={`Delete ${nameOf(row)}`} onClick={() => setDeleting(row)} />}
       </div>

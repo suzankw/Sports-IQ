@@ -1,0 +1,18 @@
+.date {
+  display: flex;
+  flex-direction: column;
+  white-space: nowrap;
+  font-weight: var(--weight-semibold);
+}
+
+.date span {
+  font: var(--type-body-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.team {
+  display: block;
+  margin-top: var(--space-1);
+  font: var(--type-body-sm);
+  color: var(--color-on-surface-variant);
+}

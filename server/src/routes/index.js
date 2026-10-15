@@ -37,7 +37,10 @@ mountCrud(apiRouter, '/teams', crudController(teamService));
 mountCrud(apiRouter, '/players', crudController(playerService));
 
 apiRouter.get('/matches', matches.list);
+apiRouter.post('/matches', matches.create);
 apiRouter.get('/matches/:id', matches.get);
+apiRouter.patch('/matches/:id', matches.update);
+apiRouter.delete('/matches/:id', matches.remove);
 
 apiRouter.get('/team-seasons', teamSeasons.list);
 apiRouter.post('/team-seasons', teamSeasons.create);

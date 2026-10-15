@@ -5,6 +5,7 @@ import { PublicShell } from './components/PublicShell/PublicShell.jsx';
 import { RequireAuth, RequireScreen } from './components/RequireAuth/RequireAuth.jsx';
 import { AccountPage } from './pages/dashboard/AccountPage/AccountPage.jsx';
 import { CompetitionsPage } from './pages/dashboard/CompetitionsPage/CompetitionsPage.jsx';
+import { FixturesPage } from './pages/dashboard/FixturesPage/FixturesPage.jsx';
 import { HomePage } from './pages/dashboard/HomePage/HomePage.jsx';
 import { PlayersPage } from './pages/dashboard/PlayersPage/PlayersPage.jsx';
 import { RostersPage } from './pages/dashboard/RostersPage/RostersPage.jsx';
@@ -42,6 +43,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <HomePage /> },
       { path: 'account', element: <AccountPage /> },
+      screen('fixtures', 'fixtures', <FixturesPage />),
       screen('rosters', 'rosters', <RostersPage />),
       screen('players', 'players', <PlayersPage />),
       screen('sports', 'sports', <SportsPage />),

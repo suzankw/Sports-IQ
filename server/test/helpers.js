@@ -50,7 +50,7 @@ export async function createWorld() {
   const firstXI = await Team.create({ sport: sport._id, slug: 'first-xi', name: 'First XI', gender: 'boys', order: 1 });
   const secondXI = await Team.create({ sport: sport._id, slug: 'second-xi', name: 'Second XI', gender: 'boys', order: 2 });
   const players = await Player.insertMany(
-    Array.from({ length: 18 }, (_, i) => ({ firstName: `Amani${i}`, lastName: `Otieno${i}`, gender: i % 3 ? 'male' : 'female' })),
+    Array.from({ length: 28 }, (_, i) => ({ firstName: `Amani${i}`, lastName: `Otieno${i}`, gender: i % 3 ? 'male' : 'female' })),
   );
   const ownTeam = await TeamSeason.create({ team: firstXI._id, season: season._id, sport: sport._id, members: squad(players.slice(0, 14)), leagueCompetition: league._id });
   const otherTeam = await TeamSeason.create({ team: secondXI._id, season: season._id, sport: sport._id, members: squad(players.slice(14)) });

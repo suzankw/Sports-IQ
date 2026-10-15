@@ -43,7 +43,7 @@ describe('GET /team-seasons/{id}', () => {
     expect(data.staff).toEqual([{ user: expect.objectContaining({ id: id(w.coach) }), role: 'head' }]);
     expect(data.analytics.playerCount).toBe(14);
     expect(data.analytics.gender.female + data.analytics.gender.male).toBe(14);
-    expect(data.analytics.academy.map((a) => [a.team.slug, a.share])).toEqual([['first-xi', 77.8], ['second-xi', 22.2]]);
+    expect(data.analytics.academy.map((a) => [a.team.slug, a.playerCount, a.share])).toEqual([['first-xi', 14, 50], ['second-xi', 14, 50]]);
   });
 
   it('counts players from last season’s squads as returning', async () => {

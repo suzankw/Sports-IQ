@@ -5,10 +5,11 @@ import { Match } from '../models/Match.js';
 import { School } from '../models/School.js';
 import { TeamSeason } from '../models/TeamSeason.js';
 import { findPreviousSeason } from './lookup.js';
-import { idOf, iso, playerRef, schoolRef } from './serializers.js';
+import { COUNTED, playerTotalsStages, rankedStages, toLeaderRows } from './leaderboards.js';
+import { idOf, iso, schoolRef } from './serializers.js';
 import { toTeamSeasonSummary } from './teamSeasons.js';
 
-const counted = (teamSeasonId) => ({ teamSeason: teamSeasonId, status: 'completed', publishedAt: { $ne: null } });
+const counted = (teamSeasonId) => ({ teamSeason: teamSeasonId, ...COUNTED });
 const countWhere = (comparison) => ({ $sum: { $cond: [{ [comparison]: ['$score.turi', '$score.opponent'] }, 1, 0] } });
 const round1 = (expression) => ({ $round: [expression, 1] });
 
@@ -77,38 +78,10 @@ async function leaderboards(teamSeasonId, sport) {
   const keys = [...new Set(sport.leaderboards.flatMap((l) => l.stats))];
   const [boards] = await Match.aggregate([
     { $match: counted(teamSeasonId) },
-    { $unwind: '$playerStats' },
-    {
-      $group: {
-        _id: '$playerStats.player',
-        appearances: { $sum: 1 },
-        position: { $last: '$playerStats.position' },
-        ...Object.fromEntries(keys.map((k) => [k, { $sum: { $ifNull: [`$playerStats.stats.${k}`, 0] } }])),
-      },
-    },
-    {
-      $facet: Object.fromEntries(
-        sport.leaderboards.map((board) => [
-          board.key,
-          [
-            { $set: { value: { $add: board.stats.map((k) => `$${k}`) } } },
-            { $match: { value: { $gt: 0 } } },
-            { $sort: { value: -1, appearances: 1, _id: 1 } },
-            { $limit: 10 },
-            { $lookup: { from: 'players', localField: '_id', foreignField: '_id', as: 'player' } },
-            { $unwind: '$player' },
-          ],
-        ]),
-      ),
-    },
+    ...playerTotalsStages(keys),
+    { $facet: Object.fromEntries(sport.leaderboards.map((board) => [board.key, rankedStages(board.stats, 10)])) },
   ]);
-  return sport.leaderboards.map(({ key, label, icon, group }) => ({
-    key,
-    label,
-    icon,
-    group,
-    rows: (boards?.[key] ?? []).map((r, i) => ({ rank: i + 1, player: playerRef(r.player), position: r.position ?? null, appearances: r.appearances, value: r.value })),
-  }));
+  return sport.leaderboards.map(({ key, label, icon, group }) => ({ key, label, icon, group, rows: toLeaderRows(boards?.[key] ?? []) }));
 }
 
 const RECORDS = {

@@ -23,6 +23,7 @@ apiRouter.get('/sports', sports.list);
 apiRouter.post('/sports', sports.create);
 apiRouter.get('/sports/:sport', sports.get);
 apiRouter.patch('/sports/:sport', sports.update);
+apiRouter.get('/sports/:sport/overview', sports.overview);
 
 mountCrud(apiRouter, '/seasons', crudController(seasonService));
 mountCrud(apiRouter, '/schools', crudController(schoolService));

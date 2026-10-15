@@ -3,12 +3,12 @@ import styles from './DataTable.module.css';
 
 /**
  * columns: [{ key, header, align: 'start'|'center'|'end', render(row, index), isRowHeader }]
- * headerTone: 'light' (league table, schedule) or 'navy' (stats tables).
+ * headerTone: 'light' (league table, schedule) or 'navy' (stats tables). `dense` tightens padding for narrow spaces.
  */
-export function DataTable({ columns, rows, rowKey, caption, headerTone = 'light', isHighlighted, empty = 'Nothing to show yet.' }) {
+export function DataTable({ columns, rows, rowKey, caption, headerTone = 'light', isHighlighted, dense, empty = 'Nothing to show yet.' }) {
   return (
     <div className={styles.scroll}>
-      <table className={styles.table}>
+      <table className={cx(styles.table, dense && styles.dense)}>
         <caption className="visually-hidden">{caption}</caption>
         <thead className={styles[headerTone]}>
           <tr>

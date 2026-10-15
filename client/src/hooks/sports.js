@@ -17,3 +17,10 @@ export const useSport = (slug) =>
     enabled: Boolean(slug),
     staleTime: FIVE_MINUTES,
   });
+
+export const useSportOverview = (slug) =>
+  useQuery({
+    queryKey: ['sports', slug, 'overview'],
+    queryFn: async () => (await api.get(`/sports/${slug}/overview`)).data,
+    enabled: Boolean(slug),
+  });

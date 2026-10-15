@@ -16,7 +16,7 @@ export function StandingsTable({ rows, unit, compact }) {
       isRowHeader: true,
       render: (r) => (
         <span className={styles.club}>
-          <Avatar src={r.school.crestUrl} name={r.school.name} size="sm" shape="square" tone="neutral" />
+          {!compact && <Avatar src={r.school.crestUrl} name={r.school.name} size="sm" shape="square" tone="neutral" />}
           <span className={cx(r.isHome && styles.home)}>{compact ? r.school.shortName : r.school.name}</span>
         </span>
       ),
@@ -35,5 +35,5 @@ export function StandingsTable({ rows, unit, compact }) {
     { key: 'points', header: 'Pts', align: 'center', render: (r) => <strong className={styles.points}>{r.points}</strong> },
     ...(compact ? [] : [{ key: 'form', header: 'Form', align: 'center', render: (r) => <span className={styles.form}>{r.form.map((x, i) => <FormPill key={i} result={x} />)}</span> }]),
   ];
-  return <DataTable caption="League standings" columns={columns} rows={rows} rowKey={(r) => r.school.id} isHighlighted={(r) => r.position === 1} />;
+  return <DataTable caption="League standings" columns={columns} rows={rows} rowKey={(r) => r.school.id} isHighlighted={(r) => r.position === 1} dense={compact} />;
 }

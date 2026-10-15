@@ -8,6 +8,7 @@ import { CompetitionsPage } from './pages/dashboard/CompetitionsPage/Competition
 import { FixturesPage } from './pages/dashboard/FixturesPage/FixturesPage.jsx';
 import { HomePage } from './pages/dashboard/HomePage/HomePage.jsx';
 import { PlayersPage } from './pages/dashboard/PlayersPage/PlayersPage.jsx';
+import { ResultPage } from './pages/dashboard/ResultPage/ResultPage.jsx';
 import { RostersPage } from './pages/dashboard/RostersPage/RostersPage.jsx';
 import { SchoolsPage } from './pages/dashboard/SchoolsPage/SchoolsPage.jsx';
 import { SeasonsPage } from './pages/dashboard/SeasonsPage/SeasonsPage.jsx';
@@ -44,6 +45,7 @@ const router = createBrowserRouter([
       { index: true, element: <HomePage /> },
       { path: 'account', element: <AccountPage /> },
       screen('fixtures', 'fixtures', <FixturesPage />),
+      screen('fixtures/:id/result', 'fixtures', <ResultPage />),
       screen('rosters', 'rosters', <RostersPage />),
       screen('players', 'players', <PlayersPage />),
       screen('sports', 'sports', <SportsPage />),

@@ -88,5 +88,6 @@ The screen coaches use after every match, often at the pitch. Goals: few taps, b
 
 - Sections are `<details>` accordions (Score open by default) so a coach can enter just the score quickly and come back later.
 - Players who appeared = starters + bench players who came on (subs) + anyone given stats; the player-stats section lists them automatically from the lineup.
-- Save sends the whole result (`PUT /matches/{id}/result` with `version`). Server `details[].path` (e.g. `/body/events/2/minute`) is shown next to the matching section.
+- Save sends the whole result (`PUT /matches/{id}/result` with `version`). Server `details[].path` (e.g. `/body/events/2/minute`) becomes a sentence in the save bar ("9 · O. Kariuki · minutes: At most 130") and the matching section opens with a **Check** badge.
+- Footer buttons: a draft has **Save draft** / **Publish**; a published result has **Unpublish** / **Save**.
 - On desktop the same sections sit in a two-column grid (score + lineup left, events + stats right).

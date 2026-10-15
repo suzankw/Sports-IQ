@@ -16,7 +16,7 @@
 
 .error {
   display: flex;
-  flex: 1;
+  flex: 1 1 100%;
   flex-wrap: wrap;
   align-items: center;
   gap: var(--space-3);

@@ -41,6 +41,7 @@ apiRouter.post('/matches', matches.create);
 apiRouter.get('/matches/:id', matches.get);
 apiRouter.patch('/matches/:id', matches.update);
 apiRouter.delete('/matches/:id', matches.remove);
+apiRouter.put('/matches/:id/result', matches.result);
 
 apiRouter.get('/team-seasons', teamSeasons.list);
 apiRouter.post('/team-seasons', teamSeasons.create);

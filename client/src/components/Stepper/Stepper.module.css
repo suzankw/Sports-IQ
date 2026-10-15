@@ -1,0 +1,21 @@
+.stepper {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--size-touch) var(--size-input-number) var(--size-touch);
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.label {
+  font: var(--type-title);
+  overflow-wrap: anywhere;
+}
+
+.value {
+  min-height: var(--size-touch);
+  border: var(--border);
+  border-radius: var(--radius);
+  background: var(--color-surface-container-lowest);
+  font: var(--type-headline-md);
+  text-align: center;
+  color: var(--color-primary-container);
+}

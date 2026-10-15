@@ -12,7 +12,10 @@ export function TeamSeasonFilters({ selection }) {
         hideLabel
         value={season?.slug ?? ''}
         options={seasons.map((s) => ({ value: s.slug, label: `${s.label} Season` }))}
-        onChange={(slug) => select({ season: seasons.find((s) => s.slug === slug)?.isCurrent ? '' : slug, team: '' })}
+        onChange={(event) => {
+          const slug = event.target.value;
+          select({ season: seasons.find((s) => s.slug === slug)?.isCurrent ? '' : slug, team: '' });
+        }}
       />
       {teamSeasons.length > 1 && (
         <Tabs

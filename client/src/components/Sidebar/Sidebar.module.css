@@ -67,6 +67,15 @@
   color: var(--color-excellence-gold);
 }
 
+.heading {
+  margin: var(--space-4) 0 var(--space-1);
+  padding: 0 var(--space-4);
+  font: var(--type-label-caps);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-on-primary-container);
+}
+
 .footer {
   display: flex;
   flex-direction: column;

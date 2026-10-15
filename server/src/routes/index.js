@@ -5,6 +5,7 @@ import { crudController } from '../controllers/crud.js';
 import * as matches from '../controllers/matches.js';
 import * as sports from '../controllers/sports.js';
 import * as teamSeasons from '../controllers/teamSeasons.js';
+import * as uploads from '../controllers/uploads.js';
 import { schoolService } from '../services/schools.js';
 import { seasonService } from '../services/seasons.js';
 import { loginLimiter } from '../middleware/loginLimiter.js';
@@ -36,3 +37,5 @@ apiRouter.get('/team-seasons/:id', teamSeasons.get);
 apiRouter.get('/team-seasons/:id/stats', teamSeasons.stats);
 
 apiRouter.get('/competitions/:id/standings', competitions.standings);
+
+apiRouter.post('/uploads', uploads.create);

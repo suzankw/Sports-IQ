@@ -36,8 +36,8 @@ export function SchedulePage() {
         subtitle={season && `${season.label} fixtures and results`}
         actions={
           <>
-            <Select label="Team" hideLabel value={url.team} onChange={(team) => setUrl({ team })} options={[{ value: '', label: 'All teams' }, ...(teams.data ?? []).map((ts) => ({ value: ts.team.slug, label: ts.team.name }))]} />
-            <Select label="Month" hideLabel value={url.month} onChange={(month) => setUrl({ month })} options={[{ value: '', label: 'All months' }, ...months.map((m) => ({ value: m, label: formatMonth(m) }))]} />
+            <Select label="Team" hideLabel value={url.team} onChange={(e) => setUrl({ team: e.target.value })} options={[{ value: '', label: 'All teams' }, ...(teams.data ?? []).map((ts) => ({ value: ts.team.slug, label: ts.team.name }))]} />
+            <Select label="Month" hideLabel value={url.month} onChange={(e) => setUrl({ month: e.target.value })} options={[{ value: '', label: 'All months' }, ...months.map((m) => ({ value: m, label: formatMonth(m) }))]} />
           </>
         }
       />

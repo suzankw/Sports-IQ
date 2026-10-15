@@ -7,7 +7,7 @@ import styles from './Sidebar.module.css';
 
 /**
  * The 256px navy sidebar. On mobile it slides in as a drawer (`open`, `onClose`).
- * items: [{ to, label, icon, end }]
+ * items: [{ to, label, icon, end }] or { heading } to start a group.
  */
 export function Sidebar({ brand, items, label, footer, open, onClose }) {
   useEffect(() => {
@@ -27,13 +27,18 @@ export function Sidebar({ brand, items, label, footer, open, onClose }) {
           {brand.tagline && <p className={styles.tagline}>{brand.tagline}</p>}
         </div>
         <nav aria-label={label} className={styles.nav}>
-          {items.map((item) => (
-            <NavLink key={item.to} to={item.to} end={item.end} className={({ isActive }) => cx(styles.item, isActive && styles.active)}>
-              <Icon name={item.icon} />
-              {item.label}
-              {item.badge}
-            </NavLink>
-          ))}
+          {items.map((item) =>
+            item.heading ? (
+              <p key={item.heading} className={styles.heading}>
+                {item.heading}
+              </p>
+            ) : (
+              <NavLink key={item.to} to={item.to} end={item.end} className={({ isActive }) => cx(styles.item, isActive && styles.active)}>
+                <Icon name={item.icon} />
+                {item.label}
+              </NavLink>
+            ),
+          )}
         </nav>
         {footer && <div className={styles.footer}>{footer}</div>}
       </aside>

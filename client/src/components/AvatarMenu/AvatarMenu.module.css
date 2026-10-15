@@ -1,0 +1,79 @@
+.wrapper {
+  position: relative;
+}
+
+.trigger {
+  display: inline-grid;
+  place-items: center;
+  min-width: var(--size-touch);
+  min-height: var(--size-touch);
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-full);
+  background: transparent;
+  cursor: pointer;
+}
+
+.menu {
+  position: absolute;
+  top: calc(100% + var(--space-2));
+  right: 0;
+  z-index: 40;
+  width: 18rem;
+  border: var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-container-lowest);
+  box-shadow: var(--shadow-overlay);
+  color: var(--color-on-surface);
+  --focus-ring: var(--color-on-primary-fixed-variant);
+}
+
+.who {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-5);
+  border-bottom: var(--border);
+  text-align: center;
+}
+
+.name {
+  margin-top: var(--space-2);
+  font: var(--type-title);
+  color: var(--color-primary-container);
+}
+
+.email {
+  margin-bottom: var(--space-2);
+  font: var(--type-body-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.links {
+  margin: 0;
+  padding: var(--space-2);
+  list-style: none;
+}
+
+.links a,
+.links button {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  min-height: var(--size-touch);
+  padding: var(--space-2) var(--space-3);
+  border: none;
+  border-radius: var(--radius);
+  background: transparent;
+  color: inherit;
+  text-align: start;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.links a:hover,
+.links button:hover {
+  background: var(--color-surface-container-low);
+}

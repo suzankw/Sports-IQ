@@ -1,0 +1,12 @@
+.publicLink {
+  color: var(--color-on-primary);
+  font: var(--type-label-caps);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.publicLink:hover {
+  color: var(--color-excellence-gold);
+}

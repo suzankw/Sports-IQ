@@ -1,0 +1,2764 @@
+openapi: 3.1.0
+info:
+  title: Sports IQ API
+  version: 1.0.0
+  description: |
+    The contract for the Sports IQ API (St. Andrew's School, Turi). Server and client both follow this file:
+    the server validates every request against it at runtime and every response in tests.
+    Conventions, the permission matrix and worked examples are in `docs/03-api.md`.
+
+    - Success: `{ "data": … }`, plus `"meta"` on lists. Errors: `{ "error": { "code", "message", "details" } }`.
+    - Dates are ISO 8601 in UTC. The client shows them in EAT (Africa/Nairobi).
+    - Query filters use slugs for sport, team and season (they come from page URLs). Request bodies always use ids.
+    - Reads are public unless marked otherwise. Every write needs the `siq_session` cookie.
+servers:
+  - url: /api/v1
+security: []
+tags:
+  - name: Auth
+  - name: Sports
+  - name: Seasons
+  - name: Schools
+  - name: Competitions
+  - name: Teams
+  - name: Team seasons
+  - name: Players
+  - name: Users
+  - name: Matches
+  - name: League results
+  - name: Inductees
+  - name: Uploads
+
+paths:
+  # ───────────────────────────── Auth ─────────────────────────────
+  /auth/login:
+    post:
+      tags: [Auth]
+      summary: Sign in
+      description: Login page. Sets the `siq_session` cookie. Limited to 10 attempts per 15 minutes per IP and email.
+      operationId: login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/LoginInput' }
+      responses:
+        '200':
+          description: Signed in
+          headers:
+            Set-Cookie: { $ref: '#/components/headers/SessionCookie' }
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/MeResponse' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401':
+          description: Wrong email or password, or the account is disabled (same message for all three)
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+              example: { error: { code: UNAUTHENTICATED, message: Invalid email or password, details: [] } }
+        '429': { $ref: '#/components/responses/TooManyRequests' }
+
+  /auth/logout:
+    post:
+      tags: [Auth]
+      summary: Sign out
+      description: Avatar menu → Sign out. Clears the cookie.
+      operationId: logout
+      security: [{ cookieAuth: [] }]
+      responses:
+        '204':
+          description: Signed out
+          headers:
+            Set-Cookie: { $ref: '#/components/headers/SessionCookie' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+
+  /auth/me:
+    get:
+      tags: [Auth]
+      summary: Current user and permissions
+      description: |
+        Every page (avatar menu, dashboard menus and guards). `data` is null for a visitor who isn't signed in
+        (a 200, not a 401, so public pages don't log a browser console error on every load).
+      operationId: getMe
+      responses:
+        '200':
+          description: The signed-in user, or null
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                required: [data]
+                properties:
+                  data:
+                    anyOf: [{ $ref: '#/components/schemas/Me' }, { type: 'null' }]
+    patch:
+      tags: [Auth]
+      summary: Update my profile
+      description: D17 My account. Name, title and photo only.
+      operationId: updateMe
+      security: [{ cookieAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/MeUpdate' }
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/MeResponse' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+
+  /auth/password:
+    post:
+      tags: [Auth]
+      summary: Change my password
+      description: |
+        D17 My account, and the forced change after a temporary password (allowed even when `mustChangePassword` is true).
+        Revokes every other session and sets a fresh cookie.
+      operationId: changePassword
+      security: [{ cookieAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/PasswordChangeInput' }
+      responses:
+        '200':
+          description: Password changed
+          headers:
+            Set-Cookie: { $ref: '#/components/headers/SessionCookie' }
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/MeResponse' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+
+  # ───────────────────────────── Sports ─────────────────────────────
+  /sports:
+    get:
+      tags: [Sports]
+      summary: List sports
+      description: Public sidebar (every page), D3 Sports list. Ordered by `order`.
+      operationId: listSports
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: Sports
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                required: [data, meta]
+                properties:
+                  data: { type: array, items: { $ref: '#/components/schemas/SportSummary' } }
+                  meta: { $ref: '#/components/schemas/ListMeta' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+    post:
+      tags: [Sports]
+      summary: Create a sport
+      description: D3 Sports. Admin only. Starts as `comingSoon`; definitions are added with PATCH.
+      operationId: createSport
+      security: [{ cookieAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/SportCreate' }
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/SportResponse' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '409': { $ref: '#/components/responses/Conflict' }
+
+  /sports/{sport}:
+    parameters:
+      - $ref: '#/components/parameters/SportPath'
+    get:
+      tags: [Sports]
+      summary: Get a sport with its definitions and content
+      description: D3/D4 edit form. Public, so result entry and stats pages can render from the definitions.
+      operationId: getSport
+      responses:
+        '200':
+          description: The sport
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/SportResponse' }
+        '404': { $ref: '#/components/responses/NotFound' }
+    patch:
+      tags: [Sports]
+      summary: Update a sport's definitions or overview content
+      description: D3 Sports (definition tab) and D4 Sport page content. Admin only. Stat keys already used by matches can't be removed or renamed.
+      operationId: updateSport
+      security: [{ cookieAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/SportUpdate' }
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/SportResponse' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+
+  /sports/{sport}/overview:
+    parameters:
+      - $ref: '#/components/parameters/SportPath'
+    get:
+      tags: [Sports]
+      summary: Sport Overview page
+      description: |
+        Public Overview page in one call: the sport with its content, the next 4 fixtures across all its teams,
+        the top 4 scorers across its teams this season, and the top 4 of the first team's league table.
+      operationId: getSportOverview
+      responses:
+        '200':
+          description: Overview
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                required: [data]
+                properties:
+                  data: { $ref: '#/components/schemas/SportOverview' }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  # ───────────────────────────── Seasons ─────────────────────────────
+  /seasons:
+    get:
+      tags: [Seasons]
+      summary: List seasons
+      description: Season selects on every page, D5 Seasons. Newest first.
+      operationId: listSeasons
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: Seasons
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                required: [data, meta]
+                properties:
+                  data: { type: array, items: { $ref: '#/components/schemas/Season' } }
+                  meta: { $ref: '#/components/schemas/ListMeta' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+    post:
+      tags: [Seasons]
+      summary: Create a season
+      description: D5 Seasons. Admin only. `isCurrent = true` unsets the previous current season.
+      operationId: createSeason
+      security: [{ cookieAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/SeasonCreate' }
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/SeasonResponse' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '409': { $ref: '#/components/responses/Conflict' }
+
+  /seasons/{id}:
+    parameters:
+      - $ref: '#/components/parameters/IdPath'
+    patch:
+      tags: [Seasons]
+      summary: Update a season
+      description: D5 Seasons. Admin only.
+      operationId: updateSeason
+      security: [{ cookieAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/SeasonUpdate' }
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/SeasonResponse' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+    delete:
+      tags: [Seasons]
+      summary: Delete a season
+      description: D5 Seasons. Admin only. 409 if any team-season, match or league result uses it.
+      operationId: deleteSeason
+      security: [{ cookieAuth: [] }]
+      responses:
+        '204': { description: Deleted }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+
+  # ───────────────────────────── Schools ─────────────────────────────
+  /schools:
+    get:
+      tags: [Schools]
+      summary: List schools
+      description: Shell crest (`home=true`), opponent pickers, D8 Schools. Sorted by name.
+      operationId: listSchools
+      parameters:
+        - name: home
+          in: query
+          description: true = only Turi, false = only opponents
+          schema: { type: boolean }
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: Schools
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                required: [data, meta]
+                properties:
+                  data: { type: array, items: { $ref: '#/components/schemas/School' } }
+                  meta: { $ref: '#/components/schemas/ListMeta' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+    post:
+      tags: [Schools]
+      summary: Add an opponent school
+      description: D8 Schools. Admin only.
+      operationId: createSchool
+      security: [{ cookieAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/SchoolCreate' }
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/SchoolResponse' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '409': { $ref: '#/components/responses/Conflict' }
+
+  /schools/{id}:
+    parameters:
+      - $ref: '#/components/parameters/IdPath'
+    patch:
+      tags: [Schools]
+      summary: Update a school (including Turi)
+      description: D8 Schools. Admin only.
+      operationId: updateSchool
+      security: [{ cookieAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/SchoolUpdate' }
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/SchoolResponse' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+    delete:
+      tags: [Schools]
+      summary: Delete an opponent school
+      description: D8 Schools. Admin only. 409 for Turi or if any match or league result uses it.
+      operationId: deleteSchool
+      security: [{ cookieAuth: [] }]
+      responses:
+        '204': { description: Deleted }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+
+  # ───────────────────────────── Competitions ─────────────────────────────
+  /competitions:
+    get:
+      tags: [Competitions]
+      summary: List competitions
+      description: Fixture and league-result pickers, D7 Competitions. Sorted by name.
+      operationId: listCompetitions
+      parameters:
+        - $ref: '#/components/parameters/SportQuery'
+        - name: type
+          in: query
+          schema: { $ref: '#/components/schemas/CompetitionType' }
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: Competitions
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                required: [data, meta]
+                properties:
+                  data: { type: array, items: { $ref: '#/components/schemas/Competition' } }
+                  meta: { $ref: '#/components/schemas/ListMeta' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+    post:
+      tags: [Competitions]
+      summary: Create a competition
+      description: D7 Competitions. Admin only.
+      operationId: createCompetition
+      security: [{ cookieAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/CompetitionCreate' }
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/CompetitionResponse' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '409': { $ref: '#/components/responses/Conflict' }
+
+  /competitions/{id}:
+    parameters:
+      - $ref: '#/components/parameters/IdPath'
+    patch:
+      tags: [Competitions]
+      summary: Update a competition
+      description: D7 Competitions. Admin only. The sport can't change.
+      operationId: updateCompetition
+      security: [{ cookieAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/CompetitionUpdate' }
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/CompetitionResponse' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+    delete:
+      tags: [Competitions]
+      summary: Delete a competition
+      description: D7 Competitions. Admin only. 409 if any match, league result or team-season uses it.
+      operationId: deleteCompetition
+      security: [{ cookieAuth: [] }]
+      responses:
+        '204': { description: Deleted }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+
+  /competitions/{id}/standings:
+    parameters:
+      - $ref: '#/components/parameters/IdPath'
+    get:
+      tags: [Competitions]
+      summary: League table
+      description: |
+        Public League Table page. Computed from published, completed Turi matches plus other schools' results.
+        Sorted by points, then goal difference, then goals for, then name.
+      operationId: getStandings
+      parameters:
+        - $ref: '#/components/parameters/SeasonQuery'
+      responses:
+        '200':
+          description: Standings
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                required: [data]
+                properties:
+                  data: { $ref: '#/components/schemas/Standings' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  # ───────────────────────────── Teams ─────────────────────────────
+  /teams:
+    get:
+      tags: [Teams]
+      summary: List teams
+      description: D6 Teams, team pickers. Sorted by sport, then `order`.
+      operationId: listTeams
+      parameters:
+        - $ref: '#/components/parameters/SportQuery'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: Teams
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                required: [data, meta]
+                properties:
+                  data: { type: array, items: { $ref: '#/components/schemas/Team' } }
+                  meta: { $ref: '#/components/schemas/ListMeta' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+    post:
+      tags: [Teams]
+      summary: Create a team
+      description: D6 Teams. Admin only.
+      operationId: createTeam
+      security: [{ cookieAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/TeamCreate' }
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/TeamResponse' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '409': { $ref: '#/components/responses/Conflict' }
+
+  /teams/{id}:
+    parameters:
+      - $ref: '#/components/parameters/IdPath'
+    patch:
+      tags: [Teams]
+      summary: Update a team
+      description: D6 Teams. Admin only. Sport and slug can't change.
+      operationId: updateTeam
+      security: [{ cookieAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/TeamUpdate' }
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/TeamResponse' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+    delete:
+      tags: [Teams]
+      summary: Delete a team
+      description: D6 Teams. Admin only. 409 if it has any team-season.
+      operationId: deleteTeam
+      security: [{ cookieAuth: [] }]
+      responses:
+        '204': { description: Deleted }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+
+  # ───────────────────────────── Team seasons ─────────────────────────────
+  /team-seasons:
+    get:
+      tags: [Team seasons]
+      summary: List team-seasons
+      description: |
+        Team tabs and selects on Roster, Season Stats and League Table (`sport` + `season`), resolving a page URL
+        to an id (`sport` + `team` + `season`), D6/D9/D12 pickers. `mine=true` lists the caller's assignments.
+        Sorted by team `order`.
+      operationId: listTeamSeasons
+      parameters:
+        - $ref: '#/components/parameters/SportQuery'
+        - $ref: '#/components/parameters/TeamQuery'
+        - $ref: '#/components/parameters/SeasonQuery'
+        - $ref: '#/components/parameters/MineQuery'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: Team-seasons
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                required: [data, meta]
+                properties:
+                  data: { type: array, items: { $ref: '#/components/schemas/TeamSeasonSummary' } }
+                  meta: { $ref: '#/components/schemas/ListMeta' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+    post:
+      tags: [Team seasons]
+      summary: Enter a team in a season
+      description: D6 Teams (season setup). Admin only. `copyFrom` copies the members of another team-season of the same team (captain and depth chart are not copied).
+      operationId: createTeamSeason
+      security: [{ cookieAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/TeamSeasonCreate' }
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/TeamSeasonResponse' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '409': { $ref: '#/components/responses/Conflict' }
+
+  /team-seasons/{id}:
+    parameters:
+      - $ref: '#/components/parameters/IdPath'
+    get:
+      tags: [Team seasons]
+      summary: Roster page
+      description: |
+        Public Roster page and D12 Roster editor in one call: squad, captain, depth chart, coaches, season quote,
+        roster analytics and the 3 most recent published match photos.
+      operationId: getTeamSeason
+      responses:
+        '200':
+          description: The team-season
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/TeamSeasonResponse' }
+        '404': { $ref: '#/components/responses/NotFound' }
+    patch:
+      tags: [Team seasons]
+      summary: Update league and season quote
+      description: D6 Teams. Admin only.
+      operationId: updateTeamSeason
+      security: [{ cookieAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/TeamSeasonUpdate' }
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/TeamSeasonResponse' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+    delete:
+      tags: [Team seasons]
+      summary: Remove a team from a season
+      description: D6 Teams. Admin only. 409 if it has matches or coach assignments.
+      operationId: deleteTeamSeason
+      security: [{ cookieAuth: [] }]
+      responses:
+        '204': { description: Deleted }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+
+  /team-seasons/{id}/squad:
+    parameters:
+      - $ref: '#/components/parameters/IdPath'
+    put:
+      tags: [Team seasons]
+      summary: Save the whole squad
+      description: |
+        D12 Roster. Coach (own team-season) or admin. Replaces members, captain and depth chart in one request.
+        Rules: shirt numbers unique, positions exist for the sport, captain and depth-chart players are members.
+      operationId: saveSquad
+      security: [{ cookieAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/SquadInput' }
+      responses:
+        '200':
+          description: Saved
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/TeamSeasonResponse' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+
+  /team-seasons/{id}/stats:
+    parameters:
+      - $ref: '#/components/parameters/IdPath'
+    get:
+      tags: [Team seasons]
+      summary: Season Statistics page
+      description: |
+        Public Season Statistics page, all four tabs in one call: KPIs, team form (last 10), every leaderboard
+        (top 10), records and the season quote. Counts only published, completed matches.
+      operationId: getSeasonStats
+      responses:
+        '200':
+          description: Season statistics
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                required: [data]
+                properties:
+                  data: { $ref: '#/components/schemas/SeasonStats' }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  # ───────────────────────────── Players ─────────────────────────────
+  /players:
+    get:
+      tags: [Players]
+      summary: List or search players
+      description: D11 Players, D12 "add player" search. Public fields only.
+      operationId: listPlayers
+      parameters:
+        - name: search
+          in: query
+          description: Matches the start of the first or last name, case-insensitive
+          schema: { type: string, minLength: 2, maxLength: 60 }
+        - $ref: '#/components/parameters/TeamSeasonQuery'
+        - name: sort
+          in: query
+          schema: { type: string, enum: [lastName, -lastName], default: lastName }
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: Players
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                required: [data, meta]
+                properties:
+                  data: { type: array, items: { $ref: '#/components/schemas/Player' } }
+                  meta: { $ref: '#/components/schemas/ListMeta' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+    post:
+      tags: [Players]
+      summary: Create a player
+      description: D11 Players, D12 Roster ("new player"). Any coach or admin. Added to a squad with PUT /team-seasons/{id}/squad.
+      operationId: createPlayer
+      security: [{ cookieAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/PlayerCreate' }
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/PlayerResponse' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+
+  /players/{id}:
+    parameters:
+      - $ref: '#/components/parameters/IdPath'
+    patch:
+      tags: [Players]
+      summary: Update a player
+      description: D11 Players. Coach if the player is in a squad of one of their team-seasons, or admin.
+      operationId: updatePlayer
+      security: [{ cookieAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/PlayerUpdate' }
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/PlayerResponse' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+    delete:
+      tags: [Players]
+      summary: Delete a player
+      description: D11 Players. Admin only. 409 if the player is in any squad, match or Hall of Fame entry.
+      operationId: deletePlayer
+      security: [{ cookieAuth: [] }]
+      responses:
+        '204': { description: Deleted }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+
+  # ───────────────────────────── Users ─────────────────────────────
+  /users:
+    get:
+      tags: [Users]
+      summary: List staff accounts
+      description: D9 Users. Admin only. Sorted by name.
+      operationId: listUsers
+      security: [{ cookieAuth: [] }]
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: Users
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                required: [data, meta]
+                properties:
+                  data: { type: array, items: { $ref: '#/components/schemas/User' } }
+                  meta: { $ref: '#/components/schemas/ListMeta' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+    post:
+      tags: [Users]
+      summary: Create a staff account
+      description: D9 Users + D10 assignments. Admin only. The user must change the temporary password at first sign-in.
+      operationId: createUser
+      security: [{ cookieAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/UserCreate' }
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/UserResponse' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '409': { $ref: '#/components/responses/Conflict' }
+
+  /users/{id}:
+    parameters:
+      - $ref: '#/components/parameters/IdPath'
+    patch:
+      tags: [Users]
+      summary: Update a staff account, its role, status or assignments
+      description: D9 Users + D10 assignments. Admin only. Disabling a user or changing their role revokes their sessions. Admins can't disable or demote themselves.
+      operationId: updateUser
+      security: [{ cookieAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/UserUpdate' }
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/UserResponse' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+
+  /users/{id}/password-reset:
+    parameters:
+      - $ref: '#/components/parameters/IdPath'
+    post:
+      tags: [Users]
+      summary: Set a temporary password
+      description: D9 Users. Admin only. Revokes the user's sessions and forces a change at next sign-in.
+      operationId: resetUserPassword
+      security: [{ cookieAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/PasswordResetInput' }
+      responses:
+        '204': { description: Temporary password set }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  # ───────────────────────────── Matches ─────────────────────────────
+  /matches:
+    get:
+      tags: [Matches]
+      summary: List fixtures and results
+      description: |
+        Public Schedule page (list + live banner with `status=live&pageSize=1`), D2 Home (`mine=true&view=awaitingResult`,
+        `mine=true&published=false&status=completed`), D13 Fixtures. Rows contain public fields only, so drafts are safe to list.
+        `view`: `upcoming` = upcoming or live, oldest first · `completed` = newest first · `awaitingResult` = kick-off passed but not completed.
+      operationId: listMatches
+      parameters:
+        - $ref: '#/components/parameters/SportQuery'
+        - $ref: '#/components/parameters/TeamQuery'
+        - $ref: '#/components/parameters/SeasonQuery'
+        - $ref: '#/components/parameters/TeamSeasonQuery'
+        - $ref: '#/components/parameters/MineQuery'
+        - name: competition
+          in: query
+          schema: { $ref: '#/components/schemas/ObjectId' }
+        - name: status
+          in: query
+          schema: { $ref: '#/components/schemas/MatchStatus' }
+        - name: view
+          in: query
+          schema: { type: string, enum: [upcoming, completed, awaitingResult] }
+        - name: month
+          in: query
+          description: Calendar month in EAT, e.g. `2026-10`
+          schema: { type: string, pattern: '^\d{4}-(0[1-9]|1[0-2])$' }
+        - name: published
+          in: query
+          schema: { type: boolean }
+        - name: sort
+          in: query
+          description: Default depends on `view` (see above), otherwise `kickoffAt`
+          schema: { type: string, enum: [kickoffAt, -kickoffAt] }
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: Matches
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                required: [data, meta]
+                properties:
+                  data: { type: array, items: { $ref: '#/components/schemas/MatchSummary' } }
+                  meta: { $ref: '#/components/schemas/ListMeta' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+    post:
+      tags: [Matches]
+      summary: Add a fixture
+      description: D13 Fixtures. Coach (own team-season) or admin. Starts as `upcoming`, unpublished.
+      operationId: createMatch
+      security: [{ cookieAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/MatchCreate' }
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/MatchResponse' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+
+  /matches/{id}:
+    parameters:
+      - $ref: '#/components/parameters/IdPath'
+    get:
+      tags: [Matches]
+      summary: Match page
+      description: |
+        Public match page (all three tabs) and D14 Match result entry, in one call: fixture, score, events, lineup,
+        bench, coaches, team and player stats, top performers, report, photos, and the sport definitions needed to render them.
+        For an unpublished result, callers who may not read drafts get the fixture, status and score only (no result fields).
+      operationId: getMatch
+      responses:
+        '200':
+          description: The match
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/MatchResponse' }
+        '404': { $ref: '#/components/responses/NotFound' }
+    patch:
+      tags: [Matches]
+      summary: Edit fixture details
+      description: D13 Fixtures. Coach (own team-season; when moving to another team-season, that one must be theirs too) or admin.
+      operationId: updateMatch
+      security: [{ cookieAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/MatchUpdate' }
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/MatchResponse' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+    delete:
+      tags: [Matches]
+      summary: Delete a fixture
+      description: D13 Fixtures. Coach (own team-season) or admin.
+      operationId: deleteMatch
+      security: [{ cookieAuth: [] }]
+      responses:
+        '204': { description: Deleted }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /matches/{id}/result:
+    parameters:
+      - $ref: '#/components/parameters/IdPath'
+    put:
+      tags: [Matches]
+      summary: Save the whole result
+      description: |
+        D14 Match result entry. Coach (own team-season) or admin. Saves score, status, events, lineup, team and player
+        stats, top performers, report and photos in one atomic request. `published: true` publishes (strict checks run);
+        `published: false` keeps or returns it to draft. Event-sourced stats (goals, assists, cards) are calculated by the server.
+      operationId: saveMatchResult
+      security: [{ cookieAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/MatchResultInput' }
+      responses:
+        '200':
+          description: Saved
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/MatchResponse' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+
+  # ───────────────────────────── League results ─────────────────────────────
+  /league-results:
+    get:
+      tags: [League results]
+      summary: List other schools' league results
+      description: D15 Other league results. Public. Newest first by default.
+      operationId: listLeagueResults
+      parameters:
+        - name: competition
+          in: query
+          schema: { $ref: '#/components/schemas/ObjectId' }
+        - $ref: '#/components/parameters/SeasonQuery'
+        - name: sort
+          in: query
+          schema: { type: string, enum: [playedAt, -playedAt], default: -playedAt }
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: League results
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                required: [data, meta]
+                properties:
+                  data: { type: array, items: { $ref: '#/components/schemas/LeagueResult' } }
+                  meta: { $ref: '#/components/schemas/ListMeta' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+    post:
+      tags: [League results]
+      summary: Add a result between two other schools
+      description: D15 Other league results. Admin only. Neither school may be Turi; the competition must be a league.
+      operationId: createLeagueResult
+      security: [{ cookieAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/LeagueResultCreate' }
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/LeagueResultResponse' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+
+  /league-results/{id}:
+    parameters:
+      - $ref: '#/components/parameters/IdPath'
+    patch:
+      tags: [League results]
+      summary: Correct a result
+      description: D15 Other league results. Admin only.
+      operationId: updateLeagueResult
+      security: [{ cookieAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/LeagueResultUpdate' }
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/LeagueResultResponse' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+    delete:
+      tags: [League results]
+      summary: Delete a result
+      description: D15 Other league results. Admin only.
+      operationId: deleteLeagueResult
+      security: [{ cookieAuth: [] }]
+      responses:
+        '204': { description: Deleted }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  # ───────────────────────────── Inductees ─────────────────────────────
+  /inductees:
+    get:
+      tags: [Inductees]
+      summary: Hall of Fame
+      description: Public Hall of Fame page and D16. Sorted by `order`.
+      operationId: listInductees
+      parameters:
+        - $ref: '#/components/parameters/SportQuery'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: Inductees
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                required: [data, meta]
+                properties:
+                  data: { type: array, items: { $ref: '#/components/schemas/Inductee' } }
+                  meta: { $ref: '#/components/schemas/ListMeta' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+    post:
+      tags: [Inductees]
+      summary: Add an inductee
+      description: D16 Hall of Fame. Admin only.
+      operationId: createInductee
+      security: [{ cookieAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/InducteeCreate' }
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/InducteeResponse' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+
+  /inductees/{id}:
+    parameters:
+      - $ref: '#/components/parameters/IdPath'
+    patch:
+      tags: [Inductees]
+      summary: Update an inductee
+      description: D16 Hall of Fame. Admin only.
+      operationId: updateInductee
+      security: [{ cookieAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/InducteeUpdate' }
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/InducteeResponse' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+    delete:
+      tags: [Inductees]
+      summary: Remove an inductee
+      description: D16 Hall of Fame. Admin only.
+      operationId: deleteInductee
+      security: [{ cookieAuth: [] }]
+      responses:
+        '204': { description: Deleted }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  # ───────────────────────────── Uploads ─────────────────────────────
+  /uploads:
+    post:
+      tags: [Uploads]
+      summary: Upload a photo
+      description: |
+        Any staff photo field (players, users, schools, matches, sport content, inductees). Coach or admin.
+        The browser resizes first. JPEG, PNG or WebP only (checked by file content), max 2 MB.
+        Returns a URL to save on the resource.
+      operationId: uploadImage
+      security: [{ cookieAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              additionalProperties: false
+              required: [file]
+              properties:
+                file: { type: string, format: binary }
+      responses:
+        '201':
+          description: Stored
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                required: [data]
+                properties:
+                  data:
+                    type: object
+                    additionalProperties: false
+                    required: [url]
+                    properties:
+                      url: { $ref: '#/components/schemas/ImageUrl' }
+              example: { data: { url: /uploads/2026/10/3f1c9a52-6a1e-4f7e-9c1d-2b8e5f0a7c11.jpg } }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '413': { $ref: '#/components/responses/PayloadTooLarge' }
+        '415': { $ref: '#/components/responses/UnsupportedMediaType' }
+
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: siq_session
+      description: httpOnly, Secure, SameSite=Strict JWT cookie set by POST /auth/login
+
+  headers:
+    SessionCookie:
+      description: '`siq_session=…; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=604800` (cleared with Max-Age=0 on logout)'
+      schema: { type: string }
+
+  parameters:
+    IdPath:
+      name: id
+      in: path
+      required: true
+      schema: { $ref: '#/components/schemas/ObjectId' }
+    SportPath:
+      name: sport
+      in: path
+      required: true
+      description: Sport slug
+      schema: { $ref: '#/components/schemas/Slug' }
+    SportQuery:
+      name: sport
+      in: query
+      description: Sport slug
+      schema: { $ref: '#/components/schemas/Slug' }
+    TeamQuery:
+      name: team
+      in: query
+      description: Team slug. Requires `sport`.
+      schema: { $ref: '#/components/schemas/Slug' }
+    SeasonQuery:
+      name: season
+      in: query
+      description: Season slug. Omitted = the current season.
+      schema: { $ref: '#/components/schemas/Slug' }
+    TeamSeasonQuery:
+      name: teamSeason
+      in: query
+      schema: { $ref: '#/components/schemas/ObjectId' }
+    MineQuery:
+      name: mine
+      in: query
+      description: Only the caller's assigned team-seasons. Requires sign-in.
+      schema: { type: boolean }
+    Page:
+      name: page
+      in: query
+      schema: { type: integer, minimum: 1, default: 1 }
+    PageSize:
+      name: pageSize
+      in: query
+      schema: { type: integer, minimum: 1, maximum: 200, default: 50 }
+
+  responses:
+    BadRequest:
+      description: The request doesn't match the contract or breaks a rule
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+          example:
+            error:
+              code: VALIDATION_ERROR
+              message: The request is invalid
+              details:
+                - { path: /body/members/3/number, message: Number 9 is already taken by Otieno Kariuki }
+    Unauthorized:
+      description: Not signed in, or the session expired or was revoked
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+          example: { error: { code: UNAUTHENTICATED, message: Please sign in, details: [] } }
+    Forbidden:
+      description: The policy doesn't allow this, or the account still has a temporary password
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+          examples:
+            forbidden:
+              value: { error: { code: FORBIDDEN, message: You can only change your own teams, details: [] } }
+            passwordChange:
+              value: { error: { code: PASSWORD_CHANGE_REQUIRED, message: Set a new password to continue, details: [] } }
+    NotFound:
+      description: Doesn't exist, or is a draft the caller may not see
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+          example: { error: { code: NOT_FOUND, message: Match not found, details: [] } }
+    Conflict:
+      description: Duplicate value, still in use, or edited by someone else since it was loaded
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+          example: { error: { code: CONFLICT, message: Someone else saved this result. Reload to see their changes., details: [] } }
+    TooManyRequests:
+      description: Too many sign-in attempts
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+          example: { error: { code: RATE_LIMITED, message: Too many attempts. Try again in 15 minutes., details: [] } }
+    PayloadTooLarge:
+      description: File over 2 MB
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+          example: { error: { code: PAYLOAD_TOO_LARGE, message: Photos must be 2 MB or smaller, details: [] } }
+    UnsupportedMediaType:
+      description: Not a JPEG, PNG or WebP image
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+          example: { error: { code: UNSUPPORTED_MEDIA_TYPE, message: 'Upload a JPEG, PNG or WebP image', details: [] } }
+
+  schemas:
+    # ── Primitives ──
+    ObjectId:
+      type: string
+      pattern: '^[a-f0-9]{24}$'
+      examples: [6650a1f0c0a8e1a1b2c3d470]
+    Slug:
+      type: string
+      pattern: '^[a-z0-9]+(-[a-z0-9]+)*$'
+      maxLength: 60
+      examples: [first-xi]
+    StatKey:
+      type: string
+      pattern: '^[a-z][A-Za-z0-9]*$'
+      maxLength: 40
+      examples: [shotsOnTarget]
+    ImageUrl:
+      type: string
+      pattern: '^/uploads/[A-Za-z0-9/_.-]+$'
+      maxLength: 200
+    LinkUrl:
+      type: string
+      pattern: '^https://'
+      maxLength: 500
+    ShortText:
+      type: string
+      minLength: 1
+      maxLength: 120
+    Version:
+      type: integer
+      minimum: 0
+      description: The version the edit started from. A stale version returns 409.
+    StatMap:
+      type: object
+      description: Stat key → value, validated against the sport's definitions
+      additionalProperties: { type: number, minimum: 0 }
+      examples: [{ goals: 2, shots: 5, shotsOnTarget: 3 }]
+    Quote:
+      type: object
+      additionalProperties: false
+      required: [text, attribution]
+      properties:
+        text: { type: string, minLength: 1, maxLength: 500 }
+        attribution: { $ref: '#/components/schemas/ShortText' }
+    Score:
+      type: object
+      additionalProperties: false
+      required: [turi, opponent]
+      properties:
+        turi: { type: integer, minimum: 0, maximum: 500 }
+        opponent: { type: integer, minimum: 0, maximum: 500 }
+    MatchStatus:
+      type: string
+      enum: [upcoming, live, completed]
+    CompetitionType:
+      type: string
+      enum: [league, cup, friendly]
+    Gender:
+      type: string
+      enum: [female, male]
+
+    # ── Envelopes ──
+    ListMeta:
+      type: object
+      additionalProperties: false
+      required: [page, pageSize, total]
+      properties:
+        page: { type: integer, minimum: 1 }
+        pageSize: { type: integer, minimum: 1 }
+        total: { type: integer, minimum: 0 }
+    Error:
+      type: object
+      additionalProperties: false
+      required: [error]
+      properties:
+        error:
+          type: object
+          additionalProperties: false
+          required: [code, message, details]
+          properties:
+            code:
+              type: string
+              enum: [VALIDATION_ERROR, UNAUTHENTICATED, FORBIDDEN, PASSWORD_CHANGE_REQUIRED, NOT_FOUND, CONFLICT, PAYLOAD_TOO_LARGE, UNSUPPORTED_MEDIA_TYPE, RATE_LIMITED, INTERNAL_ERROR]
+            message: { type: string }
+            details:
+              type: array
+              items:
+                type: object
+                additionalProperties: false
+                required: [message]
+                properties:
+                  path: { type: string, description: 'JSON pointer into the request, e.g. /body/events/2/minute' }
+                  message: { type: string }
+
+    # ── References embedded in responses ──
+    SportRef:
+      type: object
+      additionalProperties: false
+      required: [id, slug, name, icon]
+      properties:
+        id: { $ref: '#/components/schemas/ObjectId' }
+        slug: { $ref: '#/components/schemas/Slug' }
+        name: { type: string }
+        icon: { type: string }
+    SeasonRef:
+      type: object
+      additionalProperties: false
+      required: [id, slug, label]
+      properties:
+        id: { $ref: '#/components/schemas/ObjectId' }
+        slug: { $ref: '#/components/schemas/Slug' }
+        label: { type: string, examples: [2026/2027] }
+    TeamRef:
+      type: object
+      additionalProperties: false
+      required: [id, slug, name]
+      properties:
+        id: { $ref: '#/components/schemas/ObjectId' }
+        slug: { $ref: '#/components/schemas/Slug' }
+        name: { type: string, examples: [First XI] }
+    SchoolRef:
+      type: object
+      additionalProperties: false
+      required: [id, name, shortName, crestUrl]
+      properties:
+        id: { $ref: '#/components/schemas/ObjectId' }
+        name: { type: string, examples: [Peponi School] }
+        shortName: { type: string, examples: [Peponi] }
+        crestUrl: { anyOf: [{ $ref: '#/components/schemas/ImageUrl' }, { type: 'null' }] }
+    CompetitionRef:
+      type: object
+      additionalProperties: false
+      required: [id, name, shortName, type]
+      properties:
+        id: { $ref: '#/components/schemas/ObjectId' }
+        name: { type: string }
+        shortName: { type: string }
+        type: { $ref: '#/components/schemas/CompetitionType' }
+    PlayerRef:
+      type: object
+      additionalProperties: false
+      required: [id, firstName, lastName, shortName, photoUrl]
+      properties:
+        id: { $ref: '#/components/schemas/ObjectId' }
+        firstName: { type: string }
+        lastName: { type: string }
+        shortName: { type: string, examples: [O. Kariuki] }
+        photoUrl: { anyOf: [{ $ref: '#/components/schemas/ImageUrl' }, { type: 'null' }] }
+    StaffRef:
+      type: object
+      additionalProperties: false
+      required: [id, name, title, photoUrl]
+      properties:
+        id: { $ref: '#/components/schemas/ObjectId' }
+        name: { type: string, examples: [John Smith] }
+        title: { type: [string, 'null'], examples: [Mr.] }
+        photoUrl: { anyOf: [{ $ref: '#/components/schemas/ImageUrl' }, { type: 'null' }] }
+    TeamSeasonRef:
+      type: object
+      additionalProperties: false
+      required: [id, sport, team, season]
+      properties:
+        id: { $ref: '#/components/schemas/ObjectId' }
+        sport: { $ref: '#/components/schemas/SportRef' }
+        team: { $ref: '#/components/schemas/TeamRef' }
+        season: { $ref: '#/components/schemas/SeasonRef' }
+    StaffMember:
+      type: object
+      additionalProperties: false
+      required: [user, role]
+      properties:
+        user: { $ref: '#/components/schemas/StaffRef' }
+        role: { type: string, enum: [head, assistant] }
+    UpdatedBy:
+      anyOf: [{ $ref: '#/components/schemas/StaffRef' }, { type: 'null' }]
+      description: Who last changed it (audit)
+
+    # ── Auth ──
+    LoginInput:
+      type: object
+      additionalProperties: false
+      required: [email, password]
+      properties:
+        email: { type: string, format: email, maxLength: 254 }
+        password: { type: string, minLength: 1, maxLength: 128 }
+    PasswordChangeInput:
+      type: object
+      additionalProperties: false
+      required: [currentPassword, newPassword]
+      properties:
+        currentPassword: { type: string, minLength: 1, maxLength: 128 }
+        newPassword: { type: string, minLength: 10, maxLength: 128 }
+    MeUpdate:
+      type: object
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        name: { $ref: '#/components/schemas/ShortText' }
+        title: { type: [string, 'null'], maxLength: 20 }
+        photoUrl: { anyOf: [{ $ref: '#/components/schemas/ImageUrl' }, { type: 'null' }] }
+    Screen:
+      type: string
+      enum: [home, account, players, rosters, fixtures, results, sports, seasons, teams, competitions, schools, users, leagueResults, hallOfFame]
+    Me:
+      type: object
+      additionalProperties: false
+      required: [user, permissions]
+      properties:
+        user:
+          type: object
+          additionalProperties: false
+          required: [id, email, name, title, photoUrl, role, mustChangePassword]
+          properties:
+            id: { $ref: '#/components/schemas/ObjectId' }
+            email: { type: string, format: email }
+            name: { type: string }
+            title: { type: [string, 'null'] }
+            photoUrl: { anyOf: [{ $ref: '#/components/schemas/ImageUrl' }, { type: 'null' }] }
+            role: { type: string, enum: [admin, coach] }
+            mustChangePassword: { type: boolean }
+        permissions:
+          type: object
+          additionalProperties: false
+          required: [screens, teamSeasons]
+          description: Produced by the server policy. For showing and hiding UI only; the server enforces every write.
+          properties:
+            screens: { type: array, items: { $ref: '#/components/schemas/Screen' } }
+            teamSeasons:
+              type: array
+              description: Team-seasons this user may write to (empty for admins, who may write to all)
+              items:
+                type: object
+                additionalProperties: false
+                required: [id, sport, team, season, role]
+                properties:
+                  id: { $ref: '#/components/schemas/ObjectId' }
+                  sport: { $ref: '#/components/schemas/SportRef' }
+                  team: { $ref: '#/components/schemas/TeamRef' }
+                  season: { $ref: '#/components/schemas/SeasonRef' }
+                  role: { type: string, enum: [head, assistant] }
+    MeResponse:
+      type: object
+      additionalProperties: false
+      required: [data]
+      properties:
+        data: { $ref: '#/components/schemas/Me' }
+
+    # ── Sports ──
+    StatDefinition:
+      type: object
+      additionalProperties: false
+      required: [key, label, abbr, type, source, aggregation]
+      properties:
+        key: { $ref: '#/components/schemas/StatKey' }
+        label: { type: string, minLength: 1, maxLength: 40 }
+        abbr: { type: string, minLength: 1, maxLength: 6 }
+        icon: { type: [string, 'null'], maxLength: 40 }
+        type: { type: string, enum: [count, percent, minutes, ratio] }
+        ratio:
+          type: [object, 'null']
+          additionalProperties: false
+          required: [numerator, denominator]
+          properties:
+            numerator: { $ref: '#/components/schemas/StatKey' }
+            denominator: { $ref: '#/components/schemas/StatKey' }
+        source: { type: string, enum: [manual, events] }
+        aggregation: { type: string, enum: [sum, avg] }
+    Position:
+      type: object
+      additionalProperties: false
+      required: [key, name, headlineStats]
+      properties:
+        key: { type: string, pattern: '^[A-Z]{1,4}$', examples: [FW] }
+        name: { type: string, maxLength: 40, examples: [Forward] }
+        headlineStats: { type: array, maxItems: 2, items: { $ref: '#/components/schemas/StatKey' } }
+    Formation:
+      type: object
+      additionalProperties: false
+      required: [key, name, slots]
+      properties:
+        key: { type: string, maxLength: 20, examples: [4-3-3] }
+        name: { type: string, maxLength: 40, examples: [4-3-3 Attacking] }
+        slots:
+          type: array
+          minItems: 1
+          maxItems: 15
+          items:
+            type: object
+            additionalProperties: false
+            required: [key, position, x, y]
+            properties:
+              key: { type: string, maxLength: 6, examples: [LW] }
+              position: { type: string, pattern: '^[A-Z]{1,4}$' }
+              x: { type: number, minimum: 0, maximum: 100 }
+              y: { type: number, minimum: 0, maximum: 100 }
+    Leaderboard:
+      type: object
+      additionalProperties: false
+      required: [key, label, icon, group, stats]
+      properties:
+        key: { $ref: '#/components/schemas/StatKey' }
+        label: { type: string, maxLength: 40 }
+        icon: { type: string, maxLength: 40 }
+        group: { type: string, enum: [attack, defense, discipline] }
+        stats: { type: array, minItems: 1, items: { $ref: '#/components/schemas/StatKey' } }
+    SportContent:
+      type: object
+      additionalProperties: false
+      properties:
+        hero:
+          type: object
+          additionalProperties: false
+          properties:
+            eyebrow: { type: string, maxLength: 60 }
+            title: { type: string, maxLength: 60 }
+            text: { type: string, maxLength: 600 }
+            imageUrl: { anyOf: [{ $ref: '#/components/schemas/ImageUrl' }, { type: 'null' }] }
+        history:
+          type: object
+          additionalProperties: false
+          properties:
+            text: { type: string, maxLength: 600 }
+            imageUrl: { anyOf: [{ $ref: '#/components/schemas/ImageUrl' }, { type: 'null' }] }
+        facts:
+          type: array
+          maxItems: 10
+          items:
+            type: object
+            additionalProperties: false
+            required: [icon, label, text]
+            properties:
+              icon: { type: string, maxLength: 40 }
+              label: { type: string, maxLength: 40 }
+              text: { type: string, maxLength: 300 }
+        approach:
+          type: object
+          additionalProperties: false
+          properties:
+            strategic: { type: string, maxLength: 600 }
+            character: { type: string, maxLength: 600 }
+        benefits:
+          type: array
+          maxItems: 9
+          items:
+            type: object
+            additionalProperties: false
+            required: [icon, title, text]
+            properties:
+              icon: { type: string, maxLength: 40 }
+              title: { type: string, maxLength: 40 }
+              text: { type: string, maxLength: 300 }
+        videos:
+          type: array
+          maxItems: 6
+          items:
+            type: object
+            additionalProperties: false
+            required: [title, url]
+            properties:
+              title: { type: string, maxLength: 80 }
+              duration: { type: string, maxLength: 10, examples: ['6:15'] }
+              category: { type: string, maxLength: 40 }
+              url: { $ref: '#/components/schemas/LinkUrl' }
+              thumbnailUrl: { anyOf: [{ $ref: '#/components/schemas/ImageUrl' }, { type: 'null' }] }
+        pathways:
+          type: array
+          maxItems: 6
+          items:
+            type: object
+            additionalProperties: false
+            required: [title, text]
+            properties:
+              title: { type: string, maxLength: 40 }
+              text: { type: string, maxLength: 300 }
+              url: { anyOf: [{ $ref: '#/components/schemas/LinkUrl' }, { type: 'null' }] }
+    SportSummary:
+      type: object
+      additionalProperties: false
+      required: [id, slug, name, icon, order, status]
+      properties:
+        id: { $ref: '#/components/schemas/ObjectId' }
+        slug: { $ref: '#/components/schemas/Slug' }
+        name: { type: string, examples: [Football] }
+        icon: { type: string, examples: [sports_soccer] }
+        order: { type: integer }
+        status: { type: string, enum: [active, comingSoon] }
+    Sport:
+      type: object
+      additionalProperties: false
+      required: [id, slug, name, icon, order, status, periods, scoreDetail, scoringStat, standingsPoints, positions, formations, teamStats, playerStats, leaderboards, kpis, content, version, updatedAt, updatedBy]
+      properties:
+        id: { $ref: '#/components/schemas/ObjectId' }
+        slug: { $ref: '#/components/schemas/Slug' }
+        name: { type: string }
+        icon: { type: string }
+        order: { type: integer }
+        status: { type: string, enum: [active, comingSoon] }
+        periods: { $ref: '#/components/schemas/Periods' }
+        scoreDetail: { type: [string, 'null'], enum: [events, periods, null] }
+        scoringStat: { anyOf: [{ $ref: '#/components/schemas/StatKey' }, { type: 'null' }] }
+        standingsPoints: { $ref: '#/components/schemas/StandingsPoints' }
+        positions: { type: array, items: { $ref: '#/components/schemas/Position' } }
+        formations: { type: array, items: { $ref: '#/components/schemas/Formation' } }
+        teamStats: { type: array, items: { $ref: '#/components/schemas/StatDefinition' } }
+        playerStats: { type: array, items: { $ref: '#/components/schemas/StatDefinition' } }
+        leaderboards: { type: array, items: { $ref: '#/components/schemas/Leaderboard' } }
+        kpis: { $ref: '#/components/schemas/Kpis' }
+        content: { $ref: '#/components/schemas/SportContent' }
+        version: { $ref: '#/components/schemas/Version' }
+        updatedAt: { type: string, format: date-time }
+        updatedBy: { $ref: '#/components/schemas/UpdatedBy' }
+    Periods:
+      type: [object, 'null']
+      additionalProperties: false
+      required: [count, minutes]
+      properties:
+        count: { type: integer, minimum: 1, maximum: 8 }
+        minutes: { type: integer, minimum: 1, maximum: 90 }
+    StandingsPoints:
+      type: object
+      additionalProperties: false
+      required: [win, draw, loss]
+      properties:
+        win: { type: integer, minimum: 0, maximum: 10 }
+        draw: { type: integer, minimum: 0, maximum: 10 }
+        loss: { type: integer, minimum: 0, maximum: 10 }
+    Kpis:
+      type: object
+      additionalProperties: false
+      required: [cleanSheets, teamStat]
+      properties:
+        cleanSheets: { type: boolean }
+        teamStat: { anyOf: [{ $ref: '#/components/schemas/StatKey' }, { type: 'null' }] }
+    SportResponse:
+      type: object
+      additionalProperties: false
+      required: [data]
+      properties:
+        data: { $ref: '#/components/schemas/Sport' }
+    SportCreate:
+      type: object
+      additionalProperties: false
+      required: [slug, name, icon, order]
+      properties:
+        slug: { $ref: '#/components/schemas/Slug' }
+        name: { type: string, minLength: 1, maxLength: 40 }
+        icon: { type: string, minLength: 1, maxLength: 40 }
+        order: { type: integer, minimum: 0 }
+    SportUpdate:
+      type: object
+      additionalProperties: false
+      required: [version]
+      minProperties: 2
+      description: Any subset of fields. Lists (positions, stats, …) are replaced whole.
+      properties:
+        version: { $ref: '#/components/schemas/Version' }
+        name: { type: string, minLength: 1, maxLength: 40 }
+        icon: { type: string, minLength: 1, maxLength: 40 }
+        order: { type: integer, minimum: 0 }
+        status: { type: string, enum: [active, comingSoon] }
+        periods: { $ref: '#/components/schemas/Periods' }
+        scoreDetail: { type: string, enum: [events, periods] }
+        scoringStat: { $ref: '#/components/schemas/StatKey' }
+        standingsPoints: { $ref: '#/components/schemas/StandingsPoints' }
+        positions: { type: array, maxItems: 20, items: { $ref: '#/components/schemas/Position' } }
+        formations: { type: array, maxItems: 10, items: { $ref: '#/components/schemas/Formation' } }
+        teamStats: { type: array, maxItems: 20, items: { $ref: '#/components/schemas/StatDefinition' } }
+        playerStats: { type: array, maxItems: 20, items: { $ref: '#/components/schemas/StatDefinition' } }
+        leaderboards: { type: array, maxItems: 10, items: { $ref: '#/components/schemas/Leaderboard' } }
+        kpis: { $ref: '#/components/schemas/Kpis' }
+        content: { $ref: '#/components/schemas/SportContent' }
+    SportOverview:
+      type: object
+      additionalProperties: false
+      required: [sport, upcoming, topScorers, standings]
+      properties:
+        sport: { $ref: '#/components/schemas/Sport' }
+        upcoming: { type: array, maxItems: 4, items: { $ref: '#/components/schemas/MatchSummary' } }
+        topScorers: { type: array, maxItems: 4, items: { $ref: '#/components/schemas/LeaderRow' } }
+        standings:
+          type: [object, 'null']
+          additionalProperties: false
+          required: [competition, team, rows]
+          properties:
+            competition: { $ref: '#/components/schemas/CompetitionRef' }
+            team: { $ref: '#/components/schemas/TeamRef' }
+            rows: { type: array, maxItems: 4, items: { $ref: '#/components/schemas/StandingRow' } }
+
+    # ── Seasons ──
+    Season:
+      type: object
+      additionalProperties: false
+      required: [id, slug, label, startDate, endDate, isCurrent, updatedAt, updatedBy]
+      properties:
+        id: { $ref: '#/components/schemas/ObjectId' }
+        slug: { $ref: '#/components/schemas/Slug' }
+        label: { type: string, examples: [2026/2027] }
+        startDate: { type: string, format: date-time }
+        endDate: { type: string, format: date-time }
+        isCurrent: { type: boolean }
+        updatedAt: { type: string, format: date-time }
+        updatedBy: { $ref: '#/components/schemas/UpdatedBy' }
+    SeasonResponse:
+      type: object
+      additionalProperties: false
+      required: [data]
+      properties:
+        data: { $ref: '#/components/schemas/Season' }
+    SeasonCreate:
+      type: object
+      additionalProperties: false
+      required: [slug, label, startDate, endDate]
+      properties:
+        slug: { $ref: '#/components/schemas/Slug' }
+        label: { type: string, pattern: '^\d{4}/\d{4}$' }
+        startDate: { type: string, format: date-time }
+        endDate: { type: string, format: date-time }
+        isCurrent: { type: boolean, default: false }
+    SeasonUpdate:
+      type: object
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        label: { type: string, pattern: '^\d{4}/\d{4}$' }
+        startDate: { type: string, format: date-time }
+        endDate: { type: string, format: date-time }
+        isCurrent: { type: boolean, enum: [true], description: Make this the current season }
+
+    # ── Schools ──
+    School:
+      type: object
+      additionalProperties: false
+      required: [id, name, shortName, crestUrl, isHome, updatedAt, updatedBy]
+      properties:
+        id: { $ref: '#/components/schemas/ObjectId' }
+        name: { type: string }
+        shortName: { type: string }
+        crestUrl: { anyOf: [{ $ref: '#/components/schemas/ImageUrl' }, { type: 'null' }] }
+        isHome: { type: boolean }
+        updatedAt: { type: string, format: date-time }
+        updatedBy: { $ref: '#/components/schemas/UpdatedBy' }
+    SchoolResponse:
+      type: object
+      additionalProperties: false
+      required: [data]
+      properties:
+        data: { $ref: '#/components/schemas/School' }
+    SchoolCreate:
+      type: object
+      additionalProperties: false
+      required: [name, shortName]
+      properties:
+        name: { type: string, minLength: 1, maxLength: 80 }
+        shortName: { type: string, minLength: 1, maxLength: 40 }
+        crestUrl: { anyOf: [{ $ref: '#/components/schemas/ImageUrl' }, { type: 'null' }] }
+    SchoolUpdate:
+      type: object
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        name: { type: string, minLength: 1, maxLength: 80 }
+        shortName: { type: string, minLength: 1, maxLength: 40 }
+        crestUrl: { anyOf: [{ $ref: '#/components/schemas/ImageUrl' }, { type: 'null' }] }
+
+    # ── Competitions ──
+    Competition:
+      type: object
+      additionalProperties: false
+      required: [id, sport, name, shortName, type, updatedAt, updatedBy]
+      properties:
+        id: { $ref: '#/components/schemas/ObjectId' }
+        sport: { $ref: '#/components/schemas/SportRef' }
+        name: { type: string }
+        shortName: { type: string }
+        type: { $ref: '#/components/schemas/CompetitionType' }
+        updatedAt: { type: string, format: date-time }
+        updatedBy: { $ref: '#/components/schemas/UpdatedBy' }
+    CompetitionResponse:
+      type: object
+      additionalProperties: false
+      required: [data]
+      properties:
+        data: { $ref: '#/components/schemas/Competition' }
+    CompetitionCreate:
+      type: object
+      additionalProperties: false
+      required: [sport, name, shortName, type]
+      properties:
+        sport: { $ref: '#/components/schemas/ObjectId' }
+        name: { type: string, minLength: 1, maxLength: 100 }
+        shortName: { type: string, minLength: 1, maxLength: 20 }
+        type: { $ref: '#/components/schemas/CompetitionType' }
+    CompetitionUpdate:
+      type: object
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        name: { type: string, minLength: 1, maxLength: 100 }
+        shortName: { type: string, minLength: 1, maxLength: 20 }
+        type: { $ref: '#/components/schemas/CompetitionType' }
+    StandingRow:
+      type: object
+      additionalProperties: false
+      required: [position, school, isHome, played, won, drawn, lost, goalsFor, goalsAgainst, goalDifference, points, form]
+      properties:
+        position: { type: integer, minimum: 1 }
+        school: { $ref: '#/components/schemas/SchoolRef' }
+        isHome: { type: boolean }
+        played: { type: integer, minimum: 0 }
+        won: { type: integer, minimum: 0 }
+        drawn: { type: integer, minimum: 0 }
+        lost: { type: integer, minimum: 0 }
+        goalsFor: { type: integer, minimum: 0, description: Points scored for basketball and netball }
+        goalsAgainst: { type: integer, minimum: 0 }
+        goalDifference: { type: integer }
+        points: { type: integer }
+        form:
+          type: array
+          maxItems: 5
+          description: Last 5 results, oldest first
+          items: { type: string, enum: [W, D, L] }
+    Standings:
+      type: object
+      additionalProperties: false
+      required: [competition, season, sport, rows]
+      properties:
+        competition: { $ref: '#/components/schemas/CompetitionRef' }
+        season: { $ref: '#/components/schemas/SeasonRef' }
+        sport: { $ref: '#/components/schemas/SportRef' }
+        rows: { type: array, items: { $ref: '#/components/schemas/StandingRow' } }
+
+    # ── Teams ──
+    Team:
+      type: object
+      additionalProperties: false
+      required: [id, sport, slug, name, ageGroup, gender, order, updatedAt, updatedBy]
+      properties:
+        id: { $ref: '#/components/schemas/ObjectId' }
+        sport: { $ref: '#/components/schemas/SportRef' }
+        slug: { $ref: '#/components/schemas/Slug' }
+        name: { type: string }
+        ageGroup: { type: string, examples: [U16] }
+        gender: { type: string, enum: [boys, girls, mixed] }
+        order: { type: integer }
+        updatedAt: { type: string, format: date-time }
+        updatedBy: { $ref: '#/components/schemas/UpdatedBy' }
+    TeamResponse:
+      type: object
+      additionalProperties: false
+      required: [data]
+      properties:
+        data: { $ref: '#/components/schemas/Team' }
+    TeamCreate:
+      type: object
+      additionalProperties: false
+      required: [sport, slug, name, ageGroup, gender]
+      properties:
+        sport: { $ref: '#/components/schemas/ObjectId' }
+        slug: { $ref: '#/components/schemas/Slug' }
+        name: { type: string, minLength: 1, maxLength: 40 }
+        ageGroup: { type: string, minLength: 1, maxLength: 10 }
+        gender: { type: string, enum: [boys, girls, mixed] }
+        order: { type: integer, minimum: 0, default: 0 }
+    TeamUpdate:
+      type: object
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        name: { type: string, minLength: 1, maxLength: 40 }
+        ageGroup: { type: string, minLength: 1, maxLength: 10 }
+        gender: { type: string, enum: [boys, girls, mixed] }
+        order: { type: integer, minimum: 0 }
+
+    # ── Team seasons ──
+    TeamSeasonSummary:
+      type: object
+      additionalProperties: false
+      required: [id, sport, team, season, memberCount, leagueCompetition]
+      properties:
+        id: { $ref: '#/components/schemas/ObjectId' }
+        sport: { $ref: '#/components/schemas/SportRef' }
+        team: { $ref: '#/components/schemas/TeamRef' }
+        season: { $ref: '#/components/schemas/SeasonRef' }
+        memberCount: { type: integer, minimum: 0 }
+        leagueCompetition: { anyOf: [{ $ref: '#/components/schemas/CompetitionRef' }, { type: 'null' }] }
+    Member:
+      type: object
+      additionalProperties: false
+      required: [player, number, position]
+      properties:
+        player: { $ref: '#/components/schemas/PlayerRef' }
+        number: { type: integer, minimum: 0, maximum: 99 }
+        position: { type: string, pattern: '^[A-Z]{1,4}$' }
+    RosterAnalytics:
+      type: object
+      additionalProperties: false
+      required: [playerCount, gender, comparison, academy]
+      properties:
+        playerCount: { type: integer, minimum: 0 }
+        gender:
+          type: object
+          additionalProperties: false
+          required: [female, male]
+          properties:
+            female: { type: integer, minimum: 0 }
+            male: { type: integer, minimum: 0 }
+        comparison:
+          type: array
+          description: This season vs the same team last season (null when there was no team last season)
+          items:
+            type: object
+            additionalProperties: false
+            required: [metric, current, previous]
+            properties:
+              metric: { type: string, enum: [girls, new, returning] }
+              current: { type: integer, minimum: 0 }
+              previous: { type: [integer, 'null'], minimum: 0 }
+        academy:
+          type: array
+          description: Each team's share of the sport's players this season
+          items:
+            type: object
+            additionalProperties: false
+            required: [team, playerCount, share]
+            properties:
+              team: { $ref: '#/components/schemas/TeamRef' }
+              playerCount: { type: integer, minimum: 0 }
+              share: { type: number, minimum: 0, maximum: 100 }
+    TeamSeason:
+      type: object
+      additionalProperties: false
+      required: [id, sport, team, season, leagueCompetition, seasonQuote, members, captain, depthChart, staff, analytics, gallery, version, updatedAt, updatedBy]
+      properties:
+        id: { $ref: '#/components/schemas/ObjectId' }
+        sport: { $ref: '#/components/schemas/SportRef' }
+        team: { $ref: '#/components/schemas/TeamRef' }
+        season: { $ref: '#/components/schemas/SeasonRef' }
+        leagueCompetition: { anyOf: [{ $ref: '#/components/schemas/CompetitionRef' }, { type: 'null' }] }
+        seasonQuote: { anyOf: [{ $ref: '#/components/schemas/Quote' }, { type: 'null' }] }
+        members: { type: array, items: { $ref: '#/components/schemas/Member' } }
+        captain: { anyOf: [{ $ref: '#/components/schemas/PlayerRef' }, { type: 'null' }] }
+        depthChart:
+          type: array
+          items:
+            type: object
+            additionalProperties: false
+            required: [position, players]
+            properties:
+              position: { type: string }
+              players: { type: array, items: { $ref: '#/components/schemas/PlayerRef' } }
+        staff: { type: array, items: { $ref: '#/components/schemas/StaffMember' } }
+        analytics: { $ref: '#/components/schemas/RosterAnalytics' }
+        gallery:
+          type: array
+          maxItems: 3
+          items:
+            type: object
+            additionalProperties: false
+            required: [match, url]
+            properties:
+              match: { $ref: '#/components/schemas/ObjectId' }
+              url: { $ref: '#/components/schemas/ImageUrl' }
+        version: { $ref: '#/components/schemas/Version' }
+        updatedAt: { type: string, format: date-time }
+        updatedBy: { $ref: '#/components/schemas/UpdatedBy' }
+    TeamSeasonResponse:
+      type: object
+      additionalProperties: false
+      required: [data]
+      properties:
+        data: { $ref: '#/components/schemas/TeamSeason' }
+    TeamSeasonCreate:
+      type: object
+      additionalProperties: false
+      required: [team, season]
+      properties:
+        team: { $ref: '#/components/schemas/ObjectId' }
+        season: { $ref: '#/components/schemas/ObjectId' }
+        leagueCompetition: { anyOf: [{ $ref: '#/components/schemas/ObjectId' }, { type: 'null' }] }
+        seasonQuote: { anyOf: [{ $ref: '#/components/schemas/Quote' }, { type: 'null' }] }
+        copyFrom: { $ref: '#/components/schemas/ObjectId' }
+    TeamSeasonUpdate:
+      type: object
+      additionalProperties: false
+      required: [version]
+      minProperties: 2
+      properties:
+        version: { $ref: '#/components/schemas/Version' }
+        leagueCompetition: { anyOf: [{ $ref: '#/components/schemas/ObjectId' }, { type: 'null' }] }
+        seasonQuote: { anyOf: [{ $ref: '#/components/schemas/Quote' }, { type: 'null' }] }
+    SquadInput:
+      type: object
+      additionalProperties: false
+      required: [version, members, captain, depthChart]
+      properties:
+        version: { $ref: '#/components/schemas/Version' }
+        members:
+          type: array
+          maxItems: 60
+          items:
+            type: object
+            additionalProperties: false
+            required: [player, number, position]
+            properties:
+              player: { $ref: '#/components/schemas/ObjectId' }
+              number: { type: integer, minimum: 0, maximum: 99 }
+              position: { type: string, pattern: '^[A-Z]{1,4}$' }
+        captain: { anyOf: [{ $ref: '#/components/schemas/ObjectId' }, { type: 'null' }] }
+        depthChart:
+          type: array
+          maxItems: 20
+          items:
+            type: object
+            additionalProperties: false
+            required: [position, players]
+            properties:
+              position: { type: string, pattern: '^[A-Z]{1,4}$' }
+              players: { type: array, maxItems: 6, items: { $ref: '#/components/schemas/ObjectId' } }
+    LeaderRow:
+      type: object
+      additionalProperties: false
+      required: [rank, player, appearances, value]
+      properties:
+        rank: { type: integer, minimum: 1 }
+        player: { $ref: '#/components/schemas/PlayerRef' }
+        position: { type: [string, 'null'], description: 'Squad position, shown on Defensive Pillars' }
+        appearances: { type: integer, minimum: 0, description: '"P" column' }
+        value: { type: number }
+    SeasonStats:
+      type: object
+      additionalProperties: false
+      required: [teamSeason, kpis, form, leaderboards, records, quote]
+      properties:
+        teamSeason: { $ref: '#/components/schemas/TeamSeasonSummary' }
+        kpis:
+          type: object
+          additionalProperties: false
+          required: [played, won, drawn, lost, winRate, winRateChange, scored, conceded, cleanSheets, teamStat]
+          properties:
+            played: { type: integer, minimum: 0 }
+            won: { type: integer, minimum: 0 }
+            drawn: { type: integer, minimum: 0 }
+            lost: { type: integer, minimum: 0 }
+            winRate: { type: number, minimum: 0, maximum: 100 }
+            winRateChange: { type: [number, 'null'], description: Percentage points vs last season }
+            scored: { type: integer, minimum: 0 }
+            conceded: { type: integer, minimum: 0 }
+            cleanSheets: { type: [integer, 'null'], minimum: 0, description: Null when the sport doesn't track clean sheets }
+            teamStat:
+              type: [object, 'null']
+              additionalProperties: false
+              required: [key, label, value]
+              properties:
+                key: { $ref: '#/components/schemas/StatKey' }
+                label: { type: string }
+                value: { type: number }
+        form:
+          type: array
+          maxItems: 10
+          description: Last 10 published results, oldest first
+          items:
+            type: object
+            additionalProperties: false
+            required: [match, kickoffAt, opponent, goalDifference, teamStat]
+            properties:
+              match: { $ref: '#/components/schemas/ObjectId' }
+              kickoffAt: { type: string, format: date-time }
+              opponent: { $ref: '#/components/schemas/SchoolRef' }
+              goalDifference: { type: integer }
+              teamStat: { type: [number, 'null'] }
+        leaderboards:
+          type: array
+          items:
+            type: object
+            additionalProperties: false
+            required: [key, label, icon, group, rows]
+            properties:
+              key: { $ref: '#/components/schemas/StatKey' }
+              label: { type: string }
+              icon: { type: string }
+              group: { type: string, enum: [attack, defense, discipline] }
+              rows: { type: array, maxItems: 10, items: { $ref: '#/components/schemas/LeaderRow' } }
+        records:
+          type: array
+          items:
+            type: object
+            additionalProperties: false
+            required: [key, value, match]
+            properties:
+              key: { type: string, enum: [scoringPeak, dominantWin, defensiveStruggle] }
+              value: { type: integer }
+              match:
+                type: object
+                additionalProperties: false
+                required: [id, kickoffAt, opponent, score]
+                properties:
+                  id: { $ref: '#/components/schemas/ObjectId' }
+                  kickoffAt: { type: string, format: date-time }
+                  opponent: { $ref: '#/components/schemas/SchoolRef' }
+                  score: { $ref: '#/components/schemas/Score' }
+        quote: { anyOf: [{ $ref: '#/components/schemas/Quote' }, { type: 'null' }] }
+
+    # ── Players ──
+    Player:
+      type: object
+      additionalProperties: false
+      required: [id, firstName, lastName, shortName, gender, photoUrl, updatedAt, updatedBy]
+      properties:
+        id: { $ref: '#/components/schemas/ObjectId' }
+        firstName: { type: string }
+        lastName: { type: string }
+        shortName: { type: string }
+        gender: { $ref: '#/components/schemas/Gender' }
+        photoUrl: { anyOf: [{ $ref: '#/components/schemas/ImageUrl' }, { type: 'null' }] }
+        updatedAt: { type: string, format: date-time }
+        updatedBy: { $ref: '#/components/schemas/UpdatedBy' }
+    PlayerResponse:
+      type: object
+      additionalProperties: false
+      required: [data]
+      properties:
+        data: { $ref: '#/components/schemas/Player' }
+    PlayerCreate:
+      type: object
+      additionalProperties: false
+      required: [firstName, lastName, gender]
+      properties:
+        firstName: { type: string, minLength: 1, maxLength: 40 }
+        lastName: { type: string, minLength: 1, maxLength: 40 }
+        gender: { $ref: '#/components/schemas/Gender' }
+        photoUrl: { anyOf: [{ $ref: '#/components/schemas/ImageUrl' }, { type: 'null' }] }
+    PlayerUpdate:
+      type: object
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        firstName: { type: string, minLength: 1, maxLength: 40 }
+        lastName: { type: string, minLength: 1, maxLength: 40 }
+        gender: { $ref: '#/components/schemas/Gender' }
+        photoUrl: { anyOf: [{ $ref: '#/components/schemas/ImageUrl' }, { type: 'null' }] }
+
+    # ── Users ──
+    AssignmentInput:
+      type: object
+      additionalProperties: false
+      required: [teamSeason, role]
+      properties:
+        teamSeason: { $ref: '#/components/schemas/ObjectId' }
+        role: { type: string, enum: [head, assistant] }
+    User:
+      type: object
+      additionalProperties: false
+      required: [id, email, name, title, photoUrl, role, active, mustChangePassword, assignments, updatedAt, updatedBy]
+      properties:
+        id: { $ref: '#/components/schemas/ObjectId' }
+        email: { type: string, format: email }
+        name: { type: string }
+        title: { type: [string, 'null'] }
+        photoUrl: { anyOf: [{ $ref: '#/components/schemas/ImageUrl' }, { type: 'null' }] }
+        role: { type: string, enum: [admin, coach] }
+        active: { type: boolean }
+        mustChangePassword: { type: boolean }
+        assignments:
+          type: array
+          items:
+            type: object
+            additionalProperties: false
+            required: [teamSeason, role]
+            properties:
+              teamSeason: { $ref: '#/components/schemas/TeamSeasonRef' }
+              role: { type: string, enum: [head, assistant] }
+        updatedAt: { type: string, format: date-time }
+        updatedBy: { $ref: '#/components/schemas/UpdatedBy' }
+    UserResponse:
+      type: object
+      additionalProperties: false
+      required: [data]
+      properties:
+        data: { $ref: '#/components/schemas/User' }
+    UserCreate:
+      type: object
+      additionalProperties: false
+      required: [email, name, role, temporaryPassword]
+      properties:
+        email: { type: string, format: email, maxLength: 254 }
+        name: { $ref: '#/components/schemas/ShortText' }
+        title: { type: [string, 'null'], maxLength: 20 }
+        photoUrl: { anyOf: [{ $ref: '#/components/schemas/ImageUrl' }, { type: 'null' }] }
+        role: { type: string, enum: [admin, coach] }
+        temporaryPassword: { type: string, minLength: 10, maxLength: 128 }
+        assignments: { type: array, maxItems: 20, items: { $ref: '#/components/schemas/AssignmentInput' } }
+    UserUpdate:
+      type: object
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        email: { type: string, format: email, maxLength: 254 }
+        name: { $ref: '#/components/schemas/ShortText' }
+        title: { type: [string, 'null'], maxLength: 20 }
+        photoUrl: { anyOf: [{ $ref: '#/components/schemas/ImageUrl' }, { type: 'null' }] }
+        role: { type: string, enum: [admin, coach] }
+        active: { type: boolean }
+        assignments: { type: array, maxItems: 20, items: { $ref: '#/components/schemas/AssignmentInput' } }
+    PasswordResetInput:
+      type: object
+      additionalProperties: false
+      required: [temporaryPassword]
+      properties:
+        temporaryPassword: { type: string, minLength: 10, maxLength: 128 }
+
+    # ── Matches ──
+    MatchSummary:
+      type: object
+      additionalProperties: false
+      required: [id, sport, season, teamSeason, team, competition, round, opponent, homeAway, kickoffAt, venue, status, score, published]
+      properties:
+        id: { $ref: '#/components/schemas/ObjectId' }
+        sport: { $ref: '#/components/schemas/SportRef' }
+        season: { $ref: '#/components/schemas/SeasonRef' }
+        teamSeason: { $ref: '#/components/schemas/ObjectId' }
+        team: { $ref: '#/components/schemas/TeamRef' }
+        competition: { $ref: '#/components/schemas/CompetitionRef' }
+        round: { type: [string, 'null'] }
+        opponent: { $ref: '#/components/schemas/SchoolRef' }
+        homeAway: { type: string, enum: [home, away] }
+        kickoffAt: { type: string, format: date-time }
+        venue: { type: [string, 'null'] }
+        status: { $ref: '#/components/schemas/MatchStatus' }
+        score: { anyOf: [{ $ref: '#/components/schemas/Score' }, { type: 'null' }] }
+        published: { type: boolean }
+    MatchSport:
+      type: object
+      additionalProperties: false
+      description: The sport's definitions needed to render this match
+      required: [id, slug, name, icon, periods, scoreDetail, positions, formations, teamStats, playerStats]
+      properties:
+        id: { $ref: '#/components/schemas/ObjectId' }
+        slug: { $ref: '#/components/schemas/Slug' }
+        name: { type: string }
+        icon: { type: string }
+        periods: { $ref: '#/components/schemas/Periods' }
+        scoreDetail: { type: string, enum: [events, periods] }
+        positions: { type: array, items: { $ref: '#/components/schemas/Position' } }
+        formations: { type: array, items: { $ref: '#/components/schemas/Formation' } }
+        teamStats: { type: array, items: { $ref: '#/components/schemas/StatDefinition' } }
+        playerStats: { type: array, items: { $ref: '#/components/schemas/StatDefinition' } }
+    MatchEvent:
+      type: object
+      additionalProperties: false
+      required: [type, side, minute, player, assist, playerOff, playerName, ownGoal]
+      properties:
+        type: { type: string, enum: [goal, yellow, red, sub] }
+        side: { type: string, enum: [turi, opponent] }
+        minute: { type: integer, minimum: 0, maximum: 130 }
+        player: { anyOf: [{ $ref: '#/components/schemas/PlayerRef' }, { type: 'null' }] }
+        assist: { anyOf: [{ $ref: '#/components/schemas/PlayerRef' }, { type: 'null' }] }
+        playerOff: { anyOf: [{ $ref: '#/components/schemas/PlayerRef' }, { type: 'null' }] }
+        playerName: { type: [string, 'null'] }
+        ownGoal: { type: boolean }
+    Match:
+      type: object
+      additionalProperties: false
+      description: Result fields (from `periodScores` down to `galleryUrls`) are left out for public callers while the result is a draft.
+      required: [id, sport, season, teamSeason, team, competition, round, turi, opponent, homeAway, kickoffAt, venue, status, score, published, publishedAt, staff, captain, depthChart, version, updatedAt, updatedBy]
+      properties:
+        id: { $ref: '#/components/schemas/ObjectId' }
+        sport: { $ref: '#/components/schemas/MatchSport' }
+        season: { $ref: '#/components/schemas/SeasonRef' }
+        teamSeason: { $ref: '#/components/schemas/ObjectId' }
+        team: { $ref: '#/components/schemas/TeamRef' }
+        competition: { $ref: '#/components/schemas/CompetitionRef' }
+        round: { type: [string, 'null'] }
+        turi: { $ref: '#/components/schemas/SchoolRef' }
+        opponent: { $ref: '#/components/schemas/SchoolRef' }
+        homeAway: { type: string, enum: [home, away] }
+        kickoffAt: { type: string, format: date-time }
+        venue: { type: [string, 'null'] }
+        status: { $ref: '#/components/schemas/MatchStatus' }
+        score: { anyOf: [{ $ref: '#/components/schemas/Score' }, { type: 'null' }] }
+        published: { type: boolean }
+        publishedAt: { type: [string, 'null'], format: date-time }
+        staff: { type: array, items: { $ref: '#/components/schemas/StaffMember' } }
+        captain:
+          anyOf: [{ $ref: '#/components/schemas/PlayerRef' }, { type: 'null' }]
+          description: The team-season's captain, marked (C) in the lineup
+        depthChart:
+          type: array
+          description: The team-season's depth chart (basketball, netball), shown on the Lineups tab
+          items:
+            type: object
+            additionalProperties: false
+            required: [position, players]
+            properties:
+              position: { type: string }
+              players: { type: array, items: { $ref: '#/components/schemas/PlayerRef' } }
+        periodScores: { type: array, items: { $ref: '#/components/schemas/Score' } }
+        events: { type: array, items: { $ref: '#/components/schemas/MatchEvent' } }
+        formation: { type: [string, 'null'] }
+        lineup:
+          type: array
+          items:
+            type: object
+            additionalProperties: false
+            required: [player, number, slot, position]
+            properties:
+              player: { $ref: '#/components/schemas/PlayerRef' }
+              number: { type: [integer, 'null'], minimum: 0, maximum: 99 }
+              slot: { type: [string, 'null'], description: Null = bench }
+              position: { type: [string, 'null'] }
+        teamStats:
+          type: object
+          additionalProperties: false
+          required: [turi, opponent]
+          properties:
+            turi: { $ref: '#/components/schemas/StatMap' }
+            opponent: { $ref: '#/components/schemas/StatMap' }
+        playerStats:
+          type: array
+          items:
+            type: object
+            additionalProperties: false
+            required: [player, number, position, stats]
+            properties:
+              player: { $ref: '#/components/schemas/PlayerRef' }
+              number: { type: [integer, 'null'], minimum: 0, maximum: 99 }
+              position: { type: string }
+              stats: { $ref: '#/components/schemas/StatMap' }
+        topPerformers: { type: array, maxItems: 3, items: { $ref: '#/components/schemas/PlayerRef' } }
+        report: { anyOf: [{ $ref: '#/components/schemas/Quote' }, { type: 'null' }] }
+        heroPhotoUrl: { anyOf: [{ $ref: '#/components/schemas/ImageUrl' }, { type: 'null' }] }
+        galleryUrls: { type: array, maxItems: 6, items: { $ref: '#/components/schemas/ImageUrl' } }
+        version: { $ref: '#/components/schemas/Version' }
+        updatedAt: { type: string, format: date-time }
+        updatedBy: { $ref: '#/components/schemas/UpdatedBy' }
+    MatchResponse:
+      type: object
+      additionalProperties: false
+      required: [data]
+      properties:
+        data: { $ref: '#/components/schemas/Match' }
+    MatchCreate:
+      type: object
+      additionalProperties: false
+      required: [teamSeason, competition, opponent, homeAway, kickoffAt]
+      properties:
+        teamSeason: { $ref: '#/components/schemas/ObjectId' }
+        competition: { $ref: '#/components/schemas/ObjectId' }
+        round: { type: [string, 'null'], maxLength: 60 }
+        opponent: { $ref: '#/components/schemas/ObjectId' }
+        homeAway: { type: string, enum: [home, away] }
+        kickoffAt: { type: string, format: date-time }
+        venue: { type: [string, 'null'], maxLength: 80 }
+    MatchUpdate:
+      type: object
+      additionalProperties: false
+      required: [version]
+      minProperties: 2
+      properties:
+        version: { $ref: '#/components/schemas/Version' }
+        teamSeason: { $ref: '#/components/schemas/ObjectId' }
+        competition: { $ref: '#/components/schemas/ObjectId' }
+        round: { type: [string, 'null'], maxLength: 60 }
+        opponent: { $ref: '#/components/schemas/ObjectId' }
+        homeAway: { type: string, enum: [home, away] }
+        kickoffAt: { type: string, format: date-time }
+        venue: { type: [string, 'null'], maxLength: 80 }
+    MatchResultInput:
+      type: object
+      additionalProperties: false
+      required: [version, status, score, periodScores, events, formation, lineup, teamStats, playerStats, topPerformers, report, heroPhotoUrl, galleryUrls, published]
+      properties:
+        version: { $ref: '#/components/schemas/Version' }
+        status: { $ref: '#/components/schemas/MatchStatus' }
+        score: { anyOf: [{ $ref: '#/components/schemas/Score' }, { type: 'null' }], description: Required unless status is upcoming }
+        periodScores: { type: array, maxItems: 8, items: { $ref: '#/components/schemas/Score' } }
+        events:
+          type: array
+          maxItems: 100
+          items:
+            type: object
+            additionalProperties: false
+            required: [type, side, minute]
+            properties:
+              type: { type: string, enum: [goal, yellow, red, sub] }
+              side: { type: string, enum: [turi, opponent] }
+              minute: { type: integer, minimum: 0, maximum: 130 }
+              player: { $ref: '#/components/schemas/ObjectId' }
+              assist: { $ref: '#/components/schemas/ObjectId' }
+              playerOff: { $ref: '#/components/schemas/ObjectId' }
+              playerName: { type: string, maxLength: 60 }
+              ownGoal: { type: boolean, default: false }
+        formation: { type: [string, 'null'], maxLength: 20 }
+        lineup:
+          type: array
+          maxItems: 40
+          description: Shirt numbers are taken from the squad by the server
+          items:
+            type: object
+            additionalProperties: false
+            required: [player, slot]
+            properties:
+              player: { $ref: '#/components/schemas/ObjectId' }
+              slot: { type: [string, 'null'], maxLength: 6, description: Null = bench }
+        teamStats:
+          type: object
+          additionalProperties: false
+          required: [turi, opponent]
+          properties:
+            turi: { $ref: '#/components/schemas/StatMap' }
+            opponent: { $ref: '#/components/schemas/StatMap' }
+        playerStats:
+          type: array
+          maxItems: 40
+          description: One row per player who appeared. Only `manual` stat keys are accepted.
+          items:
+            type: object
+            additionalProperties: false
+            required: [player, position, stats]
+            properties:
+              player: { $ref: '#/components/schemas/ObjectId' }
+              position: { type: string, pattern: '^[A-Z]{1,4}$' }
+              stats: { $ref: '#/components/schemas/StatMap' }
+        topPerformers: { type: array, maxItems: 3, uniqueItems: true, items: { $ref: '#/components/schemas/ObjectId' } }
+        report: { anyOf: [{ $ref: '#/components/schemas/Quote' }, { type: 'null' }] }
+        heroPhotoUrl: { anyOf: [{ $ref: '#/components/schemas/ImageUrl' }, { type: 'null' }] }
+        galleryUrls: { type: array, maxItems: 6, items: { $ref: '#/components/schemas/ImageUrl' } }
+        published: { type: boolean }
+
+    # ── League results ──
+    LeagueSide:
+      type: object
+      additionalProperties: false
+      required: [school, score]
+      properties:
+        school: { $ref: '#/components/schemas/SchoolRef' }
+        score: { type: integer, minimum: 0, maximum: 500 }
+    LeagueSideInput:
+      type: object
+      additionalProperties: false
+      required: [school, score]
+      properties:
+        school: { $ref: '#/components/schemas/ObjectId' }
+        score: { type: integer, minimum: 0, maximum: 500 }
+    LeagueResult:
+      type: object
+      additionalProperties: false
+      required: [id, competition, season, playedAt, home, away, updatedAt, updatedBy]
+      properties:
+        id: { $ref: '#/components/schemas/ObjectId' }
+        competition: { $ref: '#/components/schemas/CompetitionRef' }
+        season: { $ref: '#/components/schemas/SeasonRef' }
+        playedAt: { type: string, format: date-time }
+        home: { $ref: '#/components/schemas/LeagueSide' }
+        away: { $ref: '#/components/schemas/LeagueSide' }
+        updatedAt: { type: string, format: date-time }
+        updatedBy: { $ref: '#/components/schemas/UpdatedBy' }
+    LeagueResultResponse:
+      type: object
+      additionalProperties: false
+      required: [data]
+      properties:
+        data: { $ref: '#/components/schemas/LeagueResult' }
+    LeagueResultCreate:
+      type: object
+      additionalProperties: false
+      required: [competition, season, playedAt, home, away]
+      properties:
+        competition: { $ref: '#/components/schemas/ObjectId' }
+        season: { $ref: '#/components/schemas/ObjectId' }
+        playedAt: { type: string, format: date-time }
+        home: { $ref: '#/components/schemas/LeagueSideInput' }
+        away: { $ref: '#/components/schemas/LeagueSideInput' }
+    LeagueResultUpdate:
+      type: object
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        playedAt: { type: string, format: date-time }
+        home: { $ref: '#/components/schemas/LeagueSideInput' }
+        away: { $ref: '#/components/schemas/LeagueSideInput' }
+
+    # ── Inductees ──
+    Inductee:
+      type: object
+      additionalProperties: false
+      required: [id, name, photoUrl, sport, years, achievement, citation, player, order, updatedAt, updatedBy]
+      properties:
+        id: { $ref: '#/components/schemas/ObjectId' }
+        name: { type: string }
+        photoUrl: { anyOf: [{ $ref: '#/components/schemas/ImageUrl' }, { type: 'null' }] }
+        sport: { anyOf: [{ $ref: '#/components/schemas/SportRef' }, { type: 'null' }] }
+        years: { type: [string, 'null'], examples: [2015–2019] }
+        achievement: { type: string }
+        citation: { type: [string, 'null'] }
+        player: { anyOf: [{ $ref: '#/components/schemas/PlayerRef' }, { type: 'null' }] }
+        order: { type: integer }
+        updatedAt: { type: string, format: date-time }
+        updatedBy: { $ref: '#/components/schemas/UpdatedBy' }
+    InducteeResponse:
+      type: object
+      additionalProperties: false
+      required: [data]
+      properties:
+        data: { $ref: '#/components/schemas/Inductee' }
+    InducteeCreate:
+      type: object
+      additionalProperties: false
+      required: [name, achievement]
+      properties:
+        name: { $ref: '#/components/schemas/ShortText' }
+        photoUrl: { anyOf: [{ $ref: '#/components/schemas/ImageUrl' }, { type: 'null' }] }
+        sport: { anyOf: [{ $ref: '#/components/schemas/ObjectId' }, { type: 'null' }] }
+        years: { type: [string, 'null'], maxLength: 20 }
+        achievement: { type: string, minLength: 1, maxLength: 200 }
+        citation: { type: [string, 'null'], maxLength: 1000 }
+        player: { anyOf: [{ $ref: '#/components/schemas/ObjectId' }, { type: 'null' }] }
+        order: { type: integer, minimum: 0, default: 0 }
+    InducteeUpdate:
+      type: object
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        name: { $ref: '#/components/schemas/ShortText' }
+        photoUrl: { anyOf: [{ $ref: '#/components/schemas/ImageUrl' }, { type: 'null' }] }
+        sport: { anyOf: [{ $ref: '#/components/schemas/ObjectId' }, { type: 'null' }] }
+        years: { type: [string, 'null'], maxLength: 20 }
+        achievement: { type: string, minLength: 1, maxLength: 200 }
+        citation: { type: [string, 'null'], maxLength: 1000 }
+        player: { anyOf: [{ $ref: '#/components/schemas/ObjectId' }, { type: 'null' }] }
+        order: { type: integer, minimum: 0 }

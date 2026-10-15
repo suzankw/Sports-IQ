@@ -1,0 +1,30 @@
+.position {
+  font-weight: var(--weight-semibold);
+  color: var(--color-primary-container);
+}
+
+.club {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.home {
+  font-family: var(--font-heading);
+  font-weight: var(--weight-semibold);
+  color: var(--color-primary-container);
+}
+
+.positive {
+  color: var(--color-positive);
+}
+
+.points {
+  font: var(--type-title);
+  color: var(--color-primary-container);
+}
+
+.form {
+  display: inline-flex;
+  gap: var(--space-1);
+}

@@ -1,0 +1,14 @@
+.tabs {
+  padding: 0 var(--space-4);
+  background: var(--color-surface-container-low);
+}
+
+.when,
+.past {
+  display: flex;
+  flex-direction: column;
+}
+
+.past {
+  color: var(--color-on-surface-variant);
+}

@@ -1,0 +1,20 @@
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--space-5);
+  margin-top: var(--space-4);
+  font: var(--type-body-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.champion::before {
+  content: '';
+  display: inline-block;
+  width: 0.75rem;
+  height: 0.75rem;
+  margin-right: var(--space-2);
+  border: 1px solid var(--color-excellence-gold);
+  background: var(--color-heritage-cream);
+  vertical-align: -1px;
+}

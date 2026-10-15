@@ -1,0 +1,50 @@
+.card {
+  padding: var(--space-5);
+  background: var(--color-surface-container-lowest);
+  border: var(--border);
+  border-radius: var(--radius);
+}
+
+.navy {
+  border-top: var(--border-accent) solid var(--color-primary-container);
+}
+
+.gold {
+  border-top: var(--border-accent) solid var(--color-excellence-gold);
+}
+
+.label {
+  font: var(--type-label-caps);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-on-surface-variant);
+}
+
+.value {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+  font: var(--type-headline-lg);
+  color: var(--color-primary-container);
+}
+
+.change {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font: var(--type-body-sm);
+  font-weight: var(--weight-semibold);
+}
+
+.up {
+  color: var(--color-positive);
+}
+
+.down {
+  color: var(--color-negative);
+}
+
+.flat {
+  color: var(--color-on-surface-variant);
+}

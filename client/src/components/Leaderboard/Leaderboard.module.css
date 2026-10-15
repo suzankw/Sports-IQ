@@ -1,0 +1,72 @@
+.compactHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+  border-bottom: var(--border);
+  background: var(--color-surface-container-low);
+}
+
+.compactTitle {
+  font: var(--type-label-caps);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-on-primary-fixed-variant);
+}
+
+.icon {
+  color: var(--color-turi-red);
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-5);
+  border-bottom: var(--border);
+}
+
+.item:last-child {
+  border-bottom: none;
+}
+
+.rank {
+  min-width: 1.25rem;
+  font-weight: var(--weight-semibold);
+  color: var(--color-excellence-gold);
+}
+
+.player {
+  display: inline-flex;
+  flex: 1;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--color-on-surface);
+}
+
+.value,
+.leader {
+  font: var(--type-title);
+  color: var(--color-on-surface);
+}
+
+.leader {
+  font: var(--type-headline-md);
+  color: var(--color-on-primary-fixed-variant);
+}
+
+.tableValue {
+  font-weight: var(--weight-bold);
+  color: var(--color-primary-container);
+}
+
+.empty {
+  padding: var(--space-5);
+  color: var(--color-on-surface-variant);
+}

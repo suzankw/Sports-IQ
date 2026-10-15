@@ -15,7 +15,7 @@ export async function findHomeSchool() {
   return school;
 }
 
-const badQuery = (param, message) => new ValidationError('The request is invalid', [{ path: `/query/${param}`, message }]);
+export const badQuery = (param, message) => new ValidationError('The request is invalid', [{ path: `/query/${param}`, message }]);
 export const badBody = (field, message) => new ValidationError('The request is invalid', [{ path: `/body/${field}`, message }]);
 
 /** `?sport=` slug → the sport (400 if unknown), or null when not given. */

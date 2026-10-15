@@ -1,0 +1,11 @@
+.player {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.more {
+  margin-top: var(--space-3);
+  font: var(--type-body-sm);
+  color: var(--color-on-surface-variant);
+}

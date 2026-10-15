@@ -4,6 +4,7 @@ import { useParams } from 'react-router';
 import { Button } from '../../../components/Button/Button.jsx';
 import { PageHeader } from '../../../components/PageHeader/PageHeader.jsx';
 import { QueryState } from '../../../components/QueryState/QueryState.jsx';
+import { SaveBar } from '../../../components/SaveBar/SaveBar.jsx';
 import { TabPanel, Tabs } from '../../../components/Tabs/Tabs.jsx';
 import { useToast } from '../../../components/Toast/Toast.jsx';
 import { useSport, useUpdateSport } from '../../../hooks/sports.js';
@@ -57,21 +58,24 @@ function SportEditor({ sport, reload }) {
       <TabPanel id="content" hidden={url.tab !== 'content'} className={styles.panel}>
         <ContentTab form={form} />
       </TabPanel>
-      <div className={styles.saveBar}>
-        {errors.root?.server && (
-          <p role="alert" className={styles.error}>
-            {errors.root.server.message}
-            {conflict && (
-              <Button variant="outline" size="sm" onClick={reload}>
-                Reload
-              </Button>
-            )}
-          </p>
-        )}
+      <SaveBar
+        error={
+          errors.root?.server && (
+            <>
+              {errors.root.server.message}
+              {conflict && (
+                <Button variant="outline" size="sm" onClick={reload}>
+                  Reload
+                </Button>
+              )}
+            </>
+          )
+        }
+      >
         <Button type="submit" variant="navy" icon="save" disabled={isSubmitting}>
           {isSubmitting ? 'Saving…' : 'Save sport'}
         </Button>
-      </div>
+      </SaveBar>
     </form>
   );
 }

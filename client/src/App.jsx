@@ -6,6 +6,8 @@ import { RequireAuth, RequireScreen } from './components/RequireAuth/RequireAuth
 import { AccountPage } from './pages/dashboard/AccountPage/AccountPage.jsx';
 import { CompetitionsPage } from './pages/dashboard/CompetitionsPage/CompetitionsPage.jsx';
 import { HomePage } from './pages/dashboard/HomePage/HomePage.jsx';
+import { PlayersPage } from './pages/dashboard/PlayersPage/PlayersPage.jsx';
+import { RostersPage } from './pages/dashboard/RostersPage/RostersPage.jsx';
 import { SchoolsPage } from './pages/dashboard/SchoolsPage/SchoolsPage.jsx';
 import { SeasonsPage } from './pages/dashboard/SeasonsPage/SeasonsPage.jsx';
 import { SportEditorPage } from './pages/dashboard/SportEditorPage/SportEditorPage.jsx';
@@ -40,6 +42,8 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <HomePage /> },
       { path: 'account', element: <AccountPage /> },
+      screen('rosters', 'rosters', <RostersPage />),
+      screen('players', 'players', <PlayersPage />),
       screen('sports', 'sports', <SportsPage />),
       screen('sports/:sport', 'sports', <SportEditorPage />),
       screen('seasons', 'seasons', <SeasonsPage />),

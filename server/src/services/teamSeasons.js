@@ -1,11 +1,13 @@
 import { Types } from 'mongoose';
 import { assertCan } from '../auth/policy.js';
-import { ConflictError, NotFoundError } from '../lib/errors.js';
+import { ConflictError, NotFoundError, validationProblems } from '../lib/errors.js';
 import { pageOf } from '../lib/pagination.js';
 import { stamp } from '../models/audit.js';
 import { Competition } from '../models/Competition.js';
 import { Match } from '../models/Match.js';
+import { Player } from '../models/Player.js';
 import { Season } from '../models/Season.js';
+import { Sport } from '../models/Sport.js';
 import { Team } from '../models/Team.js';
 import { TeamSeason } from '../models/TeamSeason.js';
 import { User } from '../models/User.js';
@@ -137,5 +139,40 @@ export async function deleteTeamSeason(actor, id) {
   ]);
   if (inUse) throw new ConflictError('This team has matches or coaches this season — remove those first');
   await teamSeason.deleteOne();
+}
+
+/** Squad rules: each player once and known, shirt numbers unique, positions from the sport, captain and depth chart from the squad. */
+async function checkSquad(teamSeason, { members, captain, depthChart }) {
+  const problems = validationProblems();
+  const sport = await Sport.findById(teamSeason.sport).select('positions').lean();
+  const positions = new Set(sport.positions.map((p) => p.key));
+  const ids = members.map((m) => String(m.player));
+  const known = new Set((await Player.find({ _id: { $in: ids } }).select('_id').lean()).map((p) => String(p._id)));
+  const numbers = new Map();
+  members.forEach((m, i) => {
+    const id = String(m.player);
+    if (!known.has(id)) problems.add(`/body/members/${i}/player`, 'Unknown player');
+    else if (ids.indexOf(id) !== i) problems.add(`/body/members/${i}/player`, 'This player is already in the squad');
+    if (numbers.has(m.number)) problems.add(`/body/members/${i}/number`, `Number ${m.number} is already taken`);
+    numbers.set(m.number, i);
+    if (!positions.has(m.position)) problems.add(`/body/members/${i}/position`, 'Unknown position');
+  });
+  if (captain && !ids.includes(String(captain))) problems.add('/body/captain', 'The captain must be in the squad');
+  depthChart.forEach((row, i) => {
+    if (!positions.has(row.position)) problems.add(`/body/depthChart/${i}/position`, 'Unknown position');
+    if (row.players.some((id) => !ids.includes(String(id)))) problems.add(`/body/depthChart/${i}/players`, 'Only squad players can be in the depth chart');
+  });
+  problems.throwIfAny();
+}
+
+/** D12 Roster editor: replaces members, captain and depth chart in one save. */
+export async function saveSquad(actor, id, { version, ...squad }) {
+  const teamSeason = await loadTeamSeason(id);
+  assertCan(actor, 'update', 'squad', { teamSeason: id });
+  assertVersion(teamSeason, version);
+  await checkSquad(teamSeason, squad);
+  teamSeason.set(squad);
+  await stamp(teamSeason, actor).save();
+  return getTeamSeason(id);
 }
 

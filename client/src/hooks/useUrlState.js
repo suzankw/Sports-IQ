@@ -8,7 +8,8 @@ export function useUrlState(defaults) {
   const [params, setParams] = useSearchParams();
   const state = Object.fromEntries(Object.keys(defaults).map((key) => [key, params.get(key) ?? defaults[key]]));
 
-  const update = (changes) =>
+  // `options` go to the router, e.g. { replace: true } while typing in a search box.
+  const update = (changes, options) =>
     setParams((current) => {
       const next = new URLSearchParams(current);
       for (const [key, value] of Object.entries(changes)) {
@@ -16,7 +17,7 @@ export function useUrlState(defaults) {
         else next.set(key, value);
       }
       return next;
-    });
+    }, options);
 
   return [state, update];
 }

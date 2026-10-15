@@ -1,15 +1,17 @@
 /**
  * Maps an API validation error onto form fields: details with paths like /body/name or
- * /body/home/score become field errors; anything else becomes the form's summary message.
+ * /body/home/score become field errors (the first gets focus); anything else joins the form's summary message.
  */
 export function applyServerErrors(error, setError) {
   const unplaced = [];
+  let placed = 0;
   for (const detail of error?.details ?? []) {
     const field = detail.path?.startsWith('/body/') ? detail.path.slice('/body/'.length).replaceAll('/', '.') : null;
-    if (field) setError(field, { type: 'server', message: detail.message });
+    if (field) setError(field, { type: 'server', message: detail.message }, { shouldFocus: (placed += 1) === 1 });
     else unplaced.push(detail.message);
   }
-  setError('root.server', { type: 'server', message: [error?.message, ...unplaced].filter(Boolean).join(' — ') || 'Something went wrong' });
+  const summary = error?.code === 'VALIDATION_ERROR' && placed ? 'Some details need fixing — see the highlighted fields.' : error?.message;
+  setError('root.server', { type: 'server', message: [summary, ...unplaced].filter(Boolean).join(' ') || 'Something went wrong' });
 }
 
 const firstMessage = (node) => {

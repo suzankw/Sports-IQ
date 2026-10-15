@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { api } from '../api/client.js';
 import { useSeasons } from './seasons.js';
 import { useUrlState } from './useUrlState.js';
@@ -36,4 +36,16 @@ export function useTeamSelection(sport) {
     query: season ? teamSeasons : seasons,
     select: setUrl,
   };
+}
+
+/** D12 Roster editor save (PUT the whole squad with `version`). */
+export function useSaveSquad(id) {
+  const client = useQueryClient();
+  return useMutation({
+    mutationFn: async (body) => (await api.put(`/team-seasons/${id}/squad`, body)).data,
+    onSuccess: (teamSeason) => {
+      client.setQueryData(['team-seasons', id], teamSeason);
+      return client.invalidateQueries();
+    },
+  });
 }

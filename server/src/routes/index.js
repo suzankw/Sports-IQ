@@ -6,8 +6,10 @@ import * as matches from '../controllers/matches.js';
 import * as sports from '../controllers/sports.js';
 import * as teamSeasons from '../controllers/teamSeasons.js';
 import * as uploads from '../controllers/uploads.js';
+import { competitionService } from '../services/competitions.js';
 import { schoolService } from '../services/schools.js';
 import { seasonService } from '../services/seasons.js';
+import { teamService } from '../services/teams.js';
 import { loginLimiter } from '../middleware/loginLimiter.js';
 import { mountCrud } from './crud.js';
 
@@ -28,12 +30,17 @@ apiRouter.get('/sports/:sport/overview', sports.overview);
 
 mountCrud(apiRouter, '/seasons', crudController(seasonService));
 mountCrud(apiRouter, '/schools', crudController(schoolService));
+mountCrud(apiRouter, '/competitions', crudController(competitionService));
+mountCrud(apiRouter, '/teams', crudController(teamService));
 
 apiRouter.get('/matches', matches.list);
 apiRouter.get('/matches/:id', matches.get);
 
 apiRouter.get('/team-seasons', teamSeasons.list);
+apiRouter.post('/team-seasons', teamSeasons.create);
 apiRouter.get('/team-seasons/:id', teamSeasons.get);
+apiRouter.patch('/team-seasons/:id', teamSeasons.update);
+apiRouter.delete('/team-seasons/:id', teamSeasons.remove);
 apiRouter.get('/team-seasons/:id/stats', teamSeasons.stats);
 
 apiRouter.get('/competitions/:id/standings', competitions.standings);

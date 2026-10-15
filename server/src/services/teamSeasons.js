@@ -1,8 +1,16 @@
 import { Types } from 'mongoose';
-import { NotFoundError } from '../lib/errors.js';
+import { assertCan } from '../auth/policy.js';
+import { ConflictError, NotFoundError } from '../lib/errors.js';
 import { pageOf } from '../lib/pagination.js';
+import { stamp } from '../models/audit.js';
+import { Competition } from '../models/Competition.js';
+import { Match } from '../models/Match.js';
+import { Season } from '../models/Season.js';
+import { Team } from '../models/Team.js';
 import { TeamSeason } from '../models/TeamSeason.js';
-import { resolvePageFilters } from './lookup.js';
+import { User } from '../models/User.js';
+import { anyExists } from './crud.js';
+import { badBody, resolvePageFilters } from './lookup.js';
 import { recentGallery, rosterAnalytics } from './rosterAnalytics.js';
 import {
   AUDIT_POPULATE,
@@ -16,6 +24,7 @@ import {
   teamRef,
 } from './serializers.js';
 import { staffOf } from './staff.js';
+import { assertVersion } from './version.js';
 
 const PLAYER_FIELDS = 'firstName lastName photoUrl';
 const REF_POPULATE = [
@@ -81,3 +90,58 @@ export async function getTeamSeason(id) {
     ...auditFields(ts),
   };
 }
+
+async function loadTeamSeason(id) {
+  const teamSeason = await TeamSeason.findById(id);
+  if (!teamSeason) throw new NotFoundError('Team-season');
+  return teamSeason;
+}
+
+/** A team's league must be a league competition of the same sport. */
+async function checkLeague(competitionId, sportId) {
+  if (!competitionId) return;
+  const competition = await Competition.findById(competitionId).lean();
+  if (!competition || competition.type !== 'league' || String(competition.sport) !== String(sportId)) {
+    throw badBody('leagueCompetition', 'Choose a league of the same sport');
+  }
+}
+
+/** Season setup (D6). `copyFrom` copies another season's members of the same team (not captain or depth chart). */
+export async function createTeamSeason(actor, { team, season, leagueCompetition = null, seasonQuote = null, copyFrom }) {
+  assertCan(actor, 'create', 'teamSeason');
+  const teamDoc = await Team.findById(team).lean();
+  if (!teamDoc) throw badBody('team', 'Unknown team');
+  if (!(await Season.exists({ _id: season }))) throw badBody('season', 'Unknown season');
+  await checkLeague(leagueCompetition, teamDoc.sport);
+  let members = [];
+  if (copyFrom) {
+    const source = await TeamSeason.findById(copyFrom).lean();
+    if (!source || String(source.team) !== String(team)) throw badBody('copyFrom', 'Copy from a season of the same team');
+    members = source.members;
+  }
+  const teamSeason = new TeamSeason({ team, season, sport: teamDoc.sport, leagueCompetition, seasonQuote, members });
+  await stamp(teamSeason, actor).save();
+  return getTeamSeason(teamSeason._id);
+}
+
+export async function updateTeamSeason(actor, id, { version, ...changes }) {
+  assertCan(actor, 'update', 'teamSeason');
+  const teamSeason = await loadTeamSeason(id);
+  assertVersion(teamSeason, version);
+  if ('leagueCompetition' in changes) await checkLeague(changes.leagueCompetition, teamSeason.sport);
+  teamSeason.set(changes);
+  await stamp(teamSeason, actor).save();
+  return getTeamSeason(id);
+}
+
+export async function deleteTeamSeason(actor, id) {
+  assertCan(actor, 'delete', 'teamSeason');
+  const teamSeason = await loadTeamSeason(id);
+  const inUse = await anyExists([
+    [Match, { teamSeason: teamSeason._id }],
+    [User, { 'assignments.teamSeason': teamSeason._id }],
+  ]);
+  if (inUse) throw new ConflictError('This team has matches or coaches this season — remove those first');
+  await teamSeason.deleteOne();
+}
+

@@ -1,0 +1,10 @@
+.inSeason {
+  margin-top: var(--gutter);
+  overflow: hidden;
+}
+
+.rowActions {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+}

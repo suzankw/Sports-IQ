@@ -2,9 +2,13 @@ import { createBrowserRouter } from 'react-router';
 import { RouterProvider } from 'react-router/dom';
 import { DashboardShell } from './components/DashboardShell/DashboardShell.jsx';
 import { PublicShell } from './components/PublicShell/PublicShell.jsx';
-import { RequireAuth } from './components/RequireAuth/RequireAuth.jsx';
+import { RequireAuth, RequireScreen } from './components/RequireAuth/RequireAuth.jsx';
 import { AccountPage } from './pages/dashboard/AccountPage/AccountPage.jsx';
+import { CompetitionsPage } from './pages/dashboard/CompetitionsPage/CompetitionsPage.jsx';
 import { HomePage } from './pages/dashboard/HomePage/HomePage.jsx';
+import { SchoolsPage } from './pages/dashboard/SchoolsPage/SchoolsPage.jsx';
+import { SeasonsPage } from './pages/dashboard/SeasonsPage/SeasonsPage.jsx';
+import { TeamsPage } from './pages/dashboard/TeamsPage/TeamsPage.jsx';
 import { LoginPage } from './pages/LoginPage/LoginPage.jsx';
 import { NotFoundPage } from './pages/NotFoundPage.jsx';
 import { HomeRedirect } from './pages/public/HomeRedirect.jsx';
@@ -17,6 +21,9 @@ import { SeasonStatsPage } from './pages/public/SeasonStatsPage/SeasonStatsPage.
 import { RouteError } from './pages/RouteError.jsx';
 
 // Route map: docs/01-architecture.md §5.1–5.2.
+// A dashboard screen only renders for users whose /auth/me lists it (the server enforces writes anyway).
+const screen = (path, name, page) => ({ path, element: <RequireScreen screen={name}>{page}</RequireScreen> });
+
 const router = createBrowserRouter([
   { path: 'login', element: <LoginPage />, errorElement: <RouteError /> },
   {
@@ -30,6 +37,10 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <HomePage /> },
       { path: 'account', element: <AccountPage /> },
+      screen('seasons', 'seasons', <SeasonsPage />),
+      screen('teams', 'teams', <TeamsPage />),
+      screen('competitions', 'competitions', <CompetitionsPage />),
+      screen('schools', 'schools', <SchoolsPage />),
       { path: '*', element: <NotFoundPage /> },
     ],
   },

@@ -1,0 +1,23 @@
+.checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  min-height: var(--size-touch);
+  padding-block: var(--space-2);
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+}
+
+.box {
+  flex: none;
+  width: var(--size-icon-md);
+  height: var(--size-icon-md);
+  margin-top: var(--space-1);
+  accent-color: var(--color-primary-container);
+}
+
+.hint {
+  display: block;
+  font: var(--type-body-sm);
+  color: var(--color-on-surface-variant);
+}

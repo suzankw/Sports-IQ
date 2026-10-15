@@ -1,0 +1,20 @@
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+}
+
+.filters > * {
+  min-width: 12rem;
+}
+
+.table {
+  overflow: hidden;
+}
+
+.rowActions {
+  display: inline-flex;
+  gap: var(--space-1);
+}

@@ -16,6 +16,15 @@ export async function findHomeSchool() {
 }
 
 const badQuery = (param, message) => new ValidationError('The request is invalid', [{ path: `/query/${param}`, message }]);
+export const badBody = (field, message) => new ValidationError('The request is invalid', [{ path: `/body/${field}`, message }]);
+
+/** `?sport=` slug → the sport (400 if unknown), or null when not given. */
+export async function sportFromQuery(slug) {
+  if (!slug) return null;
+  const sport = await Sport.findOne({ slug }).lean();
+  if (!sport) throw badQuery('sport', `Unknown sport "${slug}"`);
+  return sport;
+}
 
 /**
  * `?sport&team&season` → documents. Unknown values are a 400 (a bad filter, not a missing page).
@@ -23,8 +32,7 @@ const badQuery = (param, message) => new ValidationError('The request is invalid
  */
 export async function resolvePageFilters({ sport, team, season }) {
   if (team && !sport) throw badQuery('team', 'team needs sport');
-  const sportDoc = sport ? await Sport.findOne({ slug: sport }).lean() : null;
-  if (sport && !sportDoc) throw badQuery('sport', `Unknown sport "${sport}"`);
+  const sportDoc = await sportFromQuery(sport);
   const seasonDoc = await Season.findOne(season ? { slug: season } : { isCurrent: true }).lean();
   if (season && !seasonDoc) throw badQuery('season', `Unknown season "${season}"`);
   const teamDoc = team ? await Team.findOne({ sport: sportDoc._id, slug: team }).lean() : null;

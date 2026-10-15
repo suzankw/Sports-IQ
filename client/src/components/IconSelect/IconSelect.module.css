@@ -1,0 +1,16 @@
+.row {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.select {
+  flex: 1;
+}
+
+.preview {
+  flex: none;
+  padding-bottom: var(--space-3);
+  color: var(--color-primary-container);
+}

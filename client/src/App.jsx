@@ -8,6 +8,8 @@ import { CompetitionsPage } from './pages/dashboard/CompetitionsPage/Competition
 import { HomePage } from './pages/dashboard/HomePage/HomePage.jsx';
 import { SchoolsPage } from './pages/dashboard/SchoolsPage/SchoolsPage.jsx';
 import { SeasonsPage } from './pages/dashboard/SeasonsPage/SeasonsPage.jsx';
+import { SportEditorPage } from './pages/dashboard/SportEditorPage/SportEditorPage.jsx';
+import { SportsPage } from './pages/dashboard/SportsPage/SportsPage.jsx';
 import { TeamsPage } from './pages/dashboard/TeamsPage/TeamsPage.jsx';
 import { LoginPage } from './pages/LoginPage/LoginPage.jsx';
 import { NotFoundPage } from './pages/NotFoundPage.jsx';
@@ -37,6 +39,8 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <HomePage /> },
       { path: 'account', element: <AccountPage /> },
+      screen('sports', 'sports', <SportsPage />),
+      screen('sports/:sport', 'sports', <SportEditorPage />),
       screen('seasons', 'seasons', <SeasonsPage />),
       screen('teams', 'teams', <TeamsPage />),
       screen('competitions', 'competitions', <CompetitionsPage />),

@@ -8,6 +8,8 @@ import * as teamSeasons from '../controllers/teamSeasons.js';
 import * as uploads from '../controllers/uploads.js';
 import * as users from '../controllers/users.js';
 import { competitionService } from '../services/competitions.js';
+import { inducteeService } from '../services/inductees.js';
+import { leagueResultService } from '../services/leagueResults.js';
 import { playerService } from '../services/players.js';
 import { schoolService } from '../services/schools.js';
 import { seasonService } from '../services/seasons.js';
@@ -35,6 +37,8 @@ mountCrud(apiRouter, '/schools', crudController(schoolService));
 mountCrud(apiRouter, '/competitions', crudController(competitionService));
 mountCrud(apiRouter, '/teams', crudController(teamService));
 mountCrud(apiRouter, '/players', crudController(playerService));
+mountCrud(apiRouter, '/league-results', crudController(leagueResultService));
+mountCrud(apiRouter, '/inductees', crudController(inducteeService));
 
 apiRouter.get('/matches', matches.list);
 apiRouter.post('/matches', matches.create);

@@ -7,6 +7,8 @@ import { AccountPage } from './pages/dashboard/AccountPage/AccountPage.jsx';
 import { CompetitionsPage } from './pages/dashboard/CompetitionsPage/CompetitionsPage.jsx';
 import { FixturesPage } from './pages/dashboard/FixturesPage/FixturesPage.jsx';
 import { HomePage } from './pages/dashboard/HomePage/HomePage.jsx';
+import { InducteesPage } from './pages/dashboard/InducteesPage/InducteesPage.jsx';
+import { LeagueResultsPage } from './pages/dashboard/LeagueResultsPage/LeagueResultsPage.jsx';
 import { PlayersPage } from './pages/dashboard/PlayersPage/PlayersPage.jsx';
 import { ResultPage } from './pages/dashboard/ResultPage/ResultPage.jsx';
 import { RostersPage } from './pages/dashboard/RostersPage/RostersPage.jsx';
@@ -18,6 +20,7 @@ import { TeamsPage } from './pages/dashboard/TeamsPage/TeamsPage.jsx';
 import { UsersPage } from './pages/dashboard/UsersPage/UsersPage.jsx';
 import { LoginPage } from './pages/LoginPage/LoginPage.jsx';
 import { NotFoundPage } from './pages/NotFoundPage.jsx';
+import { HallOfFamePage } from './pages/public/HallOfFamePage/HallOfFamePage.jsx';
 import { HomeRedirect } from './pages/public/HomeRedirect.jsx';
 import { LeagueTablePage } from './pages/public/LeagueTablePage/LeagueTablePage.jsx';
 import { MatchPage } from './pages/public/MatchPage/MatchPage.jsx';
@@ -55,6 +58,8 @@ const router = createBrowserRouter([
       screen('competitions', 'competitions', <CompetitionsPage />),
       screen('schools', 'schools', <SchoolsPage />),
       screen('users', 'users', <UsersPage />),
+      screen('league-results', 'leagueResults', <LeagueResultsPage />),
+      screen('hall-of-fame', 'hallOfFame', <InducteesPage />),
       { path: '*', element: <NotFoundPage /> },
     ],
   },
@@ -63,6 +68,7 @@ const router = createBrowserRouter([
     errorElement: <RouteError />,
     children: [
       { index: true, element: <HomeRedirect /> },
+      { path: 'hall-of-fame', element: <HallOfFamePage /> },
       {
         path: ':sport',
         children: [
